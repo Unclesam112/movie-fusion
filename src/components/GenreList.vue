@@ -19,7 +19,7 @@
                     </template>
                 </Carousel>
 
-                <Carousel :items-to-show="2.5" :wrap-around="true" class="md:hidden">
+                <Carousel :items-to-show="1.5" :wrap-around="true" class="md:hidden">
                     <Slide v-for="genre in genres" :key="genre.id">
                         <div class="carousel__item m-5">
                             <button type="button"
