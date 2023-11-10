@@ -4,7 +4,7 @@
         <headerVue />
     </div>
 
-    <div class="movies md:p-10 p-10">
+    <div class="movies md:p-10 p-4">
         <MovieList />
     </div>
   </main>
