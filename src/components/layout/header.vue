@@ -105,7 +105,7 @@ export default {
 };
 </script>
   
-<style>
+<style scoped>
 .nav {
     display: relative;
     z-index: 2;
