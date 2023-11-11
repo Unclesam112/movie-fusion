@@ -14,9 +14,7 @@
                         </div>
                     </Slide>
 
-                    <template #addons>
-                        <!-- <Navigation /> -->
-                    </template>
+                   
                 </Carousel>
             </div>
 
@@ -29,9 +27,6 @@
                         </div>
                     </Slide>
 
-                    <template #addons>
-                        <!-- <Navigation /> -->
-                    </template>
                 </Carousel>
             </div>
 
@@ -45,9 +40,7 @@
                         </div>
                     </Slide>
 
-                    <template #addons>
-                        <!-- <Navigation /> -->
-                    </template>
+                   
                 </Carousel>
             </div>
         </div>
