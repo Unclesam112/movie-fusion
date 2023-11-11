@@ -7,7 +7,7 @@
         <div class="movie-list mt-10">
             <div class="top-picks">
                 <h1 class="text-lg md:text-3xl mb-2">Top Pick's For You</h1>
-                <Carousel :items-to-show="3.5" :wrap-around="true">
+                <Carousel :items-to-show="carouselItemsToShow" :wrap-around="true">
                     <Slide v-for="movie in movies" :key="movie.id">
                         <div class="carousel__item m-0 md:m-5">
                             <MovieCard :movie="movie" />
@@ -15,14 +15,14 @@
                     </Slide>
 
                     <template #addons>
-                        <Navigation />
+                        <!-- <Navigation /> -->
                     </template>
                 </Carousel>
             </div>
 
             <div class="popular mt-10">
                 <h1 class="text-lg md:text-3xl mb-2">Most Popular</h1>
-                <Carousel :items-to-show="3.5" :wrap-around="true">
+                <Carousel :items-to-show="carouselItemsToShow" :wrap-around="true">
                     <Slide v-for="movie in popular" :key="movie.id">
                         <div class="carousel__item m-5">
                             <MovieCard :movie="movie" />
@@ -30,7 +30,7 @@
                     </Slide>
 
                     <template #addons>
-                        <Navigation />
+                        <!-- <Navigation /> -->
                     </template>
                 </Carousel>
             </div>
@@ -38,7 +38,7 @@
 
             <div class="popular mt-10">
                 <h1 class="text-lg md:text-3xl mb-2">Top Rated</h1>
-                <Carousel :items-to-show="3.5" :wrap-around="true">
+                <Carousel :items-to-show="carouselItemsToShow" :wrap-around="true">
                     <Slide v-for="movie in topRated" :key="movie.id">
                         <div class="carousel__item m-5">
                             <MovieCard :movie="movie" />
@@ -46,7 +46,7 @@
                     </Slide>
 
                     <template #addons>
-                        <Navigation />
+                        <!-- <Navigation /> -->
                     </template>
                 </Carousel>
             </div>
@@ -74,7 +74,8 @@ export default defineComponent({
         return {
             movies: [],
             popular: [],
-            topRated: []
+            topRated: [],
+            carouselItemsToShow: 3.5
         }
     },
 
@@ -91,9 +92,20 @@ export default defineComponent({
         this.fetchTopPickMovie()
         this.fecthMostPopular()
         this.fecthTopRated()
+
+        window.addEventListener('resize', this.handleResize)
+        this.handleResize()
+    },
+
+    beforeDestroy(){
+        window.removeEventListener('resize', this.handleResize)
     },
 
     methods: {
+        handleResize() {
+            this.carouselItemsToShow = window.innerWidth >= 768 ? 5.5 : 3.5
+        },
+
         fetchTopPickMovie() {
 
             const options = {
@@ -169,7 +181,7 @@ export default defineComponent({
 
 @media screen and (max-width: 780px) {
     .carousel__item {
-    margin: 5px;
+    margin: 2px;
     text-align: left !important;
 } 
 }

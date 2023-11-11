@@ -20,7 +20,7 @@ export default {
 
     methods: {
         getImageUrl(posterPath) {
-            return posterPath ? `https://image.tmdb.org/t/p/original${posterPath}` : 'https://via.placeholder.com/500';
+            return posterPath ? `https://image.tmdb.org/t/p/w500${posterPath}` : 'https://via.placeholder.com/500';
         },
     }
 }
