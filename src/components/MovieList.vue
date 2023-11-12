@@ -96,7 +96,7 @@ export default defineComponent({
 
     methods: {
         handleResize() {
-            this.carouselItemsToShow = window.innerWidth >= 768 ? 5.5 : 3.5
+            this.carouselItemsToShow = window.innerWidth >= 768 ? 5.5 : 2.5
         },
 
         fetchTopPickMovie() {
