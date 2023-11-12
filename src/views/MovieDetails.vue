@@ -101,10 +101,9 @@
                 <h1 class="text-2xl">Genres:</h1>
 
                 <div class="flex gap-4 my-4 ">
-                    <button type="button" v-for="genre in movie.genres" :key="genre.id"
-                        class="text-gray-900 bg-white text-gray-500 border  border-red-500 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 w-full">
+                    <span v-for="genre in movie.genres" :key="genre.id" class="bg-red-700 text-white text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-red-400">
                         {{ genre.name }}
-                    </button>
+                    </span>
                 </div>
 
             </div>
