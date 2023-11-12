@@ -59,10 +59,10 @@
         </div>
     </main>
 
-    <main class="info my-10 mx-20">
+    <main class="info my-10 md:mx-20 mx-5">
 
 
-        <div class="sm:hidden">
+        <div class="hidden">
             <label for="tabs" class="sr-only">Select your country</label>
             <select id="tabs"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -73,7 +73,7 @@
             </select>
         </div>
         <ul
-            class="hidden text-sm font-medium text-center text-gray-500 rounded-lg shadow sm:flex dark:divide-gray-700 dark:text-gray-400">
+            class="text-sm font-medium text-center text-gray-500 rounded-lg shadow flex dark:divide-gray-700 dark:text-gray-400">
             <li class="w-full">
                 <a href="#"
                     class="inline-block w-full p-4 text-gray-900 bg-gray-100 border-r border-gray-200 dark:border-gray-700 rounded-s-lg focus:ring-4 focus:ring-blue-300 active focus:outline-none dark:bg-gray-700 dark:text-white"
@@ -90,7 +90,7 @@
 
         </ul>
 
-        <div class="overview p-10" v-if="movie">
+        <div class="overview md:p-10 " v-if="movie">
             <p class="text-md py-5 text-gray-700">{{ movie.overview }}</p>
             <div class="date text-gray-700">
                 <span class="text-bold text-gray-900">Release Date:</span> {{ formatReleaseDate(movie.id) }}
@@ -109,7 +109,7 @@
 
             </div>
 
-            <div class="video-box mx-20 md:hidden lg:hidden">
+            <div class="video-box md:mx-20 mx-5 md:hidden lg:hidden">
                     <h1 class="text-2xl text-gray-900 mt-0">Watch Trailers on Youtube</h1>
                     <div class="videos " v-if="videos.length">
 
