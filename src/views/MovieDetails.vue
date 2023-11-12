@@ -109,22 +109,12 @@
 
             </div>
 
-            <div class="video-box md:mx-20 mx-5 md:hidden lg:hidden">
+            <div class="video-box md:hidden lg:hidden">
                     <h1 class="text-2xl text-gray-900 mt-0">Watch Trailers on Youtube</h1>
-                    <div class="videos " v-if="videos.length">
-
-                        <Carousel :items-to-show="3.5" :wrap-around="true">
-                            <Slide v-for="video in videos.slice(0, 4)" :key="video.id">
-                                <div class="carousel__item">
-                                    <iframe class="" :src="getVideoUrl(video.key)" frameborder="0" allowfullscreen></iframe>
+                    <div class="videos" v-if="videos.length">
+                                <div class="carousel__item"  v-for="video in videos.slice(0, 4)" :key="video.id">
+                                    <iframe class="w-full my-3" :src="getVideoUrl(video.key)" frameborder="0" allowfullscreen></iframe>
                                 </div>
-                            </Slide>
-
-                            <template #addons>
-                                <Navigation />
-                            </template>
-                        </Carousel>
-
                     </div>
                 </div>
         </div>
