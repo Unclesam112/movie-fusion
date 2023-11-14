@@ -5,7 +5,8 @@ const API_ENDPOINTS = {
     NOW_PLAYING: 'https://api.themoviedb.org/3/movie/now_playing',
     MOST_POPULAR: 'https://api.themoviedb.org/3/movie/popular',
     MOVIE_GENRE: ' https://api.themoviedb.org/3/genre/movie/list',
-    TOP_RATED: 'https://api.themoviedb.org/3/movie/top_rated'
+    TOP_RATED: 'https://api.themoviedb.org/3/movie/top_rated',
+    MOVIE_BY_ID: 'https://api./themoviedb.org/3/discover/movie?with_genres='
 };
 
 export default API_ENDPOINTS;

@@ -62,16 +62,6 @@
     <main class="info my-10 md:mx-20 mx-5">
 
 
-        <div class="hidden">
-            <label for="tabs" class="sr-only">Select your country</label>
-            <select id="tabs"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option>Profile</option>
-                <option>Canada</option>
-                <option>France</option>
-                <option>Germany</option>
-            </select>
-        </div>
         <ul
             class="text-sm font-medium text-center text-gray-500 rounded-lg shadow flex dark:divide-gray-700 dark:text-gray-400">
             <li class="w-full">
@@ -90,7 +80,7 @@
 
         </ul>
 
-        <div class="overview md:p-10 " v-if="movie">
+        <div class="overview md:p-0 py-5cd admincd" v-if="movie">
             <p class="text-md py-5 text-gray-700">{{ movie.overview }}</p>
             <div class="date text-gray-700">
                 <span class="text-bold text-gray-900">Release Date:</span> {{ formatReleaseDate(movie.id) }}
@@ -101,21 +91,34 @@
                 <h1 class="text-2xl">Genres:</h1>
 
                 <div class="flex gap-4 my-4 ">
-                    <span v-for="genre in movie.genres" :key="genre.id" class="bg-red-700 text-white text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-red-400">
-                        {{ genre.name }}
+                    <span v-for="genre in movie.genres" :key="genre.id" class=" ">
+                        <GenreButton :genre="genre" />
                     </span>
                 </div>
 
             </div>
 
             <div class="video-box md:hidden lg:hidden">
-                    <h1 class="text-2xl text-gray-900 mt-0">Watch Trailers on Youtube</h1>
-                    <div class="videos" v-if="videos.length">
-                                <div class="carousel__item"  v-for="video in videos.slice(0, 4)" :key="video.id">
-                                    <iframe class="w-full my-3" :src="getVideoUrl(video.key)" frameborder="0" allowfullscreen></iframe>
-                                </div>
+                <h1 class="text-2xl text-gray-900 mt-0">Watch Trailers on Youtube</h1>
+                <div class="videos" v-if="videos.length">
+                    <div class="carousel__item" v-for="video in videos.slice(0, 4)" :key="video.id">
+                        <iframe class="w-full my-3" :src="getVideoUrl(video.key)" frameborder="0" allowfullscreen></iframe>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="top-picks mt-10">
+            <h1 class="text-lg md:text-2xl mb-2">Related Movies</h1>
+            <Carousel :items-to-show="carouselItemsToShow" :wrap-around="true">
+                <Slide v-for="movie in relatedMovies" :key="movie.id">
+                    <div class="carousel__item m-0 md:m-5">
+                        <MovieCard :movie="movie" />
+                    </div>
+                </Slide>
+
+
+            </Carousel>
         </div>
 
     </main>
@@ -129,14 +132,18 @@ import { defineComponent } from 'vue'
 import { Carousel, Navigation, Slide } from 'vue3-carousel'
 import 'vue3-carousel/dist/carousel.css'
 import { format } from 'date-fns'
+import GenreButton from '../components/GenreButton.vue'
+import MovieCard from '../components/MovieCard.vue'
 
 
 export default defineComponent({
-    components: { navbarVue, Carousel, Slide, Navigation, },
+    components: { navbarVue, MovieCard, Carousel, Slide, Navigation, GenreButton },
     data() {
         return {
             movie: {},
-            videos: []
+            videos: [],
+            relatedMovies: [],
+            carouselItemsToShow: 3.5
         }
     },
 
@@ -151,9 +158,17 @@ export default defineComponent({
     mounted() {
         this.fetchVideos()
         this.fetchMovieDetails()
+
+        window.addEventListener('resize', this.handleResize)
+        this.handleResize()
+        this.fetchRelatedMovies()
     },
 
     methods: {
+        handleResize() {
+            this.carouselItemsToShow = window.innerWidth >= 768 ? 5.5 : 2.5
+        },
+
         getImageUrl(path) {
             return path ? `https://image.tmdb.org/t/p/w300${path}` : 'https://via.placeholder.com/500';
         },
@@ -175,6 +190,7 @@ export default defineComponent({
             axios.get(`https://api.themoviedb.org/3/movie/${movieId}`, options)
                 .then(response => {
                     const data = response.data;
+                    const genreIds = data.genres.map(genre => genre.id)
                     this.movie = data
                     console.log(data);
                 })
@@ -183,6 +199,32 @@ export default defineComponent({
                     console.log('Error fetching movie', err);
                 })
         },
+
+        async fetchRelatedMovies() {
+            try {
+                const movieId = this.$route.params.id
+                const options = {
+                    method: 'GET',
+                    headers: {
+                        accept: 'application/json',
+                        Authorization: API_ENDPOINTS.KEY
+                    }
+                };
+
+                const movieResponse =  await  axios.get(`https://api.themoviedb.org/3/movie/${movieId}`, options);
+                const movieData = movieResponse.data;
+                const genreIds =  movieData.genres.map(genre => genre.id)
+                const relatedMovieResponse = await axios.get(`https://api.themoviedb.org/3/discover/movie?with_genres=${genreIds.join(',')}`, options)
+                const relatedMovieData =  await relatedMovieResponse.data.results;
+                this.relatedMovies =  relatedMovieData
+                console.log(relatedMovieData)
+            }
+
+            catch (err) {
+                console.log(err)
+            }
+        },
+
 
         async fetchVideos() {
             const movieId = this.$route.params.id

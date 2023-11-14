@@ -1,15 +1,13 @@
-<script >
+<script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import { initFlowbite } from 'flowbite';
+import { onMounted } from 'vue'
 
-export default {
-  mounted() {
-    // Initialize components based on data attribute selectors
-  
-      initFlowbite();
 
-  }
-};
+// initialize components based on data attribute selectors
+onMounted(() => {
+    initFlowbite();
+})
 
 </script>
 
