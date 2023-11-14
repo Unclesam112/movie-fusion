@@ -134,7 +134,7 @@ import 'vue3-carousel/dist/carousel.css'
 import { format } from 'date-fns'
 import GenreButton from '../components/GenreButton.vue'
 import MovieCard from '../components/MovieCard.vue'
-
+import {scrollToTop} from '../utils/scrollToTop.js'
 
 export default defineComponent({
     components: { navbarVue, MovieCard, Carousel, Slide, Navigation, GenreButton },
@@ -155,6 +155,16 @@ export default defineComponent({
         }
     },
 
+    watch: {
+        '$route.params.id': 'fetchMovieDetails'
+    },
+
+    beforeRouteUpdate(to, from, next) {
+        this.fetchMovieDetails();
+        next()
+    },
+
+
     mounted() {
         this.fetchVideos()
         this.fetchMovieDetails()
@@ -172,6 +182,8 @@ export default defineComponent({
         getImageUrl(path) {
             return path ? `https://image.tmdb.org/t/p/w300${path}` : 'https://via.placeholder.com/500';
         },
+
+        
 
         getBackgroundImageUrl(path) {
             return path ? `https://image.tmdb.org/t/p/w1280${path}` : 'https://via.placeholder.com/500';
@@ -198,6 +210,8 @@ export default defineComponent({
                 .catch(err => {
                     console.log('Error fetching movie', err);
                 })
+
+                scrollToTop();
         },
 
         async fetchRelatedMovies() {
