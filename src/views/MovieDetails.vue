@@ -149,7 +149,7 @@ export default defineComponent({
 
     computed: {
         formattedDate() {
-            const date = this.movie.release_date// Convert Firestore timestamp to JavaScript Date
+            const date = this.movie.release_date
             const formatDate = format(date, 'MMMM d, yyyy');
             return formatDate
         }
