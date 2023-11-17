@@ -3,7 +3,7 @@
         <navbarVue class="bg-gray-900" />
     </div>
 
-    <main class="px-10">
+    <main class="px-5">
         <div class="genre my-10" v-if="genreName">
             <h1 class="text-center text-gray-900 text-4xl">{{ genreName.name }}</h1>
         </div>
@@ -11,16 +11,22 @@
 
 
         <div class="top-picks mt-10">
-            <h1 class="text-lg md:text-2xl mb-2">Top Pick's For You</h1>
-            <Carousel :items-to-show="carouselItemsToShow" :wrap-around="true">
+            <!-- <h1 class="text-lg md:text-2xl mb-2">Top Pick's For You</h1> -->
+            <!-- <Carousel :items-to-show="carouselItemsToShow" :wrap-around="true">
                 <Slide v-for="movie in movies" :key="movie.id">
                     <div class="carousel__item m-0 md:m-5">
                         <MovieCard :movie="movie" />
                     </div>
                 </Slide>
 
+            </Carousel> -->
 
-            </Carousel>
+
+            <div class="grid grid-cols-3  md:grid-cols-4 gap-2">
+                <div class="col" v-for="movie in movies" :key="movie.id">
+                    <MovieCard :movie="movie" />
+                </div>
+            </div>
         </div>
     </main>
 </template>
@@ -58,7 +64,7 @@ export default defineComponent({
 
     methods: {
         handleResize() {
-            this.carouselItemsToShow = window.innerWidth >= 768 ? 5.5 : 6.5
+            this.carouselItemsToShow = window.innerWidth >= 768 ? 5.5 : 2.5
         },
 
         async fetchGenre() {

@@ -98,7 +98,7 @@
 
             </div>
 
-            <div class="video-box md:hidden lg:hidden">
+            <div class="video-box md:hidden lg:hidden my-8">
                 <h1 class="text-2xl text-gray-900 mt-0">Watch Trailers on Youtube</h1>
                 <div class="videos" v-if="videos.length">
                     <div class="carousel__item" v-for="video in videos.slice(0, 4)" :key="video.id">

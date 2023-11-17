@@ -1,6 +1,6 @@
 <template>
     <main>
-        <div class="genreList">
+        <div class="genreList my-4">
             <GenreList />
         </div>
 
