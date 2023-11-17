@@ -5,6 +5,10 @@
             <navbarVue class="bg-gray-900 text-white" />
         </div>
 
+        <div class="my-8  breadcrumb pl-20">
+            <breadcrumbVue />
+        </div>
+
 
         <div class="grid grid-cols 2 md:grid-cols-2" v-if="cast">
             <div class="col mx-auto">
@@ -22,6 +26,19 @@
         </div>
 
 
+        <div class="popular mt-10 md:p-20 md:pt-5">
+                <h1 class="text-lg font-bold md:text-3xl mb-2">Featured Movies</h1>
+                <Carousel :items-to-show="carouselItemsToShow" :wrap-around="true">
+                    <Slide v-for="movie in movies" :key="movie.id">
+                        <div class="carousel__item m-5">
+                            <MovieCardVue :movie="movie" class=""/>                        
+                        </div>
+                    </Slide>
+
+                   
+                </Carousel>
+            </div>
+
         <div class="footer">
             <footerVue />
         </div>
@@ -29,28 +46,48 @@
 </template>
 
 <script>
+import { scrollToTop } from '../utils/scrollToTop.js'
 import axios from 'axios'
 import navbarVue from '../components/layout/navbar.vue'
 import API_ENDPOINTS from '../utils/ApiRoutes'
 import CastCard from '../components/CastCard.vue'
 import footerVue from '../components/layout/footer.vue'
+import breadcrumbVue from '../components/layout/breadcrumb.vue'
+import { defineComponent } from 'vue'
+import { Carousel, Navigation, Slide } from 'vue3-carousel'
+import 'vue3-carousel/dist/carousel.css'
+import MovieCardVue from '../components/MovieCard.vue'
 
 
 
-export default {
-    components: { navbarVue, CastCard, footerVue },
+export default defineComponent({
+    components: { navbarVue, CastCard, footerVue, breadcrumbVue, Carousel, Navigation, Slide, MovieCardVue },
 
     data() {
         return {
-            cast: {}
+            cast: {},
+            movies: [],
+            carouselItemsToShow: 3.5
         }
     },
 
     mounted() {
         this.fetchCastDetails()
+        this.fetchCastMovie()
+
+        window.addEventListener('resize', this.handleResize)
+        this.handleResize()
+    },
+
+    beforeDestroy(){
+        window.removeEventListener('resize', this.handleResize)
     },
 
     methods: {
+        handleResize() {
+            this.carouselItemsToShow = window.innerWidth >= 768 ? 5.5 : 2.5
+        },
+
         async fetchCastDetails() {
             const castId = this.$route.params.id
             const options = {
@@ -70,6 +107,31 @@ export default {
                 .catch(err => {
                     console.log("Error fetching Cast Details", err)
                 })
+        },
+
+        async fetchCastMovie() {
+            const personId = this.$route.params.id
+            const options = {
+                method: 'GET',
+                headers: {
+                    accept: 'application/json',
+                    Authorization: API_ENDPOINTS.KEY
+                }
+            };
+
+            axios.get(`https://api.themoviedb.org/3/person/${personId}/combined_credits`, options)
+                .then(response => {
+                    const data = response.data.cast;
+                    this.movies = data
+
+                    console.log(data);
+                })
+
+                .catch(err => {
+                    console.log('Error fetching movie', err);
+                })
+
+            scrollToTop();
         },
 
         renderBiography(biography) {
@@ -106,7 +168,7 @@ export default {
             }
         },
     }
-}
+})
 </script>
 
 <style></style>

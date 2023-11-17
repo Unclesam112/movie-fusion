@@ -25,10 +25,36 @@
                                     <path
                                         d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
                                 </svg>
-                                <p class="ml-2 text-sm font-bold text-white dark:text-white">4.95</p>
+                                <p class="ml-2 text-sm font-bold text-white dark:text-white">{{ formattedRating }}</p>
                                 <span class="w-1 h-1 mx-1.5 bg-gray-500 rounded-full dark:bg-gray-400"></span>
-                                <a href="#" class="text-sm font-medium text-white hover:no-underline dark:text-white">10th
-                                    Nov 2023</a>
+                                <a href="#" class="text-sm font-medium text-white hover:no-underline dark:text-white">
+                                    {{ formatReleaseDate(movie.release_date) }}
+                                </a>
+
+                                <a href="#" class="text-sm mx-2 font-medium text-white hover:no-underline dark:text-white">
+                                    {{ formattedRuntime }}
+                                </a>
+                            </div>
+
+                            <div class="button flex gap-4 my-2">
+                                <button data-tooltip-target="tooltip-default" type="button"
+                                    class="btn bg-red-700 rounded-full p-4">
+                                    <Icon icon="ph:heart-fill" color="white" />
+                                </button>
+                                <div id="tooltip-default" role="tooltip"
+                                    class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                    Tooltip content
+                                    <div class="tooltip-arrow" data-popper-arrow></div>
+                                </div>
+
+                                <button class="btn bg-red-700 rounded-full p-4">
+                                    <Icon icon="icon-park-solid:tag" color="white" />
+                                </button>
+
+                                <button class="btn bg-red-700 rounded-full p-4">
+                                    <Icon icon="ph:star-fill" color="white" />
+                                </button>
+
                             </div>
 
                         </div>
@@ -36,13 +62,14 @@
                 </transition>
 
                 <div class="video-box mx-20 hidden md:block lg:block">
-                    <h1 class="text-lg text-white mt-0">Watch Trailers on Youtube</h1>
+                    <!-- <h1 class="text-lg text-white mt-0">Watch Trailers on Youtube</h1> -->
                     <div class="videos " v-if="videos.length">
 
                         <Carousel :items-to-show="3.5" :wrap-around="true">
                             <Slide v-for="video in videos.slice(0, 4)" :key="video.id">
                                 <div class="carousel__item">
-                                    <iframe class="" :src="getVideoUrl(video.key)" frameborder="0" allowfullscreen></iframe>
+                                    <iframe class="ml-10" :src="getVideoUrl(video.key)" frameborder="0" height="200"
+                                        allowfullscreen></iframe>
                                 </div>
                             </Slide>
 
@@ -66,27 +93,59 @@
             class="text-sm font-medium text-center text-gray-500 rounded-lg shadow flex dark:divide-gray-700 dark:text-gray-400">
             <li class="w-full">
                 <a href="#" @click.prevent="activeTab = 1"
-                    :class="{ 'bg-red-700': activeTab === 1, 'text-white': activeTab === 1, 'bg-gray-300': activeTab !== 1, 'text-gray-700': activeTab !== 1, 'transition': true  }"
+                    :class="{ 'bg-red-700': activeTab === 1, 'text-white': activeTab === 1, 'bg-gray-300': activeTab !== 1, 'text-gray-700': activeTab !== 1, 'transition': true }"
                     class="fade inline-block w-full p-4 text-gray-900 bg-gray-100 border-r border-gray-200 dark:border-gray-700 rounded-s-lg focus:ring-4 focus:ring-blue-300 active focus:outline-none dark:bg-gray-700 dark:text-white"
                     aria-current="page">Description</a>
             </li>
             <li class="w-full">
-                <a href="#"
-                @click.prevent="activeTab = 2" :class="{ 'bg-red-700': activeTab === 2, 'text-white': activeTab === 2, 'bg-gray-300': activeTab !== 2, 'text-gray-700': activeTab !== 2,  'transition': true}"
+                <a href="#" @click.prevent="activeTab = 2"
+                    :class="{ 'bg-red-700': activeTab === 2, 'text-white': activeTab === 2, 'bg-gray-300': activeTab !== 2, 'text-gray-700': activeTab !== 2, 'transition': true }"
                     class="fade inline-block w-full p-4 bg-white border-r border-gray-200 dark:border-gray-700 hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700">Cast</a>
             </li>
             <li class="w-full">
-                <a href="#"
-                @click.prevent="activeTab = 3" :class="{ 'bg-red-700': activeTab === 3, 'text-white': activeTab === 3, 'bg-gray-300': activeTab !== 3, 'text-gray-700': activeTab !== 3,  'transition': true }"
+                <a href="#" @click.prevent="activeTab = 3"
+                    :class="{ 'bg-red-700': activeTab === 3, 'text-white': activeTab === 3, 'bg-gray-300': activeTab !== 3, 'text-gray-700': activeTab !== 3, 'transition': true }"
                     class="fade inline-block w-full p-4 bg-white border-r border-gray-200 dark:border-gray-700 hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700">More</a>
             </li>
 
         </ul>
 
         <div class="overview md:p-0 py-5cd admincd fade my-8" v-show="activeTab === 1" v-if="movie" key="1">
-            <p class="text-xl py-5 text-gray-700">{{ movie.overview }}</p>
+            <h1 class="text-3xl font-bold">Overview</h1>
+
+            <h1 class="text-xl mt-8 my-4 font-bold">{{ movie.tagline }}</h1>
+            <p class="text-xl pb-5 text-gray-700">{{ movie.overview }}</p>
+            <div class="date text-gray-700 mb-6">
+                <span class="font-semibold text-gray-900">Release Date:</span> {{ formatReleaseDate(movie.release_date) }}
+            </div>
+
+            <div class="date text-gray-700 mb-6">
+                <span class="font-semibold text-gray-900">Budget:</span> ${{ movie.budget }}
+            </div>
+
+
             <div class="date text-gray-700">
-                <span class="text-bold text-gray-900">Release Date:</span> {{ formatReleaseDate(movie.id) }}
+                <span class="font-semibold text-gray-900">Revenue:</span> ${{ movie.revenue }}
+            </div>
+
+            <div class="button flex gap-4 my-6">
+                <button data-tooltip-target="tooltip-default" type="button" class="btn bg-gray-900 rounded-full p-4">
+                    <Icon icon="ph:heart-fill" color="white" />
+                </button>
+                <div id="tooltip-default" role="tooltip"
+                    class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                    Tooltip content
+                    <div class="tooltip-arrow" data-popper-arrow></div>
+                </div>
+
+                <button class="btn bg-gray-900 rounded-full p-4">
+                    <Icon icon="icon-park-solid:tag" color="white" />
+                </button>
+
+                <button class="btn bg-gray-900 rounded-full p-4">
+                    <Icon icon="ph:star-fill" color="white" />
+                </button>
+
             </div>
 
             <hr class="my-10" />
@@ -114,8 +173,11 @@
 
 
         <div class="overview md:p-0 py-5cd admincd fade my-6" v-show="activeTab === 2" v-if="movie" key="2">
+            <h1 class="text-3xl font-semibold my-8 text-gray-900">Full Cast & Crew</h1>
             <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+               
                 <div class="col" v-for="cast in casts" :key="cast.id">
+                    
                     <CastCard :cast="cast" />
                     <h1 class="text-gray-500 text-md text-center">{{ cast.name }}</h1>
                 </div>
@@ -150,10 +212,11 @@ import GenreButton from '../components/GenreButton.vue'
 import MovieCard from '../components/MovieCard.vue'
 import { scrollToTop } from '../utils/scrollToTop.js'
 import CastCard from '../components/CastCard.vue'
+import { Icon } from '@iconify/vue';
 
 
 export default defineComponent({
-    components: { navbarVue, MovieCard, Carousel, Slide, Navigation, GenreButton, CastCard },
+    components: { navbarVue, MovieCard, Carousel, Slide, Navigation, GenreButton, CastCard, Icon },
     data() {
         return {
             movie: {},
@@ -161,7 +224,9 @@ export default defineComponent({
             relatedMovies: [],
             carouselItemsToShow: 3.5,
             activeTab: 1,
-            casts: []
+            casts: [],
+            tmdbRuntime: null,
+            tmdbRating: null,
         }
     },
 
@@ -170,7 +235,15 @@ export default defineComponent({
             const date = this.movie.release_date
             const formatDate = format(date, 'MMMM d, yyyy');
             return formatDate
-        }
+        },
+
+        formattedRuntime() {
+            return this.tmdbRuntime !== null ? this.formatRuntime(this.tmdbRuntime) : '';
+        },
+
+        formattedRating() {
+            return this.tmdbRating !== null ? this.formatRating(this.tmdbRating) : '';
+        },
     },
 
     watch: {
@@ -222,6 +295,8 @@ export default defineComponent({
                     const data = response.data;
                     const genreIds = data.genres.map(genre => genre.id)
                     this.movie = data
+                    this.tmdbRuntime = response.data.runtime;
+                    this.tmdbRating = response.data.vote_average;
                     console.log(data);
                 })
 
@@ -328,18 +403,35 @@ export default defineComponent({
             }
         },
 
+        formatRuntime(minutes) {
+            const hours = Math.floor(minutes / 60);
+            const remainingMinutes = minutes % 60;
+            return `${hours}h ${remainingMinutes}m`;
+        },
+
+
+        formatRating(rating) {
+            if (rating !== null && !isNaN(rating)) {
+                const formattedRating = (rating).toFixed(1); // Format to one decimal place
+                return `${formattedRating}/10`;
+            } else {
+                return 'N/A'; // or any other default value for cases where the rating is not available or not a valid number
+            }
+        },
 
     }
 })
 </script>
 
 <style scoped>
-
-.fade-enter-active, .fade-leave-active {
-  transition: opacity 0.5s;
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.5s;
 }
-.fade-enter, .fade-leave-to {
-  opacity: 0;
+
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
 }
 
 .carousel__item {
