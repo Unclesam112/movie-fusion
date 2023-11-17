@@ -143,5 +143,16 @@ export default {
     }
 }
 
+@media screen and (max-width: 780px) {
+    .backdrop-image {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: blur(2px); /* Adjust the blur effect */
+    animation: fadeIn 1.5s ease; /* Adjust the animation duration and timing function */
+}
+}
+
 </style>
   

@@ -6,7 +6,7 @@
 
         <div class="movie-list mt-10">
             <div class="top-picks">
-                <h1 class="text-lg md:text-3xl mb-2">Top Pick's For You</h1>
+                <h1 class="text-lg font-bold md:text-3xl mb-2">Top Pick's For You</h1>
                 <Carousel :items-to-show="carouselItemsToShow" :wrap-around="true">
                     <Slide v-for="movie in movies" :key="movie.id">
                         <div class="carousel__item m-0 md:m-5">
@@ -19,7 +19,7 @@
             </div>
 
             <div class="popular mt-10">
-                <h1 class="text-lg md:text-3xl mb-2">Most Popular</h1>
+                <h1 class="text-lg font-bold md:text-3xl mb-2">Most Popular</h1>
                 <Carousel :items-to-show="carouselItemsToShow" :wrap-around="true">
                     <Slide v-for="movie in popular" :key="movie.id">
                         <div class="carousel__item m-5">
@@ -32,7 +32,7 @@
 
 
             <div class="popular mt-10">
-                <h1 class="text-lg md:text-3xl mb-2">Top Rated</h1>
+                <h1 class="text-lg font-bold md:text-3xl mb-2">Top Rated</h1>
                 <Carousel :items-to-show="carouselItemsToShow" :wrap-around="true">
                     <Slide v-for="movie in topRated" :key="movie.id">
                         <div class="carousel__item m-5">

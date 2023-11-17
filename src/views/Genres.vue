@@ -22,8 +22,8 @@
             </Carousel> -->
 
 
-            <div class="grid grid-cols-3  md:grid-cols-4 gap-2">
-                <div class="col" v-for="movie in movies" :key="movie.id">
+            <div class="grid grid-cols-3  md:grid-cols-6 gap-4">
+                <div class="col my-5" v-for="movie in movies" :key="movie.id">
                     <MovieCard :movie="movie" />
                 </div>
             </div>

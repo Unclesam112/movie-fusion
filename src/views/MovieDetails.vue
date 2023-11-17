@@ -65,23 +65,26 @@
         <ul
             class="text-sm font-medium text-center text-gray-500 rounded-lg shadow flex dark:divide-gray-700 dark:text-gray-400">
             <li class="w-full">
-                <a href="#"
-                    class="inline-block w-full p-4 text-gray-900 bg-gray-100 border-r border-gray-200 dark:border-gray-700 rounded-s-lg focus:ring-4 focus:ring-blue-300 active focus:outline-none dark:bg-gray-700 dark:text-white"
+                <a href="#" @click.prevent="activeTab = 1"
+                    :class="{ 'bg-red-700': activeTab === 1, 'text-white': activeTab === 1, 'bg-gray-300': activeTab !== 1, 'text-gray-700': activeTab !== 1, 'transition': true  }"
+                    class="fade inline-block w-full p-4 text-gray-900 bg-gray-100 border-r border-gray-200 dark:border-gray-700 rounded-s-lg focus:ring-4 focus:ring-blue-300 active focus:outline-none dark:bg-gray-700 dark:text-white"
                     aria-current="page">Description</a>
             </li>
             <li class="w-full">
                 <a href="#"
-                    class="inline-block w-full p-4 bg-white border-r border-gray-200 dark:border-gray-700 hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700">Cast</a>
+                @click.prevent="activeTab = 2" :class="{ 'bg-red-700': activeTab === 2, 'text-white': activeTab === 2, 'bg-gray-300': activeTab !== 2, 'text-gray-700': activeTab !== 2,  'transition': true}"
+                    class="fade inline-block w-full p-4 bg-white border-r border-gray-200 dark:border-gray-700 hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700">Cast</a>
             </li>
             <li class="w-full">
                 <a href="#"
-                    class="inline-block w-full p-4 bg-white border-r border-gray-200 dark:border-gray-700 hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700">More</a>
+                @click.prevent="activeTab = 3" :class="{ 'bg-red-700': activeTab === 3, 'text-white': activeTab === 3, 'bg-gray-300': activeTab !== 3, 'text-gray-700': activeTab !== 3,  'transition': true }"
+                    class="fade inline-block w-full p-4 bg-white border-r border-gray-200 dark:border-gray-700 hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700">More</a>
             </li>
 
         </ul>
 
-        <div class="overview md:p-0 py-5cd admincd" v-if="movie">
-            <p class="text-md py-5 text-gray-700">{{ movie.overview }}</p>
+        <div class="overview md:p-0 py-5cd admincd fade my-8" v-show="activeTab === 1" v-if="movie" key="1">
+            <p class="text-xl py-5 text-gray-700">{{ movie.overview }}</p>
             <div class="date text-gray-700">
                 <span class="text-bold text-gray-900">Release Date:</span> {{ formatReleaseDate(movie.id) }}
             </div>
@@ -104,6 +107,17 @@
                     <div class="carousel__item" v-for="video in videos.slice(0, 4)" :key="video.id">
                         <iframe class="w-full my-3" :src="getVideoUrl(video.key)" frameborder="0" allowfullscreen></iframe>
                     </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="overview md:p-0 py-5cd admincd fade my-6" v-show="activeTab === 2" v-if="movie" key="2">
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                <div class="col" v-for="cast in casts" :key="cast.id">
+                    <CastCard :cast="cast" />
+                    <h1 class="text-gray-500 text-md text-center">{{ cast.name }}</h1>
                 </div>
             </div>
         </div>
@@ -134,16 +148,20 @@ import 'vue3-carousel/dist/carousel.css'
 import { format } from 'date-fns'
 import GenreButton from '../components/GenreButton.vue'
 import MovieCard from '../components/MovieCard.vue'
-import {scrollToTop} from '../utils/scrollToTop.js'
+import { scrollToTop } from '../utils/scrollToTop.js'
+import CastCard from '../components/CastCard.vue'
+
 
 export default defineComponent({
-    components: { navbarVue, MovieCard, Carousel, Slide, Navigation, GenreButton },
+    components: { navbarVue, MovieCard, Carousel, Slide, Navigation, GenreButton, CastCard },
     data() {
         return {
             movie: {},
             videos: [],
             relatedMovies: [],
-            carouselItemsToShow: 3.5
+            carouselItemsToShow: 3.5,
+            activeTab: 1,
+            casts: []
         }
     },
 
@@ -168,7 +186,7 @@ export default defineComponent({
     mounted() {
         this.fetchVideos()
         this.fetchMovieDetails()
-
+        this.fetchMovieCast()
         window.addEventListener('resize', this.handleResize)
         this.handleResize()
         this.fetchRelatedMovies()
@@ -183,7 +201,7 @@ export default defineComponent({
             return path ? `https://image.tmdb.org/t/p/w300${path}` : 'https://via.placeholder.com/500';
         },
 
-        
+
 
         getBackgroundImageUrl(path) {
             return path ? `https://image.tmdb.org/t/p/w1280${path}` : 'https://via.placeholder.com/500';
@@ -211,7 +229,30 @@ export default defineComponent({
                     console.log('Error fetching movie', err);
                 })
 
-                scrollToTop();
+            scrollToTop();
+        },
+
+        async fetchMovieCast() {
+            const movieId = this.$route.params.id
+            const options = {
+                method: 'GET',
+                headers: {
+                    accept: 'application/json',
+                    Authorization: API_ENDPOINTS.KEY
+                }
+            };
+
+            axios.get(`https://api.themoviedb.org/3/movie/${movieId}/credits`, options)
+                .then(response => {
+                    const data = response.data.cast;
+                    this.casts = data
+                    console.log("Cast:", data);
+                })
+
+                .catch(err => {
+                    console.log('Error fetching movie', err);
+                })
+
         },
 
         async fetchRelatedMovies() {
@@ -225,12 +266,12 @@ export default defineComponent({
                     }
                 };
 
-                const movieResponse =  await  axios.get(`https://api.themoviedb.org/3/movie/${movieId}`, options);
+                const movieResponse = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}`, options);
                 const movieData = movieResponse.data;
-                const genreIds =  movieData.genres.map(genre => genre.id)
+                const genreIds = movieData.genres.map(genre => genre.id)
                 const relatedMovieResponse = await axios.get(`https://api.themoviedb.org/3/discover/movie?with_genres=${genreIds.join(',')}`, options)
-                const relatedMovieData =  await relatedMovieResponse.data.results;
-                this.relatedMovies =  relatedMovieData
+                const relatedMovieData = await relatedMovieResponse.data.results;
+                this.relatedMovies = relatedMovieData
                 console.log(relatedMovieData)
             }
 
@@ -293,6 +334,14 @@ export default defineComponent({
 </script>
 
 <style scoped>
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
 .carousel__item {
 
     text-align: left !important;

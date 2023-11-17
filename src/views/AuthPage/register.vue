@@ -16,6 +16,7 @@
 
                     <div
                         class="mx-auto mt-10 w-full max-w-md p-4 bg-white  border-gray-200 rounded-lg sm:p-6 md:p-0 dark:bg-gray-800 dark:border-gray-700">
+                        <!-- <h1 class="text-center text-red-700 text-lg font-semibold">MovieFusion</h1> -->
                         <form class="space-y-4" action="#">
                             <h5 class="text-3xl font-bold text-gray-900 dark:text-white">Welcome Onboard!</h5>
                             <p class="text-gray-700">
@@ -64,7 +65,7 @@
 
                             <div class="flex items-center">
                                 <hr class="flex-grow border-gray-300 mr-3">
-                                <span class="text-gray-500">Or</span>
+                                <span class="text-gray-300 text-sm">Or Sign up using</span>
                                 <hr class="flex-grow border-gray-300 ml-3">
                             </div>
 
@@ -104,7 +105,7 @@
                                 </button>
                             </div>
                             <div class="text-sm text-center font-medium text-gray-500 dark:text-gray-300">
-                                Don't have an account?<a href="#" class="text-red-700 font-semibold hover:underline dark:text-blue-500"> Sign Up</a>
+                                Already have an account?<a href="#" class="text-red-700 font-semibold hover:underline dark:text-blue-500"> Sign In</a>
                             </div>
                         </form>
                     </div>
