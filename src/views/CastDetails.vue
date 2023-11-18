@@ -5,7 +5,7 @@
             <navbarVue class="bg-gray-900 text-white" />
         </div>
 
-        <div class="my-8  breadcrumb pl-20">
+        <div class="my-8  breadcrumb mx-auto pl-20">
             <breadcrumbVue />
         </div>
 

@@ -7,7 +7,7 @@
                 <transition name="fade" mode="out-in">
                     <div :key="currentMovie.id" class="grid grid-cols md:grid-cols-2 gap-10  md:px-20 md:py-5 p-5">
                         <div class="col-sapn-1 mt-28">
-                            <h1 class="title text-6xl text-white">{{ currentMovie.title }}</h1>
+                            <h1 class="title text-6xl text-white line-clamp-3">{{ currentMovie.title }}</h1>
                             <!-- ... rest of your content ... -->
                             <button type="button"
                             class="py-1 px-4 mr-2 my-4 mb-2 text-sm font-medium focus:outline-none text-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">16+</button>
@@ -18,10 +18,10 @@
                                 <path
                                     d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
                             </svg>
-                            <p class="ml-2 text-sm font-bold text-white dark:text-white">4.95</p>
+                            <p class="ml-2 text-sm font-bold text-white dark:text-white"> {{ formattedRating }} </p>
                             <span class="w-1 h-1 mx-1.5 bg-gray-500 rounded-full dark:bg-gray-400"></span>
                             <a href="#"
-                                class="text-sm font-medium text-white hover:no-underline dark:text-white">10th Nov 2023</a>
+                                class="text-sm font-medium text-white hover:no-underline dark:text-white"> {{ formatReleaseDate(currentMovie.release_date) }}</a>
                         </div>
 
                         <p class="text-white text-md line-clamp-2">
@@ -63,8 +63,28 @@ export default {
     data() {
         return {
             currentMovie: {},
+            tmdbRuntime: null,
+            tmdbRating: null,
         };
     },
+
+    computed: {
+        formattedDate() {
+            const date = this.movie.release_date
+            const formatDate = format(date, 'MMMM d, yyyy');
+            return formatDate
+        },
+
+        formattedRuntime() {
+            return this.tmdbRuntime !== null ? this.formatRuntime(this.tmdbRuntime) : '';
+        },
+
+        formattedRating() {
+            return this.tmdbRating !== null ? this.formatRating(this.tmdbRating) : '';
+        },
+    },
+
+
     mounted() {
         this.fetchRandomMovie();
         setInterval(this.fetchRandomMovie, 100000); 
@@ -94,13 +114,57 @@ export default {
                     const data = response.data;
                     const randomIndex = Math.floor(Math.random() * data.results.length);
                     this.currentMovie = data.results[randomIndex];
+                    this.tmdbRuntime = data.results[randomIndex].runtime;
+                    this.tmdbRating =  data.results[randomIndex].vote_average;
 
                 })
 
                 .catch(err => {
                     console.log('Error fetching movie', err);
                 })
-        }
+        },
+
+
+        formatReleaseDate(dateString) {
+            try {
+                const date = new Date(dateString);
+                const options = { day: 'numeric', month: 'long', year: 'numeric' };
+                const formattedDate = date.toLocaleDateString(undefined, options);
+                return formattedDate.replace(/(\d+)([a-z]+)/i, (_, day, month) => `${this.addSuffix(day)} ${month}`);
+            } catch (error) {
+                console.error('Error formatting release date:', error);
+                return 'Invalid Date';
+            }
+        },
+        addSuffix(day) {
+            if (day >= 11 && day <= 13) {
+                return `${day}th`;
+            }
+            switch (day % 10) {
+                case 1: return `${day}st`;
+                case 2: return `${day}nd`;
+                case 3: return `${day}rd`;
+                default: return `${day}th`;
+            }
+        },
+
+        formatRuntime(minutes) {
+            const hours = Math.floor(minutes / 60);
+            const remainingMinutes = minutes % 60;
+            return `${hours}h ${remainingMinutes}m`;
+        },
+
+
+        formatRating(rating) {
+            if (rating !== null && !isNaN(rating)) {
+                const formattedRating = (rating).toFixed(1); // Format to one decimal place
+                return `${formattedRating}/10`;
+            } else {
+                return 'N/A'; // or any other default value for cases where the rating is not available or not a valid number
+            }
+        },
+
+
     },
 };
 </script>

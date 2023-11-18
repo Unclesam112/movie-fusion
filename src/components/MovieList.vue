@@ -32,9 +32,36 @@
 
 
             <div class="popular mt-10">
-                <h1 class="text-lg font-bold md:text-3xl mb-2">Top Rated</h1>
+                <h1 class="text-lg font-bold md:text-3xl mb-2">Action Movies</h1>
                 <Carousel :items-to-show="carouselItemsToShow" :wrap-around="true">
-                    <Slide v-for="movie in topRated" :key="movie.id">
+                    <Slide v-for="movie in action" :key="movie.id">
+                        <div class="carousel__item m-5">
+                            <MovieCard :movie="movie" />
+                        </div>
+                    </Slide>
+
+                   
+                </Carousel>
+            </div>
+
+            <div class="popular mt-10">
+                <h1 class="text-lg font-bold md:text-3xl mb-2">Top Sci-Fi Movies</h1>
+                <Carousel :items-to-show="carouselItemsToShow" :wrap-around="true">
+                    <Slide v-for="movie in sci_fi" :key="movie.id">
+                        <div class="carousel__item m-5">
+                            <MovieCard :movie="movie" />
+                        </div>
+                    </Slide>
+
+                   
+                </Carousel>
+            </div>
+
+
+            <div class="popular mt-10">
+                <h1 class="text-lg font-bold md:text-3xl mb-2">Special time with lover</h1>
+                <Carousel :items-to-show="carouselItemsToShow" :wrap-around="true">
+                    <Slide v-for="movie in romance" :key="movie.id">
                         <div class="carousel__item m-5">
                             <MovieCard :movie="movie" />
                         </div>
@@ -68,7 +95,10 @@ export default defineComponent({
             movies: [],
             popular: [],
             topRated: [],
-            carouselItemsToShow: 3.5
+            carouselItemsToShow: 3.5,
+            action: [],
+            romance: [],
+            sci_fi: []
         }
     },
 
@@ -85,6 +115,9 @@ export default defineComponent({
         this.fetchTopPickMovie()
         this.fecthMostPopular()
         this.fecthTopRated()
+        this.fetchActionMovie()
+        this.fetchSciFiMovie()
+        this.fetchRomanceMovie()
 
         window.addEventListener('resize', this.handleResize)
         this.handleResize()
@@ -156,6 +189,69 @@ export default defineComponent({
                     const data = response.data;
                     this.topRated = data.results;
                     console.log(data.results);
+                })
+
+                .catch(err => {
+                    console.log('Error fetching movie', err);
+                })
+        },
+
+        fetchActionMovie() {
+            const options = {
+                method: 'GET',
+                headers: {
+                    accept: 'application/json',
+                    Authorization: API_ENDPOINTS.KEY
+                }
+            };
+
+            axios.get(`https://api.themoviedb.org/3/discover/movie?with_genres=28`, options)
+                .then(response => {
+                    const data = response.data;
+                    this.action = data.results;
+                    console.log(data);
+                })
+
+                .catch(err => {
+                    console.log('Error fetching movie', err);
+                })
+        },
+
+        fetchSciFiMovie() {
+            const options = {
+                method: 'GET',
+                headers: {
+                    accept: 'application/json',
+                    Authorization: API_ENDPOINTS.KEY
+                }
+            };
+
+            axios.get(`https://api.themoviedb.org/3/discover/movie?with_genres=878`, options)
+                .then(response => {
+                    const data = response.data;
+                    this.sci_fi = data.results;
+                    console.log(data);
+                })
+
+                .catch(err => {
+                    console.log('Error fetching movie', err);
+                })
+        },
+
+        fetchRomanceMovie() {
+            const options = {
+                method: 'GET',
+                headers: {
+                    accept: 'application/json',
+                    Authorization: API_ENDPOINTS.KEY
+                }
+            };
+
+            axios.get(`https://api.themoviedb.org/3/discover/movie?with_genres=10749`, options)
+                .then(response => {
+                    const data = response.data;
+                    this.romance = data.results;
+                    console.log(data);
                 })
 
                 .catch(err => {

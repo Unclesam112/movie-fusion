@@ -3,6 +3,10 @@
         <navbarVue class="bg-gray-900" />
     </div>
 
+    <div class="my-8  breadcrumb mx-auto pl-20">
+            <breadcrumbVue />
+        </div>
+
     <main class="px-5">
         <div class="genre my-10" v-if="genreName">
             <h1 class="text-center text-gray-900 text-4xl">{{ genreName.name }}</h1>
@@ -22,7 +26,7 @@
             </Carousel> -->
 
 
-            <div class="grid grid-cols-3  md:grid-cols-6 gap-4">
+            <div class="grid grid-cols-3  md:grid-cols-6 gap-2">
                 <div class="col my-5" v-for="movie in movies" :key="movie.id">
                     <MovieCard :movie="movie" />
                 </div>
@@ -39,9 +43,11 @@ import MovieCard from '../components/MovieCard.vue';
 import { defineComponent } from 'vue'
 import { Carousel, Navigation, Slide } from 'vue3-carousel'
 import 'vue3-carousel/dist/carousel.css'
+import breadcrumbVue from '../components/layout/breadcrumb.vue';
+
 
 export default defineComponent({
-    components: { navbarVue, MovieCard, Carousel, Slide, Navigation, },
+    components: { navbarVue, MovieCard, Carousel, Slide, Navigation, breadcrumbVue},
 
     data() {
         return {

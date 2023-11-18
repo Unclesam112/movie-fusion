@@ -174,7 +174,7 @@
 
         <div class="overview md:p-0 py-5cd admincd fade my-6" v-show="activeTab === 2" v-if="movie" key="2">
             <h1 class="text-3xl font-semibold my-8 text-gray-900">Full Cast & Crew</h1>
-            <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-2">
                
                 <div class="col" v-for="cast in casts" :key="cast.id">
                     
@@ -344,7 +344,7 @@ export default defineComponent({
                 const movieResponse = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}`, options);
                 const movieData = movieResponse.data;
                 const genreIds = movieData.genres.map(genre => genre.id)
-                const relatedMovieResponse = await axios.get(`https://api.themoviedb.org/3/discover/movie?with_genres=${genreIds.join(',')}`, options)
+                const relatedMovieResponse = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}/similar?language=en-US&page=1'`, options)
                 const relatedMovieData = await relatedMovieResponse.data.results;
                 this.relatedMovies = relatedMovieData
                 console.log(relatedMovieData)
