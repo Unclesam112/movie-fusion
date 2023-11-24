@@ -12,8 +12,6 @@
                 </div>
 
                 <div class="col">
-
-
                     <div
                         class="mx-auto mt-10 w-full max-w-md p-4 bg-white  border-gray-200 rounded-lg sm:p-6 md:p-0 dark:bg-gray-800 dark:border-gray-700">
                         <form class="space-y-6" action="#">
@@ -25,14 +23,14 @@
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
                                 <input type="email" name="email" id="email"
                                     class=" border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                    placeholder=" enter your email here" required>
+                                    placeholder=" enter your email here" v-model="email" required>
                             </div>
                             <div>
                                 <label for="password"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
                                 <input type="password" name="password" id="password" placeholder="enter your password here"
                                     class=" border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                    required>
+                                    required v-model="password">
                             </div>
                             <div class="flex items-start">
                                 <div class="flex items-start">
@@ -49,8 +47,9 @@
                                     Password</a>
                             </div>
                             <button type="submit"
-                                class="w-full text-white bg-red-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login
-                                to your account</button>
+                            @click.prevent="login"
+                                class="w-full text-white bg-red-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"> <span v-if="!loading">Login to your account</span>
+                                    <span v-else>Loading...</span> </button>
 
                             <div class="flex items-center">
                                 <hr class="flex-grow border-gray-300 mr-3">
@@ -107,7 +106,23 @@
 
 <script>
 export default {
-
+    data() {
+    return {
+      email: '',
+      password: '',
+      loading: false
+    }
+  },
+  methods: {
+    login() {
+      const details = {
+        email: this.email,
+        password: this.password
+      }
+      this.$store.dispatch('login', details)
+      this.loading = true
+    }
+  }
 }
 </script>
 

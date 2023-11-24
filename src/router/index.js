@@ -6,6 +6,9 @@ import loginPage from '../views/AuthPage/login.vue'
 import registerPage from '../views/AuthPage/register.vue'
 import recoverPassword from '../views/AuthPage/recoverPassword.vue'
 import castDetails from '../views/CastDetails.vue'
+import verifyEmail from '../views/AuthPage/verifyEmail.vue'
+import unverifyEmail from '../views/AuthPage/unverifiedEmail.vue'
+import { auth } from '../firebase'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,18 +16,21 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
+      meta: { requiresAuth: true },
       component: HomeView
     },
 
     {
       path: '/movie/details/:id',
       name: 'movie-details',
+      meta: { requiresAuth: true },
       component: movieDetail
     },
 
     {
       path: '/movie/genre/:id',
       name: 'movie-genre',
+      meta: { requiresAuth: true },
       component: movieGenre
     },
 
@@ -49,10 +55,48 @@ const router = createRouter({
      {
       path: '/cast/details/:id',
       name: 'cast',
+      meta: { requiresAuth: true },
       component: castDetails
+    },
+
+    {
+      path: '/verify-email',
+      name: 'verify-email',
+      component: verifyEmail
+    },
+
+    {
+      path: '/unverified-email',
+      name: 'unverify-email',
+      component: unverifyEmail
     },
     
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  // Check if the route requires authentication
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    // Wait for the user's authentication status to be rehydrated
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        // Check if the user's email is verified
+        if (user.emailVerified) {
+          // User is authenticated and email is verified, proceed with navigation
+          next();
+        } else {
+          // User is authenticated but email is not verified, redirect to a verification page
+          next({ path: '/unverified-email' });
+        }
+      } else {
+        // User is not authenticated, redirect to login
+        next({ path: "/signin" });
+      }
+    });
+  } else {
+    // Route doesn't require authentication, proceed with navigation
+    next();
+  }
+});
 
 export default router

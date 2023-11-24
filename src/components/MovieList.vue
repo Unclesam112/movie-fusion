@@ -6,7 +6,7 @@
 
         <div class="movie-list mt-10">
             <div class="top-picks">
-                <h1 class="text-lg font-bold md:text-3xl mb-2">Top Pick's For You</h1>
+                <h1 class="text-lg font-bold md:text-3xl mb-2">Top Pick's For {{ userDetails.username}}</h1>
                 <Carousel :items-to-show="carouselItemsToShow" :wrap-around="true">
                     <Slide v-for="movie in movies" :key="movie.id">
                         <div class="carousel__item m-0 md:m-5">
@@ -14,7 +14,7 @@
                         </div>
                     </Slide>
 
-                   
+
                 </Carousel>
             </div>
 
@@ -40,7 +40,7 @@
                         </div>
                     </Slide>
 
-                   
+
                 </Carousel>
             </div>
 
@@ -53,7 +53,7 @@
                         </div>
                     </Slide>
 
-                   
+
                 </Carousel>
             </div>
 
@@ -67,7 +67,7 @@
                         </div>
                     </Slide>
 
-                   
+
                 </Carousel>
             </div>
         </div>
@@ -80,7 +80,8 @@
 <script>
 import axios from 'axios';
 import MovieCard from './MovieCard.vue';
-
+import { db } from '@/firebase'
+import { collection, getDocs } from 'firebase/firestore'
 import { defineComponent } from 'vue'
 import { Carousel, Navigation, Slide } from 'vue3-carousel'
 import 'vue3-carousel/dist/carousel.css'
@@ -98,18 +99,44 @@ export default defineComponent({
             carouselItemsToShow: 3.5,
             action: [],
             romance: [],
-            sci_fi: []
+            sci_fi: [],
+            userDetails: [],
         }
     },
 
-//     computed: {
-//     nowPlayingMovies() {
-//       return this.$store.state.nowPlaying.movies; // Access the state directly
-//     },
-//   },
-//   created() {
-//     this.$store.dispatch('nowPlaying/fetchNowPlayingMovies');
-//   },
+    computed: {
+        userProfile() {
+            return this.$store.state.user;
+        },
+    },
+    //   created() {
+    //     this.$store.dispatch('nowPlaying/fetchNowPlayingMovies');
+    //   },
+
+    async created() {
+        const userProfile = this.$store.state.user;
+        console.log(userProfile);
+
+        if (userProfile && userProfile.email) {
+            try {
+                const querySnapshot = await getDocs(collection(db, 'Users')); // Assuming 'users' is your Firestore collection name
+                querySnapshot.forEach((doc) => {
+                    const userData = doc.data();
+                    if (userData.email === userProfile.email) {
+                        // Found the user with the matching email
+                        this.userDetails = userData
+
+                        setTimeout(() => {
+                            // After data is fetched, set isLoading to false to hide the loader
+                            this.isLoading = false;
+                        }, 2500); // Simulating a 2-second delay for fetching data
+                    }
+                });
+            } catch (error) {
+                console.error('Error fetching user profile:', error);
+            }
+        }
+    },
 
     mounted() {
         this.fetchTopPickMovie()
@@ -118,18 +145,40 @@ export default defineComponent({
         this.fetchActionMovie()
         this.fetchSciFiMovie()
         this.fetchRomanceMovie()
-
+        this.fetchUser()
         window.addEventListener('resize', this.handleResize)
         this.handleResize()
     },
 
-    beforeDestroy(){
+    beforeDestroy() {
         window.removeEventListener('resize', this.handleResize)
     },
 
     methods: {
         handleResize() {
             this.carouselItemsToShow = window.innerWidth >= 768 ? 5.5 : 2.5
+        },
+
+
+        async fetchUser() {
+            const userEmail = this.userProfile;
+            const userCollection = collection(db, 'Users');
+            const userRef = await getDocs(userCollection);
+
+            let userId = null;
+            userRef.forEach((userDoc) => {
+                const userData = userDoc.data();
+                // console.log(userData, userEmail);
+                if (userData.email === userEmail.email) {
+                    userId = userData.id,
+                        console.log(userId);
+                }
+
+                else {
+                    console.log("User not found");
+                }
+            });
+
         },
 
         fetchTopPickMovie() {
@@ -270,8 +319,8 @@ export default defineComponent({
 
 @media screen and (max-width: 780px) {
     .carousel__item {
-    margin: 2px;
-    text-align: left !important;
-} 
+        margin: 2px;
+        text-align: left !important;
+    }
 }
 </style>

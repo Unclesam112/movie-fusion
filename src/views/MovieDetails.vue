@@ -196,7 +196,6 @@
 
             </Carousel>
         </div>
-
     </main>
 </template>
 
@@ -247,12 +246,18 @@ export default defineComponent({
     },
 
     watch: {
-        '$route.params.id': 'fetchMovieDetails'
+        '$route.params.id': 'fetchMovieDetails',
+        '$route.params.id': 'fetchMovieCast',
+        '$route.params.id': 'fetchVideos',
+        '$route.params.id': 'fetchRelatedMovies'
     },
 
     beforeRouteUpdate(to, from, next) {
         this.fetchMovieDetails();
-        next()
+        this.fetchMovieCast();
+        this.fetchVideos();
+        this.fetchRelatedMovies()
+        next();
     },
 
 

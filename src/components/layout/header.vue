@@ -30,9 +30,9 @@
 
 
                             <div class="flex gap-8">
-                                <button @click="fetchRandomMovie"
+                                <button @click="goToDetails(currentMovie.id)"
                                     class="bg-red-700 my-10 text-white rounded-md flex py-2 px-8 shadow-lg">
-                                    Watch
+                                   See Movie
                                     <Icon icon="solar:play-bold" class="mt-1 ml-1" />
                                 </button>
 
@@ -163,6 +163,10 @@ export default {
                 return 'N/A'; // or any other default value for cases where the rating is not available or not a valid number
             }
         },
+
+        goToDetails(id) {
+            this.$router.push(`/movie/details/${id}`)
+        }
 
 
     },

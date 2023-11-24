@@ -24,10 +24,10 @@
                             </p>
                             <div>
                                 <label for="email"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Full Name</label>
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
                                 <input type="text" name="fullname" id="fullname"
                                     class=" border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                    placeholder=" enter your full name" required>
+                                    placeholder=" enter your full name"  required v-model="username">
                             </div>
 
                             <div>
@@ -35,7 +35,7 @@
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
                                 <input type="email" name="email" id="email"
                                     class=" border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                    placeholder=" enter your email here" required>
+                                    placeholder=" enter your email here" v-model="email" required>
                             </div>
 
                             <div>
@@ -43,7 +43,7 @@
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
                                 <input type="password" name="password" id="password" placeholder="enter your password here"
                                     class=" border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                    required>
+                                   v-model="password" required>
                             </div>
                             <div class="flex items-start">
                                 <div class="flex items-start">
@@ -60,8 +60,11 @@
                                     Password</a>
                             </div>
                             <button type="submit"
-                                class="w-full text-white bg-red-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login
-                                to your account</button>
+                                @click.prevent="register"
+                                class="w-full text-white bg-red-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                <span v-if="!loading">Create your account</span>
+                                    <span v-else>Loading...</span> 
+                            </button>
 
                             <div class="flex items-center">
                                 <hr class="flex-grow border-gray-300 mr-3">
@@ -118,9 +121,60 @@
 
 <script>
 export default {
+    data() {
+        return {
+              
+                username:'',
+                email: '',
+                password: '',
+                loading: false
+        
+        }
+    },
+
+    computed: {
+    generatedId() {
+      // Define characters for the ID
+      const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      const idLength = 10; // Adjust the length of the ID as needed
+
+      // Generate the ID
+      let id = '';
+      for (let i = 0; i < idLength; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        id += characters.charAt(randomIndex);
+      }
+
+      return id;
+    },
+  },
+
+    methods: {
+        register() {
+      // Dispatch the register action with username, email, and password
+      this.$store.dispatch('register', {
+        id: this.generatedId,
+        username: this.username,
+        email: this.email,
+        password: this.password,
+      });
+
+      if(this.username == "" && this.email == "") {
+        alert('pls fill all field')
+      }
+      else {
+        this.loading = true
+      }
+      
+      this.username = '',
+      this.email = '',
+      this.password = ''
+    },
+    }
 
 }
 </script>
+
 
 <style>.side {
     background: linear-gradient(0deg, rgba(16, 16, 16, 0.3), rgba(0, 0, 0, 0.3)), url(../../assets/img/bg.jpg);

@@ -1,5 +1,6 @@
 <template>
   <main>
+    <!-- <fullPageLoader :isLoading="isLoading" /> -->
     <div class="navbar">
         <headerVue />
     </div>
@@ -15,6 +16,7 @@
 </template>
 
 <script>
+import fullPageLoader from '../components/fullPageLoader.vue'
 import footerVue from '../components/layout/footer.vue'
 import headerVue from '../components/layout/header.vue'
 import MovieList from '../components/MovieList.vue'
@@ -22,7 +24,12 @@ import MovieList from '../components/MovieList.vue'
 
 
 export default {
-    components: {headerVue, MovieList, footerVue}
+    components: {headerVue, MovieList, footerVue, fullPageLoader},
+    data() {
+      return {
+        isLoading: true,
+      }
+    }
 }
 </script>
 
