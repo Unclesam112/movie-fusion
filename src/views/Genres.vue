@@ -3,11 +3,12 @@
         <navbarVue class="bg-gray-900" />
     </div>
 
-    <div class="my-8  breadcrumb mx-4 mx-auto md:pl-20">
-            <breadcrumbVue />
-        </div>
+   
 
     <main class="px-5">
+        <div class="my-8  breadcrumb">
+            <breadcrumbVue />
+        </div>
         <div class="genre my-10" v-if="genreName">
             <h1 class="text-left text-gray-900 text-4xl">{{ genreName.name }}</h1>
         </div>
