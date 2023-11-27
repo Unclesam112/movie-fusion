@@ -1,6 +1,6 @@
 <template>
     <main>
-        <div class="genreList my-4">
+        <div class="genreList my-2 md:my-4">
             <GenreList />
         </div>
 
@@ -9,12 +9,10 @@
                 <h1 class="text-lg font-bold md:text-3xl mb-2">Top Pick's For {{ userDetails.username}}</h1>
                 <Carousel :items-to-show="carouselItemsToShow" :wrap-around="true">
                     <Slide v-for="movie in movies" :key="movie.id">
-                        <div class="carousel__item m-0 md:m-5">
+                        <div class="carousel__item m-2 md:m-5">
                             <MovieCard :movie="movie" />
                         </div>
                     </Slide>
-
-
                 </Carousel>
             </div>
 
@@ -22,7 +20,7 @@
                 <h1 class="text-lg font-bold md:text-3xl mb-2">Most Popular</h1>
                 <Carousel :items-to-show="carouselItemsToShow" :wrap-around="true">
                     <Slide v-for="movie in popular" :key="movie.id">
-                        <div class="carousel__item m-5">
+                        <div class="carousel__item m-2 md:m-5">
                             <MovieCard :movie="movie" />
                         </div>
                     </Slide>
@@ -35,7 +33,7 @@
                 <h1 class="text-lg font-bold md:text-3xl mb-2">Action Movies</h1>
                 <Carousel :items-to-show="carouselItemsToShow" :wrap-around="true">
                     <Slide v-for="movie in action" :key="movie.id">
-                        <div class="carousel__item m-5">
+                        <div class="carousel__item m-2 md:m-5">
                             <MovieCard :movie="movie" />
                         </div>
                     </Slide>
@@ -48,7 +46,7 @@
                 <h1 class="text-lg font-bold md:text-3xl mb-2">Top Sci-Fi Movies</h1>
                 <Carousel :items-to-show="carouselItemsToShow" :wrap-around="true">
                     <Slide v-for="movie in sci_fi" :key="movie.id">
-                        <div class="carousel__item m-5">
+                        <div class="carousel__item m-2 md:m-5">
                             <MovieCard :movie="movie" />
                         </div>
                     </Slide>
@@ -62,7 +60,7 @@
                 <h1 class="text-lg font-bold md:text-3xl mb-2">Special time with lover</h1>
                 <Carousel :items-to-show="carouselItemsToShow" :wrap-around="true">
                     <Slide v-for="movie in romance" :key="movie.id">
-                        <div class="carousel__item m-5">
+                        <div class="carousel__item m-2 md:m-5">
                             <MovieCard :movie="movie" />
                         </div>
                     </Slide>
@@ -156,7 +154,7 @@ export default defineComponent({
 
     methods: {
         handleResize() {
-            this.carouselItemsToShow = window.innerWidth >= 768 ? 5.5 : 2.5
+            this.carouselItemsToShow = window.innerWidth >= 786 ? 5.5 : 2.5
         },
 
 
