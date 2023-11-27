@@ -42,10 +42,15 @@
         <div class="footer">
             <footerVue />
         </div>
+
+        <div class="bottom-nav m-2">
+      <BottomNav />
+    </div>
     </main>
 </template>
 
 <script>
+import BottomNav from '../components/layout/bottomNav.vue'
 import { scrollToTop } from '../utils/scrollToTop.js'
 import axios from 'axios'
 import navbarVue from '../components/layout/navbar.vue'

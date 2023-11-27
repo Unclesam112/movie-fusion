@@ -33,10 +33,17 @@
                 </div>
             </div>
         </div>
+
+        <div class="bottom-nav m-2">
+     <BottomNav />
+    </div>
     </main>
+
+   
 </template>
 
 <script>
+import BottomNav from '../components/layout/bottomNav.vue'
 import axios from 'axios'
 import navbarVue from '../components/layout/navbar.vue'
 import API_ENDPOINTS from '../utils/ApiRoutes'
