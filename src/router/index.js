@@ -8,6 +8,7 @@ import recoverPassword from '../views/AuthPage/recoverPassword.vue'
 import castDetails from '../views/CastDetails.vue'
 import verifyEmail from '../views/AuthPage/verifyEmail.vue'
 import unverifyEmail from '../views/AuthPage/unverifiedEmail.vue'
+import movieCollection from '../views/MovieCollections.vue'
 import { auth } from '../firebase'
 
 const router = createRouter({
@@ -32,6 +33,13 @@ const router = createRouter({
       name: 'movie-genre',
       meta: { requiresAuth: true },
       component: movieGenre
+    },
+
+    {
+      path: '/movies/collection',
+      name: 'movie-collection',
+      meta: { requiresAuth: true },
+      component: movieCollection
     },
 
     {

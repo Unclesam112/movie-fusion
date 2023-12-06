@@ -33,7 +33,7 @@ export default createStore({
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         await sendEmailVerification(userCredential.user);
         const user = {
-          id, username, email, password 
+          id, username, email, password, movieCollection: [],
         };
         const usersCollection = collection(db, 'Users');
         await addDoc(usersCollection, user);

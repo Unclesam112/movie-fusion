@@ -3,10 +3,11 @@
     <nav class="border-gray-200 dark:border-gray-700">
       <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <router-link to="/" class="flex items-center">
-          <span
+          <!-- <span
             class="self-center text-white text-2xl font-semibold whitespace-nowrap dark:text-white"
             >Movie-Fusion</span
-          >
+          > -->
+          <img src="../../assets/logo-1.png" class=" self-center w-full h-10 p-0 m-0" alt="">
         </router-link>
         <button
           data-collapse-toggle="navbar-dropdown"
@@ -115,10 +116,10 @@
               >
             </li>
             <li>
-              <a
-                href="#"
+              <router-link
+                to="/movies/collection"
                 class="block mt-1  text-white py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                >Collections</a
+                >Collections</router-link
               >
             </li>
             <li>

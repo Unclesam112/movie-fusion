@@ -180,7 +180,7 @@ export default {
 }
 
 .overlay {
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.73);
 }
 
 .fade-enter-active,

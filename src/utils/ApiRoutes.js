@@ -9,6 +9,7 @@ const API_ENDPOINTS = {
     ACTION_MOVIE: 'https://api./themoviedb.org/3/discover/movie?with_genres=28',
     SCI_FI_MOVIE: 'https://api./themoviedb.org/3/discover/movie?with_genres=878',
     ROMANCE_MOVIE: 'https://api./themoviedb.org/3/discover/movie?with_genres=10749',
+    BASE_URL: 'https://api.themoviedb.org/3/movie/'
 };
 
 export default API_ENDPOINTS;

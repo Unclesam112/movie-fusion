@@ -35,6 +35,7 @@
         </div>
 
         <div class="bottom-nav m-2">
+        
      <BottomNav />
     </div>
     </main>

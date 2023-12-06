@@ -176,8 +176,8 @@ export default {
 </script>
 
 
-<style>.side {
-    background: linear-gradient(0deg, rgba(16, 16, 16, 0.3), rgba(0, 0, 0, 0.3)), url(../../assets/img/bg.jpg);
+<style scoped>.side {
+    background: linear-gradient(0deg, rgba(16, 16, 16, 0.3), rgba(0, 0, 0, 0.3)), url(../../assets/img/bg-2.jpg);
     background-size: cover;
     background-repeat: no-repeat;
 }</style>

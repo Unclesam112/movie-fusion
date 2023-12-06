@@ -61,8 +61,8 @@
                     </div>
                 </transition>
 
-                <div class="video-box mx-20 hidden md:block lg:block">
-                    <!-- <h1 class="text-lg text-white mt-0">Watch Trailers on Youtube</h1> -->
+                <!-- <div class="video-box mx-20 hidden md:block lg:block">
+                    
                     <div class="videos " v-if="videos.length">
 
                         <Carousel :items-to-show="3.5" :wrap-around="true">
@@ -79,7 +79,7 @@
                         </Carousel>
 
                     </div>
-                </div>
+                </div> -->
             </div>
 
 
@@ -154,7 +154,7 @@
 
                 <div class="flex flex-wrap gap-4 my-4 ">
                     <span v-for="genre in movie.genres" :key="genre.id" class=" ">
-                        <GenreButton :genre="genre" class="my-2"/>
+                        <GenreButton :genre="genre" class="my-2" />
                     </span>
                 </div>
 
@@ -175,11 +175,36 @@
         <div class="overview md:p-0 py-5cd admincd fade my-6" v-show="activeTab === 2" v-if="movie" key="2">
             <h1 class="text-3xl font-semibold my-8 text-gray-900">Full Cast & Crew</h1>
             <div class="grid grid-cols-2 md:grid-cols-5 gap-2">
-               
+
                 <div class="col" v-for="cast in casts" :key="cast.id">
-                    
+
                     <CastCard :cast="cast" />
                     <h1 class="text-gray-500 text-md text-center">{{ cast.name }}</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="overview md:p-0 py-5cd admincd fade my-6" v-show="activeTab === 3" v-if="movie" key="2">
+            <h1 class="text-3xl font-semibold my-8 text-gray-900">Watch trailers on youtube</h1>
+            <div class="">
+                <div class="video-box mx-0 hidden md:block lg:block">
+                    
+                    <div class="videos " v-if="videos.length">
+
+                        <Carousel :items-to-show="3.5" :wrap-around="true">
+                            <Slide v-for="video in videos.slice(0, 4)" :key="video.id">
+                                <div class="carousel__item">
+                                    <iframe class="ml-10" :src="getVideoUrl(video.key)" frameborder="0" height="200"
+                                        allowfullscreen></iframe>
+                                </div>
+                            </Slide>
+
+                            <template #addons>
+                                <Navigation />
+                            </template>
+                        </Carousel>
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -199,9 +224,8 @@
     </main>
 
     <div class="bottom-nav m-2">
-      <BottomNav />
+        <BottomNav />
     </div>
-
 </template>
 
 <script>

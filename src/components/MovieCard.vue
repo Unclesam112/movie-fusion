@@ -4,18 +4,28 @@
             <img :src="getImageUrl(movie.poster_path)" :alt="movie.title" class="card-image md:rounded-md" />
             <div class="card-content">
                 <h2 class="card-title mt-4 text-gray-500 hidden md:block lg:block">{{ movie.title }}</h2>
+
             </div>
         </div>
+        <button @click="addMovieToCollection(movie.id)">+</button>
     </main>
 </template>
 
 <script>
+import { collection, addDoc, updateDoc, getDocs, doc } from 'firebase/firestore';
+import { auth, db } from '@/firebase';
 export default {
     props: {
         movie: {
             type: Object,
             required: true
         }
+    },
+
+    computed: {
+        userProfile() {
+            return this.$store.state.user;
+        },
     },
 
     methods: {
@@ -25,7 +35,64 @@ export default {
 
         goToDetails(id) {
             this.$router.push(`/movie/details/${id}`)
-        }
+        },
+
+        async addMovieToCollection(movieId) {
+            try {
+                // Get the current user from Firebase authentication
+                const currentUser = auth.currentUser;
+
+                if (currentUser) {
+                    try {
+                        const querySnapshot = await getDocs(collection(db, 'Users'));
+                        querySnapshot.forEach(async (doc) => {
+                            const userData = doc.data();
+                            console.log(userData);
+                            if (userData.email === currentUser.email) {
+                                // Found the user with the matching email
+                                const currentMovieCollection = userData.movieCollection || [];
+                                const updatedMovieCollection = [...currentMovieCollection, { movieId }];
+                                // Update the user document in Firestore
+                                await updateDoc(doc.ref, {
+                                    movieCollection: updatedMovieCollection,
+                                });
+
+                                console.log('Movie added to collection successfully!');
+                            } else {
+                                console.log('Error: User document not found');
+                            }
+                        });
+                    } catch (error) {
+                        console.error('Error fetching user profile:', error);
+                    }
+                }
+            } catch (error) {
+                console.error('Error adding movie to collection:', error);
+            }
+        },
+
+
+
+        async fetchUser() {
+            const userEmail = this.userProfile;
+            const userCollection = collection(db, 'Users');
+            const userRef = await getDocs(userCollection);
+
+            let userId = null;
+            userRef.forEach((userDoc) => {
+                const userData = userDoc.data();
+                // console.log(userData, userEmail);
+                if (userData.email === userEmail.email) {
+                    userId = userData.id,
+                        console.log(userId);
+                }
+
+                else {
+                    console.log("User not found");
+                }
+            });
+
+        },
     }
 }
 </script>
