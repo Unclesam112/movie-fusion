@@ -1,8 +1,12 @@
 <template>
   <main>
     <!-- <fullPageLoader :isLoading="isLoading" /> -->
-    <div class="navbar">
+    <div class="navbar hidden sm:block">
         <headerVue />
+    </div>
+
+    <div class="nav sm:hidden">
+      <smallHeaderVue />
     </div>
 
     <div class="movies md:p-10 p-4">
@@ -25,11 +29,13 @@ import fullPageLoader from '../components/fullPageLoader.vue'
 import BottomNav from '../components/layout/bottomNav.vue'
 import footerVue from '../components/layout/footer.vue'
 import headerVue from '../components/layout/header.vue'
+import smallHeaderVue from '../components/layout/smallDevice-layout/header.vue'
 import MovieList from '../components/MovieList.vue'
 
 
+
 export default {
-    components: {headerVue, MovieList, footerVue, fullPageLoader, BottomNav},
+    components: {headerVue, MovieList, footerVue, fullPageLoader, BottomNav, smallHeaderVue},
     data() {
       return {
         isLoading: true,

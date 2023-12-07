@@ -3,11 +3,11 @@
     <nav class="border-gray-200 dark:border-gray-700">
       <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <router-link to="/" class="flex items-center">
-          <!-- <span
-            class="self-center text-white text-2xl font-semibold whitespace-nowrap dark:text-white"
+          <span
+            class="self-center text-gray-900 text-2xl font-semibold whitespace-nowrap dark:text-white"
             >Movie-Fusion</span
-          > -->
-          <img src="../../assets/logo-1.png" class=" self-center w-full h-10 p-0 m-0" alt="">
+          >
+          <!-- <img src="../../assets/logo-1.png" class=" self-center w-full h-10 p-0 m-0" alt=""> -->
         </router-link>
         <button
           data-collapse-toggle="navbar-dropdown"

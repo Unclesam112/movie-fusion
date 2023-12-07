@@ -1,13 +1,13 @@
 <template>
     <main>
-        <div class="col movie-card" @click="goToDetails(movie.id)">
-            <img :src="getImageUrl(movie.poster_path)" :alt="movie.title" class="card-image md:rounded-md" />
+        <div class="col movie-card rounded" @click="goToDetails(movie.id)">
+            <img :src="getImageUrl(movie.poster_path)" :alt="movie.title" class="card-image rounded md:rounded-md" />
             <div class="card-content">
                 <h2 class="card-title mt-4 text-gray-500 hidden md:block lg:block">{{ movie.title }}</h2>
 
             </div>
         </div>
-        <button @click="addMovieToCollection(movie.id)">+</button>
+        <!-- <button @click="addMovieToCollection(movie.id)">+</button> -->
     </main>
 </template>
 
@@ -53,11 +53,18 @@ export default {
                                 const currentMovieCollection = userData.movieCollection || [];
                                 const updatedMovieCollection = [...currentMovieCollection, { movieId }];
                                 // Update the user document in Firestore
-                                await updateDoc(doc.ref, {
-                                    movieCollection: updatedMovieCollection,
-                                });
+                                if (doc.ref.exist()) {
+                                    alert('Movie is already in collection')
+                                }
 
-                                console.log('Movie added to collection successfully!');
+                                else {
+                                    await updateDoc(doc.ref, {
+                                        movieCollection: updatedMovieCollection,
+                                    });
+
+                                    console.log('Movie added to collection successfully!');
+                                }
+
                             } else {
                                 console.log('Error: User document not found');
                             }
