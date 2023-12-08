@@ -5,52 +5,114 @@
         <div class="p-5 py-5 btn">
             <button type="button"
                 class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-gray-900 border border-2-gray-900 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-              TV Shows
+                TV Shows
             </button>
 
 
             <button type="button"
                 class="mx-2 px-3 py-2 text-xs font-medium text-center inline-flex items-center text-gray-900 border border-2-gray-900  rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-               
-               Movies
+
+                Movies
             </button>
 
             <button type="button"
                 class="px-3 py-2 text-xs font-medium text-center inline-flex items-center border border-2-gray-900 text-gray-900 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-               
+
                 Categories
             </button>
         </div>
 
-        <div class="relative w-full p-5">
-            <img :src="getBackgroundImageUrl(currentMovie.backdrop_path)" alt="Background Image"
-                class="w-full rounded-lg h-full object-cover backdrop-image" />
-            <div class="absolute rounded-lg inset-5 overlay">
 
-                <transition name="fade" mode="out-in">
-                    <div :key="currentMovie.id" class="grid grid-cols md:grid-cols-2 gap-10  md:px-20 md:py-5 p-5">
-                        <div class="col mt-28 absolute bottom-5">
-                            <h1 class="title text-3xl text-white text-truncate">{{ currentMovie.title }}</h1>
+        
 
-                            <div class="my-2">
 
-                                <button type="button"
-                                    class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-gray-900 bg-white rounded hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                    <Icon icon="solar:play-bold" class="mr-2" />
-                                    Play
-                                </button>
 
-                                <button type="button"
-                                    class="mx-5 w-8 h-8 mr-2 my-0 mb-2 text-sm font-medium text-gray-900 focus:outline-none rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-                                    <Icon icon="teenyicons:add-outline" width="15" color="white" class="mx-auto" />
-                                </button>
+        <Carousel :items-to-show="1" :wrap-around="true" class="p-5">
+            <Slide v-for="movie in currentMovie" :key="movie.id">
+                <div class="relative w-full h-full p-2">
+                    <img :src="getBackgroundImageUrl(movie.backdrop_path)" alt="Background Image"
+                        class="w-full rounded-lg h-full object-cover backdrop-image" />
+                    <div class="absolute rounded-lg inset-2 overlay">
+
+                        <transition name="fade" mode="out-in">
+                            <div :key="currentMovie.id" class="sm:grid sm:grid-cols md:grid-cols-2 md:px-20 md:py-5 p-5">
+                                <div class="col mt-28 absolute bottom-8">
+                                    <h1 class="title text-left text-2xl text-white w-64 truncate">{{ movie.title }}</h1>
+                                    <p class="text-xs text-left text-gray-300 font-medium">Action, Thriller, Drama</p>
+
+                                    <div class="text-left mt-2">
+
+                                        <button type="button"
+                                            class="px-3 py-1 text-xs font-medium text-center inline-flex items-center text-gray-900 bg-white rounded hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                            <Icon icon="solar:play-bold" class="mr-2" />
+                                            Play
+                                        </button>
+
+                                        <!-- <button type="button"
+                                            class="mx-5 w-8 h-8 mr-2 my-0 mb-2 text-sm font-medium text-gray-900 focus:outline-none rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                                            <Icon icon="teenyicons:add-outline" width="15" color="white" class="mx-auto" />
+                                        </button> -->
+                                    </div>
+
+                                </div>
                             </div>
-
-                        </div>
+                        </transition>
                     </div>
-                </transition>
+                </div>
+
+            </Slide>
+            <!-- 
+            <template #addons>
+                <Pagination />
+              
+            </template> -->
+        </Carousel>
+
+
+        <form>
+            <div class="flex p-5 py-0">
+                <!-- <label for="search-dropdown" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Your
+                    Email</label>
+                <button id="dropdown-button" data-dropdown-toggle="dropdown"
+                    class="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900  border-r border-gray-300 rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600"
+                    type="button">All genres <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 4 4 4-4" />
+                    </svg></button>
+                <div id="dropdown"
+                    class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-button">
+                        <li>
+                            <button type="button"
+                                class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Mockups</button>
+                        </li>
+                        <li>
+                            <button type="button"
+                                class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Templates</button>
+                        </li>
+                        <li>
+                            <button type="button"
+                                class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Design</button>
+                        </li>
+                        <li>
+                            <button type="button"
+                                class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Logos</button>
+                        </li>
+                    </ul>
+                </div> -->
+                <div class="relative w-full">
+                    <input type="search" id="search-dropdown"
+                        class="block p-2.5 w-full z-20 text-sm text-gray-900 rounded-e-lg border-0 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
+                        placeholder="Search Movie" required>
+                    <button type="submit"
+                        class="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white  rounded-e-lg border-l border-gray-300 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        <Icon icon="mingcute:search-line" color="black"/>
+                        <span class="sr-only">Search</span>
+                    </button>
+                </div>
             </div>
-        </div>
+        </form>
     </main>
 </template>
   
@@ -58,12 +120,21 @@
 import { Icon } from '@iconify/vue';
 import navbarVue from '../navbar.vue';
 import axios from 'axios';
+import { defineComponent } from 'vue'
+import { Carousel, Navigation, Pagination, Slide, } from 'vue3-carousel'
 
-export default {
-    components: { Icon, navbarVue },
+import 'vue3-carousel/dist/carousel.css'
+
+export default defineComponent({
+    components: {
+        Icon, navbarVue, Carousel,
+        Slide,
+        Navigation,
+        Pagination
+    },
     data() {
         return {
-            currentMovie: {},
+            currentMovie: [],
             tmdbRuntime: null,
             tmdbRating: null,
         };
@@ -114,7 +185,7 @@ export default {
                 .then(response => {
                     const data = response.data;
                     const randomIndex = Math.floor(Math.random() * data.results.length);
-                    this.currentMovie = data.results[randomIndex];
+                    this.currentMovie = data.results;
                     this.tmdbRuntime = data.results[randomIndex].runtime;
                     this.tmdbRating = data.results[randomIndex].vote_average;
 
@@ -171,7 +242,7 @@ export default {
 
 
     },
-};
+});
 </script>
   
 <style scoped>.nav {

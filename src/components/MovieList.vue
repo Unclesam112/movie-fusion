@@ -4,23 +4,23 @@
             <GenreList />
         </div> -->
 
-        <div class="movie-list mt-10">
+        <div class="movie-list mt-5">
             <div class="top-picks">
                 <h1 class="text-lg  md:text-3xl mb-2">Top Picks For {{ userDetails.username}}</h1>
                 <Carousel :items-to-show="carouselItemsToShow" :wrap-around="true">
                     <Slide v-for="movie in movies" :key="movie.id">
-                        <div class="carousel__item m-2 md:m-5">
+                        <div class="carousel__item md:m-5">
                             <MovieCard :movie="movie" />
                         </div>
                     </Slide>
                 </Carousel>
             </div>
 
-            <div class="popular mt-10">
+            <div class="popular mt-5">
                 <h1 class="text-lg  md:text-3xl mb-2">Most Popular</h1>
                 <Carousel :items-to-show="carouselItemsToShow" :wrap-around="true">
                     <Slide v-for="movie in popular" :key="movie.id">
-                        <div class="carousel__item m-2 md:m-5">
+                        <div class="carousel__item md:m-5">
                             <MovieCard :movie="movie" />
                         </div>
                     </Slide>
@@ -29,11 +29,11 @@
             </div>
 
 
-            <div class="popular mt-10">
+            <div class="popular mt-5">
                 <h1 class="text-lg  md:text-3xl mb-2">Action Movies</h1>
                 <Carousel :items-to-show="carouselItemsToShow" :wrap-around="true">
                     <Slide v-for="movie in action" :key="movie.id">
-                        <div class="carousel__item m-2 md:m-5">
+                        <div class="carousel__item md:m-5">
                             <MovieCard :movie="movie" />
                         </div>
                     </Slide>
@@ -42,11 +42,11 @@
                 </Carousel>
             </div>
 
-            <div class="popular mt-10">
+            <div class="popular mt-5">
                 <h1 class="text-lg md:text-3xl mb-2">Top Sci-Fi Movies</h1>
                 <Carousel :items-to-show="carouselItemsToShow" :wrap-around="true">
                     <Slide v-for="movie in sci_fi" :key="movie.id">
-                        <div class="carousel__item m-2 md:m-5">
+                        <div class="carousel__item md:m-5">
                             <MovieCard :movie="movie" />
                         </div>
                     </Slide>
@@ -56,11 +56,11 @@
             </div>
 
 
-            <div class="popular mt-10">
+            <div class="popular mt-5">
                 <h1 class="text-lg  md:text-3xl mb-2">Special time with lover</h1>
                 <Carousel :items-to-show="carouselItemsToShow" :wrap-around="true">
                     <Slide v-for="movie in romance" :key="movie.id">
-                        <div class="carousel__item m-2 md:m-5">
+                        <div class="carousel__item md:m-5">
                             <MovieCard :movie="movie" />
                         </div>
                     </Slide>
