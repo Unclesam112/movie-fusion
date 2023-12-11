@@ -103,8 +103,8 @@
                                 </button>
                             </div>
                             <div class="text-sm text-center font-medium text-gray-500 dark:text-gray-300">
-                                Don't have an account?<a href="#"
-                                    class="text-red-700 font-semibold hover:underline dark:text-blue-500"> Sign Up</a>
+                                Don't have an account?<router-link to="/signup"
+                                    class="text-red-700 font-semibold hover:underline dark:text-blue-500"> Sign Up</router-link>
                             </div>
                         </form>
                     </div>
