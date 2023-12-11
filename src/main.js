@@ -33,6 +33,7 @@ app.use(Vue3Toasity, {
   },
 });
 app.use(router)
+
 // app.use(AOS)
 app.use(store)
 app.mount('#app')

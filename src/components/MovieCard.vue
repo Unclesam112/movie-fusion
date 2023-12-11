@@ -1,9 +1,9 @@
 <template>
     <main>
-        <div class="col movie-card rounded m-1" @click="goToDetails(movie.id)">
+        <div class="col movie-card rounded m-0" @click="goToDetails(movie.id)">
             <img :src="getImageUrl(movie.poster_path)" :alt="movie.title" class="card-image rounded md:rounded-md" />
             <div class="card-content">
-                <h2 class="card-title mt-4 text-gray-500 hidden md:block lg:block">{{ movie.title }}</h2>
+                <!-- <h2 class="card-title mt-4 text-gray-500 hidden md:block lg:block">{{ movie.title }}</h2> -->
 
             </div>
         </div>

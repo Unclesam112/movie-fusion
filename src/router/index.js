@@ -9,6 +9,9 @@ import castDetails from '../views/CastDetails.vue'
 import verifyEmail from '../views/AuthPage/verifyEmail.vue'
 import unverifyEmail from '../views/AuthPage/unverifiedEmail.vue'
 import movieCollection from '../views/MovieCollections.vue'
+import profile from '../views/profile.vue'
+import VideoPlayer from '../components/VideoPlayer.vue'
+
 import { auth } from '../firebase'
 
 const router = createRouter({
@@ -26,6 +29,13 @@ const router = createRouter({
       name: 'movie-details',
       meta: { requiresAuth: true },
       component: movieDetail
+    },
+
+    {
+      path: '/video',
+      name: 'video',
+      meta: { requiresAuth: true },
+      component: VideoPlayer
     },
 
     {
@@ -77,6 +87,12 @@ const router = createRouter({
       path: '/unverified-email',
       name: 'unverify-email',
       component: unverifyEmail
+    },
+
+    {
+      path: '/profile',
+      name: 'profile',
+      component: profile
     },
     
   ]

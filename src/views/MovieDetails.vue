@@ -6,7 +6,7 @@
     </main>
 
 
-    <main class="h-screen">
+    <main class="h-screen hidden sm:block">
         <div class="relative w-full h-full">
             <img :src="getBackgroundImageUrl(movie.backdrop_path)" alt="Background Image"
                 class="w-full h-full object-cover backdrop-image" />
@@ -85,6 +85,10 @@
 
         </div>
     </main>
+
+    <div class="video-player">
+        <VideoPlayerVue />
+    </div>
 
     <main class="info my-10 md:mx-20 mx-5">
 
@@ -242,10 +246,12 @@ import MovieCard from '../components/MovieCard.vue'
 import { scrollToTop } from '../utils/scrollToTop.js'
 import CastCard from '../components/CastCard.vue'
 import { Icon } from '@iconify/vue';
+import VideoPlayerVue from '../components/VideoPlayer.vue'
+
 
 
 export default defineComponent({
-    components: { navbarVue, MovieCard, Carousel, Slide, Navigation, GenreButton, CastCard, Icon },
+    components: { navbarVue, MovieCard, Carousel, Slide, Navigation, BottomNav, GenreButton, VideoPlayerVue, CastCard, Icon },
     data() {
         return {
             movie: {},
@@ -277,16 +283,12 @@ export default defineComponent({
 
     watch: {
         '$route.params.id': 'fetchMovieDetails',
-        '$route.params.id': 'fetchMovieCast',
-        '$route.params.id': 'fetchVideos',
-        '$route.params.id': 'fetchRelatedMovies'
+
     },
 
     beforeRouteUpdate(to, from, next) {
         this.fetchMovieDetails();
-        this.fetchMovieCast();
-        this.fetchVideos();
-        this.fetchRelatedMovies()
+
         next();
     },
 

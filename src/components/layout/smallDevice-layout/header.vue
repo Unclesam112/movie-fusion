@@ -37,7 +37,7 @@
                         <transition name="fade" mode="out-in">
                             <div :key="currentMovie.id" class="sm:grid sm:grid-cols md:grid-cols-2 md:px-20 md:py-5 p-5">
                                 <div class="col mt-28 absolute bottom-8">
-                                    <h1 class="title text-left text-2xl text-white w-64 truncate">{{ movie.title }}</h1>
+                                    <h1 class="title text-left text-2xl text-white w-64 truncate"> <router-link :to="`/movie/${movie.id}`"> {{ movie.title }}</router-link></h1>
                                     <p class="text-xs text-left text-gray-300 font-medium">Action, Thriller, Drama</p>
 
                                     <div class="text-left mt-2">
