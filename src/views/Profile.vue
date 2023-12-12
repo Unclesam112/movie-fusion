@@ -39,9 +39,9 @@
 
             </ul>
 
-            <div class="overview md:p-0 py-5cd admincd fade my-8" v-show="activeTab === 1" v-if="movieCollection"  key="1">
+            <div class="overview md:p-0 py-5cd admincd fade my-8" v-show="activeTab === 1" key="1">
 
-               
+
 
             </div>
 
@@ -56,18 +56,22 @@
 
             </div>
 
-            <a href="#"
-                v-for="movie in movieCollection" :key="movie.id"
-                    class="my-2 flex items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-                   <MovieCardVue :movie="movie"/>
-                    <div class="flex flex-col justify-between p-4 leading-normal">
-                        <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white">{{ movie.title }}</h5>
-                        <p class="mb-3 text-sm font-normal text-gray-700 dark:text-gray-400 line-clamp-2">{{movie.overview}}</p>
-                    </div>
-                </a>
-              
 
+
+
+        </div>
+
+
+        <div v-for="movie in movieCollection" :key="movie.id"
+            class=" mx-2 my-2 flex items-center bg-white rounded-lg  md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+            <!-- <MovieCardVue :movie="movie"/> -->
+            <img :src="getImageUrl(movie.poster_path)" :alt="movie.title" class="w-20 card-image rounded md:rounded-md" />
+            <div class="flex flex-col justify-between p-4 pt-0 leading-normal">
+                <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white truncate">{{ movie.title }}
+                </h5>
+                <p class="mb-3 text-sm font-normal text-gray-700 dark:text-gray-400 line-clamp-2">{{ movie.overview }}</p>
             </div>
+        </div>
 
     </main>
 </template>
@@ -81,15 +85,12 @@ import navbarVue from '../components/layout/navbar.vue';
 import MovieCardVue from '../components/MovieCard.vue';
 import { Icon } from '@iconify/vue';
 
-
-
 export default {
     data() {
         return {
             movieCollection: [],
             currentMovie: {},
             activeTab: 1,
-          
         }
     },
 
@@ -97,7 +98,6 @@ export default {
 
     mounted() {
         this.fetchUserMovieIds()
-      
     },
 
     methods: {
@@ -200,56 +200,6 @@ export default {
             }
         },
 
-
-
-     
-
-
-        // async fetchMoviesDetails(movieIds) {
-
-        //     try {
-        //         if(!movieIds || movieIds.length === 0) {
-        //         console.warn('Movie IDs are undefined')
-        //         return []
-        //     }
-
-        //     await new Promise(resolve => setTimeout(resolve, 1000));
-        //         // Fetch movie details from TMDB using movieIds
-        //         const apiKey = API_ENDPOINTS.KEY; // Replace with your TMDB API key
-        //         const baseUrl = API_ENDPOINTS.BASE_URL;
-
-        //         const moviePromises = movieIds.map(async (movieId) => {
-        //             const url = `${baseUrl}${movieId}?api_key=${apiKey}`;
-        //             const response = await axios.get(url);
-        //             return response.data;
-
-        //         });
-
-
-        //         // Wait for all promises to resolve
-        //         const movies = await Promise.all(moviePromises);
-        //         return movies
-
-        //     } 
-        //     catch (error) {
-        //         console.error('Error fetching movie details from TMDB:', error);
-        //         return [];
-        //     }
-        // },
-
-        // async fetchMovies() {
-        //     try {
-        //         const movieIds = await this.fetchUserMovieIds()
-        //         const movies = await this.fetchMoviesDetails(movieIds)
-
-        //         this.movieCollection = movies
-        //     }
-
-        //     catch(err) {
-        //         console.log(err);
-        //     }
-        // }
-
     }
 }
 </script>
@@ -301,4 +251,5 @@ export default {
         animation: fadeIn 1.5s ease;
         /* Adjust the animation duration and timing function */
     }
-}</style>
+}
+</style>
