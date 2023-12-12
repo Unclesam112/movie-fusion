@@ -1,5 +1,5 @@
 <template>
-    <YouTube 
+    <!-- <YouTube 
     v-if="showVideo"
     :src="`https://www.youtube.com/watch?v=${trailerVideoId}`" 
     @ready="onReady"
@@ -7,7 +7,11 @@
     :player-opts="videoOptions"
     @onPause="handlePause"
      ref="youtube" 
-     class="youtube-video"/>
+     class="youtube-video"/> -->
+
+     <main class="video-container" @mouseover="showControls = true" @mouseout="showControls = false">
+        <iframe :src="VideoUrl" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+     </main>
 </template>
 
 <script>
@@ -21,14 +25,13 @@ export default defineComponent({
     components: { YouTube },
     data() {
         return {
-            showVideo: true,
-            trailerVideoId: null,
-            videoOptions: {
-                controls: false,
-                modestbranding: false,
-                loop: true,
-                autoplay: true
-            }
+            showControls: false,
+            videoKey: null
+        }
+    },
+    computed: {
+        videoUrl() {
+            return `https://www.youtube.com/embed/${this.videoKey}?autoplay=1&mute=1`
         }
     },
 
@@ -83,7 +86,7 @@ export default defineComponent({
                 };
                 const response = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}/videos`, options)
                 if(response.results && response.results.length > 0) {
-                    this.trailerVideoId = response.data.results[0].key
+                    this.videoKey = response.data.results[0]?.key
                 }
                 console.log(response.data.results);
             }
@@ -98,10 +101,22 @@ export default defineComponent({
 
 <style scoped>
 
-.youtube-video {
+.video-container {
+    position: relative;
     width: 100%;
-    height: 0;
     padding-bottom: 56.25%;
+    overflow: hidden;
 }
 
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+
+.video-container:hover iframe {
+    pointer-events: auto;
+}
 </style>

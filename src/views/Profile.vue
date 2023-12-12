@@ -38,7 +38,7 @@
                 </li>
 
             </ul>
-
+<!-- 
             <div class="overview md:p-0 py-5cd admincd fade my-8" v-show="activeTab === 1" key="1">
 
 
@@ -54,7 +54,7 @@
             <div class="overview md:p-0 py-5cd admincd fade my-6" v-show="activeTab === 3" v-if="movie" key="2">
 
 
-            </div>
+            </div> -->
 
 
 
