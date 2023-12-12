@@ -16,7 +16,7 @@
         </div>
 
 
-        <main class="info my-10 md:mx-20 mx-2">
+        <div class="info my-10 md:mx-20 mx-2">
 
 
             <ul class="text-sm font-medium text-center text-gray-500 rounded-lg  flex  dark:text-gray-400">
@@ -39,17 +39,9 @@
 
             </ul>
 
-            <div class="overview md:p-0 py-5cd admincd fade my-8" v-show="activeTab === 1"  key="1">
+            <div class="overview md:p-0 py-5cd admincd fade my-8" v-show="activeTab === 1" v-if="movieCollection"  key="1">
 
-                <a href="#"
-                v-for="movie in movieCollection" :key="movie.id"
-                    class="my-2 flex items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-                   <MovieCardVue :movie="movie"/>
-                    <div class="flex flex-col justify-between p-4 leading-normal">
-                        <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white">{{ movie.title }}</h5>
-                        <p class="mb-3 text-sm font-normal text-gray-700 dark:text-gray-400 line-clamp-2">{{movie.overview}}</p>
-                    </div>
-                </a>
+               
 
             </div>
 
@@ -64,7 +56,18 @@
 
             </div>
 
-        </main>
+            <a href="#"
+                v-for="movie in movieCollection" :key="movie.id"
+                    class="my-2 flex items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+                   <MovieCardVue :movie="movie"/>
+                    <div class="flex flex-col justify-between p-4 leading-normal">
+                        <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white">{{ movie.title }}</h5>
+                        <p class="mb-3 text-sm font-normal text-gray-700 dark:text-gray-400 line-clamp-2">{{movie.overview}}</p>
+                    </div>
+                </a>
+              
+
+            </div>
 
     </main>
 </template>
@@ -94,10 +97,7 @@ export default {
 
     mounted() {
         this.fetchUserMovieIds()
-        // Set up a timer to fetch movie data every 5 minutes (adjust as needed)
-        setInterval(() => {
-            this.fetchUserMovieIds();
-        }, 5 * 60 * 1000); // 5 minutes in milliseconds
+      
     },
 
     methods: {
