@@ -108,7 +108,7 @@
                                 </button>
                             </div>
                             <div class="text-sm text-center font-medium text-gray-500 dark:text-gray-300">
-                                Already have an account?<a href="#" class="text-red-700 font-semibold hover:underline dark:text-blue-500"> Sign In</a>
+                                Already have an account?<a href="#" class="text-red-700 font-semibold hover:underline dark:text-blue-500"> <router-link to="/signin"> Sign In </router-link></a>
                             </div>
                         </form>
                     </div>
