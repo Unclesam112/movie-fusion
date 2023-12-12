@@ -67,7 +67,7 @@
             <!-- <MovieCardVue :movie="movie"/> -->
             <img :src="getImageUrl(movie.poster_path)" :alt="movie.title" class="w-20 card-image rounded md:rounded-md" />
             <div class="flex flex-col justify-between p-4 pt-2 leading-normal">
-                <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white truncate w-62">{{ movie.title }}
+                <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white truncate w-28">{{ movie.title }}
                 </h5>
                 <p class="mb-3 text-sm font-normal text-gray-700 dark:text-gray-400 line-clamp-2">{{ movie.overview }}</p>
             </div>
