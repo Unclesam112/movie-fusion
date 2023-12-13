@@ -17,7 +17,8 @@
             </div>
             <button data-tooltip-target="tooltip-wallet" type="button"
                 class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
-                <Icon icon="fluent:movies-and-tv-16-filled"  class="text-gray-500 w-5 h-5 "/>
+                <router-link to="/movies"> <Icon icon="fluent:movies-and-tv-16-filled"  class="text-gray-500 w-5 h-5 "/></router-link>
+               
                 <span class="sr-only">Movies</span>
             </button>
             <div id="tooltip-wallet" role="tooltip"
@@ -43,7 +44,8 @@
             </div>
             <button data-tooltip-target="tooltip-settings" type="button"
                 class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
-                <Icon icon="solar:heart-bold" class="text-gray-500 w-5 h-5 "/>
+                <router-link to="/favourites"> <Icon icon="solar:heart-bold" class="text-gray-500 w-5 h-5 "/></router-link>
+               
                 <span class="sr-only">Favourite</span>
             </button>
             <div id="tooltip-settings" role="tooltip"

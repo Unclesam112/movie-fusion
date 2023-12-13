@@ -11,6 +11,8 @@ import unverifyEmail from '../views/AuthPage/unverifiedEmail.vue'
 import movieCollection from '../views/MovieCollections.vue'
 import profile from '../views/Profile.vue'
 import VideoPlayer from '../components/VideoPlayer.vue'
+import AllMovies from '../views/AllMovies.vue'
+import Fave from '../views/favourite.vue'
 
 import { auth } from '../firebase'
 
@@ -87,6 +89,18 @@ const router = createRouter({
       path: '/unverified-email',
       name: 'unverify-email',
       component: unverifyEmail
+    },
+
+    {
+      path: '/movies',
+      name: 'allMovies',
+      component: AllMovies
+    },
+
+      {
+      path: '/favourites',
+      name: 'favourites',
+      component: Fave
     },
 
     {
