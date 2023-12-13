@@ -12,7 +12,7 @@ import movieCollection from '../views/MovieCollections.vue'
 import profile from '../views/Profile.vue'
 import VideoPlayer from '../components/VideoPlayer.vue'
 import AllMovies from '../views/AllMovies.vue'
-import Fave from '../views/avourite.vue'
+import Fave from '../views/Favourite.vue'
 
 import { auth } from '../firebase'
 
