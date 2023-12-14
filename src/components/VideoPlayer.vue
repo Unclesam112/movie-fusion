@@ -9,8 +9,8 @@
      ref="youtube" 
      class="youtube-video"/> -->
 
-     <main class="video-container" @mouseover="showControls = true" @mouseout="showControls = false">
-        <iframe :src="VideoUrl" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+     <main class="video-container" @mouseover="showControls = true" @mouseout="showControls = false" v-if="video">
+        <iframe :src="getVideoUrl(video[0].key)" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
      </main>
 </template>
 
@@ -18,6 +18,8 @@
 import axios from 'axios'
 import { defineComponent } from 'vue'
 import YouTube from 'vue3-youtube'
+import API_ENDPOINTS from '../utils/ApiRoutes'
+
 
 
 export default defineComponent({
@@ -26,13 +28,11 @@ export default defineComponent({
     data() {
         return {
             showControls: false,
-            videoKey: null
+            video: null
         }
     },
     computed: {
-        videoUrl() {
-            return `https://www.youtube.com/embed/${this.videoKey}?autoplay=1&mute=1`
-        }
+    
     },
 
     mounted() {
@@ -40,13 +40,6 @@ export default defineComponent({
     },
 
     methods: {
-        onReady() {
-            this.$refs.youtube.playVideo()
-        },
-        handlePause() {
-            this.showVideo = false;
-        },
-
         async fetchMovieDetails(id) {
             const movieId = this.$route.params.id
             const options = {
@@ -85,15 +78,17 @@ export default defineComponent({
                     }
                 };
                 const response = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}/videos`, options)
-                if(response.results && response.results.length > 0) {
-                    this.videoKey = response.data.results[0]?.key
-                }
-                console.log(response.data.results);
+                this.video = response.data.results
+                console.log("video key:", response.data.results);
             }
 
             catch (error) {
                 console.log('Error fetching movie', error);
             }
+        },
+
+        getVideoUrl(key) {
+            return `https://www.youtube.com/embed/${key}?autoplay=1&mute=1`
         },
     },
 })
@@ -104,6 +99,7 @@ export default defineComponent({
 .video-container {
     position: relative;
     width: 100%;
+    height: 0;
     padding-bottom: 56.25%;
     overflow: hidden;
 }

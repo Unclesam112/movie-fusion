@@ -118,7 +118,7 @@
             <h1 class="text-3xl font-bold">Overview</h1>
 
             <h1 class="text-xl mt-8 my-4 font-bold">{{ movie.tagline }}</h1>
-            <p class="text-xl pb-5 text-gray-700">{{ movie.overview }}</p>
+            <p class="text-lg pb-5 text-gray-700">{{ movie.overview }}</p>
             <div class="date text-gray-700 mb-6">
                 <span class="font-semibold text-gray-900">Release Date:</span> {{ formatReleaseDate(movie.release_date) }}
             </div>
@@ -405,7 +405,7 @@ export default defineComponent({
                 };
                 const response = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}/videos`, options)
                 this.videos = response.data.results
-                console.log(response.data.results);
+                console.log("video key:", response.data.results);
             }
 
             catch (error) {

@@ -23,7 +23,7 @@
         </div>
 
 
-        
+
 
 
 
@@ -37,16 +37,24 @@
                         <transition name="fade" mode="out-in">
                             <div :key="currentMovie.id" class="sm:grid sm:grid-cols md:grid-cols-2 md:px-20 md:py-5 p-5">
                                 <div class="col mt-28 absolute bottom-8">
-                                    <h1 class="title text-left text-2xl text-white w-64 truncate"> <router-link :to="`/movie/${movie.id}`"> {{ movie.title }}</router-link></h1>
+                                    <h1 class="title text-left text-2xl text-white w-64 truncate"> <router-link
+                                            :to="`/movie/${movie.id}`"> {{ movie.title }}</router-link></h1>
                                     <p class="text-xs text-left text-gray-300 font-medium">Action, Thriller, Drama</p>
 
                                     <div class="text-left mt-2">
 
-                                        <button type="button"
+                                        <router-link :to="`/movie/details/${movie.id}`" type="button"
                                             class="px-3 py-1 text-xs font-medium text-center inline-flex items-center text-gray-900 bg-white rounded hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                             <Icon icon="solar:play-bold" class="mr-2" />
                                             Play
-                                        </button>
+                                        </router-link>
+
+                                        <router-link :to="`/movie/details/${movie.id}`" type="button"
+                                            class="px-3 mx-2 py-1 text-xs font-medium text-center bg-gray-10 inline-flex items-center text-gray-900 rounded">
+                                            <Icon icon="teenyicons:add-outline" class="mr-2" />
+                                            My List
+                                        </router-link>
+
 
                                         <!-- <button type="button"
                                             class="mx-5 w-8 h-8 mr-2 my-0 mb-2 text-sm font-medium text-gray-900 focus:outline-none rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
@@ -107,7 +115,7 @@
                         placeholder="Search Movie" required>
                     <button type="submit"
                         class="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white  rounded-e-lg border-l border-gray-300 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        <Icon icon="mingcute:search-line" color="black"/>
+                        <Icon icon="mingcute:search-line" color="black" />
                         <span class="sr-only">Search</span>
                     </button>
                 </div>
@@ -245,12 +253,14 @@ export default defineComponent({
 });
 </script>
   
-<style scoped>.nav {
+<style scoped>
+.nav {
     display: relative;
     z-index: 2;
 }
 
 .overlay {
     background: rgba(0, 0, 0, 0.4);
-}</style>
+}
+</style>
   
