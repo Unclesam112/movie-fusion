@@ -8,6 +8,7 @@ import recoverPassword from '../views/AuthPage/recoverPassword.vue'
 import castDetails from '../views/CastDetails.vue'
 import verifyEmail from '../views/AuthPage/verifyEmail.vue'
 import unverifyEmail from '../views/AuthPage/unverifiedEmail.vue'
+import welcome from '../views/AuthPage/welcomePage.vue'
 import movieCollection from '../views/MovieCollections.vue'
 import profile from '../views/Profile.vue'
 import VideoPlayer from '../components/VideoPlayer.vue'
@@ -92,6 +93,12 @@ const router = createRouter({
     },
 
     {
+      path: '/welcome',
+      name: 'welcome',
+      component: welcome
+    },
+
+    {
       path: '/movies',
       name: 'allMovies',
       component: AllMovies
@@ -128,7 +135,7 @@ router.beforeEach((to, from, next) => {
         }
       } else {
         // User is not authenticated, redirect to login
-        next({ path: "/signin" });
+        next({ path: "/welcome" });
       }
     });
   } else {
