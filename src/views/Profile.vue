@@ -1,6 +1,6 @@
 <template>
     <main>
-        <div class="navbar">
+        <div class="navbar hidden sm:block">
             <navbarVue class="" />
         </div>
 
@@ -11,11 +11,13 @@
 
         <div class="profile-image mt-4">
             <div class="flex justify-center">
-                <img src="../assets/img/bg-1.jpg" class="w-28 h-28 rounded-full object-cover border border-2-gray-500"
-                    alt="">
+                <!-- <img src="../assets/img/bg-1.jpg" 
+                    alt=""> -->
+
+                    <Icon icon="carbon:user-avatar-filled" color="red" class="w-28 h-28 rounded-full object-cover border border-2-gray-500"/>
             </div>
-            <div class="user-name text-center">
-                <h1 class="text-2xl">Uncle-D</h1>
+            <div class="user-name text-center" v-if="userInfo">
+                <h1 class="text-2xl">{{ userInfo.username }}</h1>
             </div>
         </div>
 
@@ -102,6 +104,7 @@ export default {
             movieCollection: [],
             currentMovie: {},
             activeTab: 1,
+            userInfo: []
         }
     },
 
@@ -121,44 +124,7 @@ export default {
             return path ? `https://image.tmdb.org/t/p/w1280${path}` : 'https://via.placeholder.com/500';
         },
 
-        formatReleaseDate(dateString) {
-            try {
-                const date = new Date(dateString);
-                const options = { day: 'numeric', month: 'long', year: 'numeric' };
-                const formattedDate = date.toLocaleDateString(undefined, options);
-                return formattedDate.replace(/(\d+)([a-z]+)/i, (_, day, month) => `${this.addSuffix(day)} ${month}`);
-            } catch (error) {
-                console.error('Error formatting release date:', error);
-                return 'Invalid Date';
-            }
-        },
-        addSuffix(day) {
-            if (day >= 11 && day <= 13) {
-                return `${day}th`;
-            }
-            switch (day % 10) {
-                case 1: return `${day}st`;
-                case 2: return `${day}nd`;
-                case 3: return `${day}rd`;
-                default: return `${day}th`;
-            }
-        },
 
-        formatRuntime(minutes) {
-            const hours = Math.floor(minutes / 60);
-            const remainingMinutes = minutes % 60;
-            return `${hours}h ${remainingMinutes}m`;
-        },
-
-
-        formatRating(rating) {
-            if (rating !== null && !isNaN(rating)) {
-                const formattedRating = (rating).toFixed(1); // Format to one decimal place
-                return `${formattedRating}/10`;
-            } else {
-                return 'N/A'; // or any other default value for cases where the rating is not available or not a valid number
-            }
-        },
 
         async fetchUserMovieIds() {
             try {
@@ -168,6 +134,8 @@ export default {
                     const querySnapshot = await getDocs(collection(db, 'Users'));
 
                     const userData = querySnapshot.docs.find(doc => doc.data().email === currentUser.email)?.data();
+                    this.userInfo = userData;
+                    console.log('user', userData);
 
                     if (userData) {
                         const movieIds = userData.movieCollection || [];
