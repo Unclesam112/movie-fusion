@@ -105,7 +105,7 @@ export default {
         }
     },
 
-    components: { navbarVue, MovieCardVue, Icon, bottomNavVue },
+    components: { navbarVue, MovieCardVue, Icon, bottomNavVue, previousNavVue },
 
     mounted() {
         this.fetchUserMovieIds()

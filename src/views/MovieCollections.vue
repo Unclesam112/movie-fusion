@@ -1,6 +1,6 @@
 <template>
     <main>
-        <div class="navbar">
+        <div class="navbar hidden sm:block">
             <navbarVue class="bg-black text-white" />
         </div>
 

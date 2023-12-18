@@ -1,7 +1,7 @@
 <template>
     <main>
 
-        <div class="navbar">
+        <div class="navbar hidden sm:block">
             <navbarVue class="bg-gray-900 text-white" />
         </div>
 
