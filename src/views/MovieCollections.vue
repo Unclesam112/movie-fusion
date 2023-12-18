@@ -4,6 +4,10 @@
             <navbarVue class="bg-black text-white" />
         </div>
 
+        <div class="previous">
+            <previousNavVue />
+        </div>
+
 
         <div class="relative w-full h-screen" v-if="movieCollection.length">
             <img :src="getBackgroundImageUrl(movieCollection[0].backdrop_path)" alt="Background Image"
@@ -86,6 +90,7 @@ import API_ENDPOINTS from '../utils/ApiRoutes';
 import navbarVue from '../components/layout/navbar.vue';
 import MovieCardVue from '../components/MovieCard.vue';
 import { Icon } from '@iconify/vue';
+import previousNavVue from '../components/layout/smallDevice-layout/previousNav.vue';
 
 
 
@@ -97,7 +102,7 @@ export default {
         }
     },
 
-    components: { navbarVue, MovieCardVue, Icon},
+    components: { navbarVue, MovieCardVue, Icon, previousNavVue},
 
     mounted() {
         this.fetchUserMovieIds()

@@ -3,6 +3,10 @@
         <navbarVue class="" />
     </div>
 
+    <div class="previousNav">
+            <previousNavVue />
+        </div>
+
     <!-- <div class="p-5 py-5 btn">
         <button type="button"
             class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-gray-900 border border-2-gray-900 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -129,10 +133,10 @@ import { Carousel, Navigation, Slide } from 'vue3-carousel'
 import 'vue3-carousel/dist/carousel.css'
 import breadcrumbVue from '../components/layout/breadcrumb.vue';
 import { Icon } from '@iconify/vue';
-
+import previousNavVue from '../components/layout/smallDevice-layout/previousNav.vue'
 
 export default defineComponent({
-    components: { navbarVue, MovieCard, Carousel, Slide, Navigation, breadcrumbVue, Icon, BottomNav },
+    components: { navbarVue, MovieCard, Carousel, Slide, Navigation, breadcrumbVue, Icon, BottomNav, previousNavVue },
 
     data() {
         return {

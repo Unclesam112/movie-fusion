@@ -5,6 +5,11 @@
             <navbarVue class="bg-gray-900 text-white" />
         </div>
 
+        <div class="previousNav">
+            <previousNavVue />
+        </div>
+        
+
         <div class="my-8  breadcrumb px-5">
             <breadcrumbVue />
         </div>
@@ -62,11 +67,11 @@ import { defineComponent } from 'vue'
 import { Carousel, Navigation, Slide } from 'vue3-carousel'
 import 'vue3-carousel/dist/carousel.css'
 import MovieCardVue from '../components/MovieCard.vue'
-
+import previousNavVue from '../components/layout/smallDevice-layout/previousNav.vue'
 
 
 export default defineComponent({
-    components: { navbarVue, CastCard, footerVue, breadcrumbVue, Carousel, Navigation, Slide, MovieCardVue },
+    components: { navbarVue, CastCard, footerVue, breadcrumbVue, Carousel, Navigation, Slide, MovieCardVue, previousNavVue },
 
     data() {
         return {

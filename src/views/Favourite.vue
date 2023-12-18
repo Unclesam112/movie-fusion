@@ -3,6 +3,10 @@
         <navbarVue class="" />
     </div>
 
+    <div class="previousNav">
+            <previousNavVue />
+        </div>
+
     <main class="px-5">
         <div class="genre mt-5">
             <h1 class="text-left text-gray-900 text-2xl">Favourites</h1>
@@ -81,10 +85,11 @@ import { Carousel, Navigation, Slide } from 'vue3-carousel'
 import 'vue3-carousel/dist/carousel.css'
 import breadcrumbVue from '../components/layout/breadcrumb.vue';
 import { Icon } from '@iconify/vue';
+import previousNavVue from '../components/layout/smallDevice-layout/previousNav.vue'
 
 
 export default defineComponent({
-    components: { navbarVue, MovieCard, Carousel, Slide, Navigation, breadcrumbVue, Icon, BottomNav },
+    components: { navbarVue, MovieCard, Carousel, Slide, Navigation, breadcrumbVue, Icon, BottomNav, previousNavVue  },
 
     data() {
         return {

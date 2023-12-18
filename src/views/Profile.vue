@@ -4,6 +4,10 @@
             <navbarVue class="" />
         </div>
 
+        <div class="previousnav">
+            <previousNavVue />
+        </div>
+
 
         <div class="profile-image mt-4">
             <div class="flex justify-center">
@@ -73,6 +77,10 @@
             </div>
         </div>
 
+
+        <div class="bottomnav">
+            <bottomNavVue />
+        </div>
     </main>
 </template>
 
@@ -82,8 +90,11 @@ import { auth, db } from '@/firebase';
 import axios from 'axios';
 import API_ENDPOINTS from '../utils/ApiRoutes';
 import navbarVue from '../components/layout/navbar.vue';
+
 import MovieCardVue from '../components/MovieCard.vue';
 import { Icon } from '@iconify/vue';
+import bottomNavVue from '../components/layout/bottomNav.vue';
+import previousNavVue from '../components/layout/smallDevice-layout/previousNav.vue';
 
 export default {
     data() {
@@ -94,7 +105,7 @@ export default {
         }
     },
 
-    components: { navbarVue, MovieCardVue, Icon },
+    components: { navbarVue, MovieCardVue, Icon, bottomNavVue },
 
     mounted() {
         this.fetchUserMovieIds()
