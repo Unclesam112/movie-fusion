@@ -1,7 +1,11 @@
 <template>
     <main>
-        <div class="navbar">
+        <div class="navbar hidden sm:block">
             <navbarVue class="bg-gray-900 text-white" />
+        </div>
+
+        <div class="previousNav">
+            <previousNavVue />
         </div>
     </main>
 
@@ -86,7 +90,7 @@
         </div>
     </main>
 
-    <div class="video-player">
+    <div class="video-player sm:hidden">
         <VideoPlayerVue />
     </div>
 
@@ -94,12 +98,12 @@
 
 
         <ul
-            class="text-sm font-medium text-center text-gray-500 rounded-lg shadow flex dark:divide-gray-700 dark:text-gray-400">
+            class="text-sm font-medium text-center text-gray-500 rounded-lg  flex dark:divide-gray-700 dark:text-gray-400">
             <li class="w-full">
                 <a href="#" @click.prevent="activeTab = 1"
-                    :class="{ 'bg-red-700': activeTab === 1, 'text-white': activeTab === 1, 'bg-gray-300': activeTab !== 1, 'text-gray-700': activeTab !== 1, 'transition': true }"
-                    class="fade inline-block w-full p-4 text-gray-900 bg-gray-100 border-r border-gray-200 dark:border-gray-700 rounded-s-lg focus:ring-4 focus:ring-blue-300 active focus:outline-none dark:bg-gray-700 dark:text-white"
-                    aria-current="page">Description</a>
+                    :class="{ 'bg-red-0': activeTab === 1, 'text-gray-700': activeTab === 1, 'bg-gray-300': activeTab !== 1, 'text-gray-700': activeTab !== 1, 'transition': true }"
+                    class="fade inline-block w-full p-4 text-gray-900 border-r border-gray-200 dark:border-gray-700 rounded-s-lg focus:ring-4 focus:ring-blue-300 active focus:outline-none dark:bg-gray-700 dark:text-white"
+                    aria-current="page">Overview</a>
             </li>
             <li class="w-full">
                 <a href="#" @click.prevent="activeTab = 2"
@@ -109,31 +113,31 @@
             <li class="w-full">
                 <a href="#" @click.prevent="activeTab = 3"
                     :class="{ 'bg-red-700': activeTab === 3, 'text-white': activeTab === 3, 'bg-gray-300': activeTab !== 3, 'text-gray-700': activeTab !== 3, 'transition': true }"
-                    class="fade inline-block w-full p-4 bg-white border-r border-gray-200 dark:border-gray-700 hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700">More</a>
+                    class="fade inline-block w-full p-4 bg-white  dark:border-gray-700 hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700">More</a>
             </li>
 
         </ul>
 
         <div class="overview md:p-0 py-5cd admincd fade my-8" v-show="activeTab === 1" v-if="movie" key="1">
-            <h1 class="text-3xl font-bold">Overview</h1>
-
-            <h1 class="text-xl mt-8 my-4 font-bold">{{ movie.tagline }}</h1>
-            <p class="text-lg pb-5 text-gray-700">{{ movie.overview }}</p>
-            <div class="date text-gray-700 mb-6">
-                <span class="font-semibold text-gray-900">Release Date:</span> {{ formatReleaseDate(movie.release_date) }}
+            <h1 class="text-3xl font-bold mb-4">{{ movie.title }}</h1>
+            <p class="text-sm pb-5 text-gray-700">{{ movie.overview }}</p>
+            <div class="date flex space-around text-xs text-gray-700 mb-6">
+                <Icon icon="ic:baseline-18-up-rating" width="25" color="red" /> <span class="mx-2 mt-1">{{ formatReleaseDate(movie.release_date) }}</span> <span class="mt-1">{{ formattedRuntime }}</span> 
             </div>
 
-            <div class="date text-gray-700 mb-6">
+            <MovieRatingVue />
+
+            <!-- <div class="date text-gray-700 mb-6">
                 <span class="font-semibold text-gray-900">Budget:</span> ${{ movie.budget }}
             </div>
 
 
             <div class="date text-gray-700">
                 <span class="font-semibold text-gray-900">Revenue:</span> ${{ movie.revenue }}
-            </div>
+            </div> -->
 
             <div class="button flex gap-4 my-6">
-                <button data-tooltip-target="tooltip-default" type="button" class="btn bg-gray-900 rounded-full p-4">
+                <button data-tooltip-target="tooltip-default" type="button" class="btn bg-red-700 rounded-full p-4">
                     <Icon icon="ph:heart-fill" color="white" />
                 </button>
                 <div id="tooltip-default" role="tooltip"
@@ -142,11 +146,11 @@
                     <div class="tooltip-arrow" data-popper-arrow></div>
                 </div>
 
-                <button class="btn bg-gray-900 rounded-full p-4">
+                <button class="btn bg-red-700 rounded-full p-4">
                     <Icon icon="icon-park-solid:tag" color="white" />
                 </button>
 
-                <button class="btn bg-gray-900 rounded-full p-4">
+                <button class="btn bg-red-700 rounded-full p-4">
                     <Icon icon="ph:star-fill" color="white" />
                 </button>
 
@@ -213,11 +217,11 @@
             </div>
         </div>
 
-        <div class="top-picks mt-10">
+        <div class="top-picks mt-10 mb-20">
             <h1 class="text-lg md:text-2xl mb-2">Related Movies</h1>
             <Carousel :items-to-show="carouselItemsToShow" :wrap-around="true">
                 <Slide v-for="movie in relatedMovies" :key="movie.id">
-                    <div class="carousel__item m-0 md:m-5">
+                    <div class="carousel__item m-2 md:m-5">
                         <MovieCard :movie="movie" />
                     </div>
                 </Slide>
@@ -233,6 +237,7 @@
 </template>
 
 <script>
+
 import BottomNav from '../components/layout/bottomNav.vue'
 import axios from 'axios'
 import navbarVue from '../components/layout/navbar.vue'
@@ -247,11 +252,14 @@ import { scrollToTop } from '../utils/scrollToTop.js'
 import CastCard from '../components/CastCard.vue'
 import { Icon } from '@iconify/vue';
 import VideoPlayerVue from '../components/VideoPlayer.vue'
+import MovieRatingVue from '../components/MovieRating.vue'
+import previousNavVue from '../components/layout/smallDevice-layout/previousNav.vue'
+
 
 
 
 export default defineComponent({
-    components: { navbarVue, MovieCard, Carousel, Slide, Navigation, BottomNav, GenreButton, VideoPlayerVue, CastCard, Icon },
+    components: { navbarVue, MovieCard, Carousel, Slide, Navigation, BottomNav, GenreButton, VideoPlayerVue, CastCard, Icon, MovieRatingVue, previousNavVue },
     data() {
         return {
             movie: {},
