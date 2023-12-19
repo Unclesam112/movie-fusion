@@ -125,36 +125,14 @@
                 <Icon icon="ic:baseline-18-up-rating" width="25" color="red" /> <span class="mx-2 mt-1">{{ formatReleaseDate(movie.release_date) }}</span> <span class="mt-1">{{ formattedRuntime }}</span> 
             </div>
 
-            <MovieRatingVue />
-
-            <!-- <div class="date text-gray-700 mb-6">
-                <span class="font-semibold text-gray-900">Budget:</span> ${{ movie.budget }}
+            <div class="ratings">
+                <MovieRatingVue />
             </div>
 
 
-            <div class="date text-gray-700">
-                <span class="font-semibold text-gray-900">Revenue:</span> ${{ movie.revenue }}
-            </div> -->
-
-            <div class="button flex gap-4 my-6">
-                <button data-tooltip-target="tooltip-default" type="button" class="btn bg-red-700 rounded-full p-4">
-                    <Icon icon="ph:heart-fill" color="white" />
-                </button>
-                <div id="tooltip-default" role="tooltip"
-                    class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                    Tooltip content
-                    <div class="tooltip-arrow" data-popper-arrow></div>
-                </div>
-
-                <button class="btn bg-red-700 rounded-full p-4">
-                    <Icon icon="icon-park-solid:tag" color="white" />
-                </button>
-
-                <button class="btn bg-red-700 rounded-full p-4">
-                    <Icon icon="ph:star-fill" color="white" />
-                </button>
-
-            </div>
+           <div class="movie-buttons">
+                <movieButtonsVue :movie="movie" />
+           </div>
 
             <hr class="my-10" />
             <div class="genre">
@@ -162,7 +140,7 @@
 
                 <div class="flex flex-wrap gap-4 my-4 ">
                     <span v-for="genre in movie.genres" :key="genre.id" class=" ">
-                        <GenreButton :genre="genre" class="my-2" />
+                        <GenreButton :genre="genre" class="" />
                     </span>
                 </div>
 
@@ -254,12 +232,12 @@ import { Icon } from '@iconify/vue';
 import VideoPlayerVue from '../components/VideoPlayer.vue'
 import MovieRatingVue from '../components/MovieRating.vue'
 import previousNavVue from '../components/layout/smallDevice-layout/previousNav.vue'
-
+import movieButtonsVue from '../components/movieButtons.vue'
 
 
 
 export default defineComponent({
-    components: { navbarVue, MovieCard, Carousel, Slide, Navigation, BottomNav, GenreButton, VideoPlayerVue, CastCard, Icon, MovieRatingVue, previousNavVue },
+    components: { navbarVue, MovieCard, Carousel, Slide, Navigation, BottomNav, GenreButton, VideoPlayerVue, CastCard, Icon, MovieRatingVue, previousNavVue, movieButtonsVue },
     data() {
         return {
             movie: {},
