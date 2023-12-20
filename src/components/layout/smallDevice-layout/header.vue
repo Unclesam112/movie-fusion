@@ -27,11 +27,11 @@
 
 
 
-        <Carousel :items-to-show="1" :wrap-around="true" class="p-5">
+        <Carousel :items-to-show="1" :wrap-around="true" class="p-2 h-50">
             <Slide v-for="movie in currentMovie" :key="movie.id">
-                <div class="relative w-full h-full p-2">
+                <div class="relative w-full h-50 p-2">
                     <img :src="getBackgroundImageUrl(movie.backdrop_path)" alt="Background Image"
-                        class="w-full rounded-lg h-full object-cover backdrop-image" />
+                        class="w-full rounded-lg h-50 object-cover backdrop-image" />
                     <div class="absolute rounded-lg inset-2 overlay">
 
                         <transition name="fade" mode="out-in">
@@ -258,6 +258,18 @@ export default defineComponent({
 .nav {
     display: relative;
     z-index: 2;
+}
+
+.carousel__slide {
+  scroll-snap-stop: auto;
+  flex-shrink: 0;
+  margin: 0;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translateZ(0);
+  height: 200px;
 }
 
 .overlay {
