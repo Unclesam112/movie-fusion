@@ -9,7 +9,8 @@
      ref="youtube" 
      class="youtube-video"/> -->
 
-     <main class="video-container" @mouseover="showControls = true" @mouseout="showControls = false" v-if="video">
+     <main class="video-container relative mt-20" @mouseover="showControls = true" @mouseout="showControls = false" v-if="video" 
+      style="height: 0; padding-bottom: 56.25%; overflow: hidden; z-index: 1;">
         <iframe :src="getVideoUrl(video[0].key)" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
      </main>
 </template>
@@ -96,20 +97,23 @@ export default defineComponent({
 
 <style scoped>
 
-.video-container {
+/* .video-container {
     position: relative;
     width: 100%;
     height: 0;
     padding-bottom: 56.25%;
     overflow: hidden;
-}
+} */
 
 .video-container iframe {
-    position: absolute;
+    /* position: absolute;
+    margin-top: 80px;
     top: 0;
-    left: 0;
+    left: 0; */
+    position: absolute;
+    inset: 0;
     width: 100%;
-    height: 100%
+    height: 100%;
 }
 
 .video-container:hover iframe {

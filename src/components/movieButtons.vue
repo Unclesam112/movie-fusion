@@ -22,7 +22,7 @@
 
 <script>
 import { Icon } from '@iconify/vue'
-import { collection, addDoc, updateDoc, getDocs, doc, Timestamp } from 'firebase/firestore';
+import { collection, addDoc, query, where, updateDoc, getDocs, doc, Timestamp } from 'firebase/firestore';
 import { auth, db } from '@/firebase';
 import { toast } from 'vue3-toastify';
 
@@ -80,37 +80,32 @@ export default {
 
         async addMovieToCollection(movieId) {
             try {
-                // Get the current user from Firebase authentication
                 const currentUser = auth.currentUser;
-
                 if (currentUser) {
-                    try {
-                        const querySnapshot = await getDocs(collection(db, 'Users'));
-                        querySnapshot.forEach(async (doc) => {
-                            const userData = doc.data();
-                            console.log(userData);
-                            if (userData.email === currentUser.email) {
-                                // Found the user with the matching email
-                                const currentMovieCollection = userData.movieCollection || [];
-                                const updatedMovieCollection = [...currentMovieCollection, { movieId }];
-                                // Update the user document in Firestore
+                    // Query for the user with the matching email
+                    const userQuery = query(collection(db, 'Users'), where('email', '==', currentUser.email));
+                    const querySnapshot = await getDocs(userQuery);
 
-                                await updateDoc(doc.ref, {
-                                        movieCollection: updatedMovieCollection,
-                                    });
+                    if (!querySnapshot.empty) {
+                        // Found the user with the matching email
+                        const userData = querySnapshot.docs[0].data();
+                        const currentMovieCollection = userData.movieCollection || [];
+                        const updatedMovieCollection = [...currentMovieCollection, { movieId }];
 
-                            } else {
-                                console.log('Error: User document not found');
-                            }
-                        });
-                    } catch (error) {
-                        console.error('Error fetching user profile:', error);
+                        // Update the user document in Firestore
+                        const userDocRef = doc(db, 'Users', querySnapshot.docs[0].id);
+                        await updateDoc(userDocRef, { movieCollection: updatedMovieCollection });
+
+                        toast.success('Movie added to collection')
+                        console.log('Movie added to collection successfully.');
+                    } else {
+                        console.log('Error: User document not found');
                     }
                 }
             } catch (error) {
                 console.error('Error adding movie to collection:', error);
             }
-        },
+        }
 
     }
 }
