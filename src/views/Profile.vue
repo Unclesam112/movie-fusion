@@ -14,7 +14,8 @@
                 <!-- <img src="../assets/img/bg-1.jpg" 
                     alt=""> -->
 
-                    <Icon icon="carbon:user-avatar-filled" color="red" class="w-28 h-28 rounded-full object-cover border border-2-gray-500"/>
+                <Icon icon="carbon:user-avatar-filled"
+                    class="w-28 h-28 rounded-full object-cover border border-2-gray-500" />
             </div>
             <div class="user-name text-center" v-if="userInfo">
                 <h1 class="text-2xl">{{ userInfo.username }}</h1>
@@ -22,62 +23,34 @@
         </div>
 
 
-        <div class="info my-10 md:mx-20 mx-2">
+        <div class="tab mx-2 my-8">
+            <div class="flex justify-around">
+                <div class="collection grid text-center">
+                    <h1>0</h1>
+                    <p>Collections</p>
+                </div>
 
+                <div class="collection grid text-center">
+                    <h1>0</h1>
+                    <p>Favourites</p>
+                </div>
 
-            <ul class="text-sm font-medium text-center text-gray-500 rounded-lg  flex  dark:text-gray-400">
-                <li class="w-full">
-                    <a href="#" @click.prevent="activeTab = 1"
-                        :class="{ 'bg-red-0': activeTab === 1, 'text-gray-500': activeTab === 1, 'bg-gray-0': activeTab !== 1, 'text-gray-700': activeTab !== 1, 'transition': true }"
-                        class="fade inline-block w-full p-4 text-gray-900 bg-gray-0 border-r border-gray-200 dark:border-gray-700 rounded-s-lg focus:ring-4 focus:ring-blue-300 active focus:outline-none dark:bg-gray-700 dark:text-white"
-                        aria-current="page">Collections</a>
-                </li>
-                <li class="w-full">
-                    <a href="#" @click.prevent="activeTab = 2"
-                        :class="{ 'bg-red-700': activeTab === 2, 'text-white': activeTab === 2, 'bg-gray-300': activeTab !== 2, 'text-gray-700': activeTab !== 2, 'transition': true }"
-                        class="fade inline-block w-full p-4 bg-white border-r border-gray-200 dark:border-gray-700 hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700">Watched</a>
-                </li>
-                <li class="w-full">
-                    <a href="#" @click.prevent="activeTab = 3"
-                        :class="{ 'bg-red-700': activeTab === 3, 'text-white': activeTab === 3, 'bg-gray-300': activeTab !== 3, 'text-gray-700': activeTab !== 3, 'transition': true }"
-                        class="fade text-gray-700 inline-block w-full p-4 bg-white  border-gray-200 dark:border-gray-700 hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700">Profile</a>
-                </li>
-
-            </ul>
-<!-- 
-            <div class="overview md:p-0 py-5cd admincd fade my-8" v-show="activeTab === 1" key="1">
-
-
-
-            </div>
-
-
-
-            <div class="overview md:p-0 py-5cd admincd fade my-6" v-show="activeTab === 2" v-if="movie" key="2">
-
-            </div>
-
-            <div class="overview md:p-0 py-5cd admincd fade my-6" v-show="activeTab === 3" v-if="movie" key="2">
-
-
-            </div> -->
-
-
-
-
-        </div>
-
-
-        <div v-for="movie in movieCollection" :key="movie.id"
-            class=" mx-2 my-2 flex items-center bg-white rounded-lg  md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-            <!-- <MovieCardVue :movie="movie"/> -->
-            <img :src="getImageUrl(movie.poster_path)" :alt="movie.title" class="w-20 card-image rounded md:rounded-md" />
-            <div class="flex flex-col justify-between p-4 pt-2 leading-normal">
-                <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white truncate w-48">{{ movie.title }}
-                </h5>
-                <p class="mb-3 text-sm font-normal text-gray-700 dark:text-gray-400 line-clamp-2">{{ movie.overview }}</p>
+                <div class="collection grid text-center">
+                    <h1>0</h1>
+                    <p>MyList</p>
+                </div>
             </div>
         </div>
+
+
+
+        <ul
+            class="w-full text-lg font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <li class="w-full px-4 py-4 border-b border-gray-200 rounded-t-lg dark:border-gray-600">Profile</li>
+            <li class="w-full px-4 py-4 border-b border-gray-200 dark:border-gray-600">Settings</li>
+            <li class="w-full px-4 py-4 border-b border-gray-200 dark:border-gray-600">About</li>
+            <li class="w-full px-4 py-4 rounded-b-lg text-red-700">Logout</li>
+        </ul>
 
 
         <div class="bottomnav">
