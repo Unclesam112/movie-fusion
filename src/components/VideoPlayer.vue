@@ -9,7 +9,7 @@
      ref="youtube" 
      class="youtube-video"/> -->
 
-     <main class="video-container relative mt-20" @mouseover="showControls = true" @mouseout="showControls = false" v-if="video" 
+     <main class="video-container relative " @mouseover="showControls = true" @mouseout="showControls = false" v-if="video" 
       style="height: 0; padding-bottom: 56.25%; overflow: hidden; z-index: 1;">
         <iframe :src="getVideoUrl(video[0].key)" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
      </main>

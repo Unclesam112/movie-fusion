@@ -4,66 +4,71 @@
     </div>
 
     <div class="previousNav">
-            <previousNavVue />
-        </div>
+        <previousNavVue />
+    </div>
 
     <main class="px-5">
-        <div class="genre mt-5">
+        <div class="genre flex justify-between mt-5">
             <h1 class="text-left text-gray-900 text-2xl">Favourites</h1>
+            <Icon icon="ph:pencil" width="20" />
+        </div>
+
+        <div class="sort my-4 flex">
+            <h1 class="text-gray-500 text-sm ">Sort by</h1>
+
+            <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
+                class="my-0 text-black hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm mx-2 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                type="button">Suggested <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="none" viewBox="0 0 10 6">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m1 1 4 4 4-4" />
+                </svg>
+            </button>
+
+            <!-- Dropdown menu -->
+            <div id="dropdown"
+                class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                    <li>
+                        <a href="#"
+                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign
+                            out</a>
+                    </li>
+                </ul>
+            </div>
+
         </div>
 
 
-        <form>
-            <div class="flex  pt-4">
-                <!-- <label for="search-dropdown" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Your
-                    Email</label>
-                <button id="dropdown-button" data-dropdown-toggle="dropdown"
-                    class="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900  border-r border-gray-300 rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600"
-                    type="button">All genres <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="m1 1 4 4 4-4" />
-                    </svg></button>
-                <div id="dropdown"
-                    class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-button">
-                        <li>
-                            <button type="button"
-                                class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Mockups</button>
-                        </li>
-                        <li>
-                            <button type="button"
-                                class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Templates</button>
-                        </li>
-                        <li>
-                            <button type="button"
-                                class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Design</button>
-                        </li>
-                        <li>
-                            <button type="button"
-                                class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Logos</button>
-                        </li>
-                    </ul>
-                </div> -->
-                <div class="relative w-full">
-                    <input type="search" id="search-dropdown"
-                        class="block p-2.5 w-full z-20 text-sm text-gray-900 rounded-e-lg border-0 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
-                        placeholder="Search Movie" required>
-                    <button type="submit"
-                        class="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white  rounded-e-lg border-l border-gray-300 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        <Icon icon="mingcute:search-line" color="black" />
-                        <span class="sr-only">Search</span>
-                    </button>
-                </div>
-            </div>
-        </form>
 
 
-        <div class="top-picks mt-5">
-            <div class="grid grid-cols-4  md:grid-cols-6 gap-2">
-                <div class="col my-2" v-for="movie in movies" :key="movie.id">
-                    <MovieCard :movie="movie" />
-                </div>
+        <div v-for="movie in movies" :key="movie.id"
+            class=" my-2 flex items-center bg-white rounded-lg  md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+            <!-- <MovieCardVue :movie="movie"/> -->
+            <img :src="getImageUrl(movie.backdrop_path)" :alt="movie.title" class="w-28 card-image rounded md:rounded-md" />
+            <div class="flex flex-col justify-between pt-1.5 leading-normal">
+                <h5 class="mb-2 text-sm px-2 font-medium tracking-tight text-gray-900 dark:text-white truncate w-48">{{
+                    movie.title }}
+                </h5>
+                <router-link :to="`/movie/details/${movie.id}`" type="button"
+                    class="px-3 py-1 text-xs font-medium text-center inline-flex items-center text-gray-900 bg-white rounded hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    <Icon icon="solar:play-bold" class="mr-2" />
+                    Play
+                </router-link>
+
+                <!-- <p class="mb-3 text-sm font-normal text-gray-700 dark:text-gray-400 line-clamp-2">{{ movie.overview }}</p> -->
             </div>
         </div>
 
@@ -89,7 +94,7 @@ import previousNavVue from '../components/layout/smallDevice-layout/previousNav.
 
 
 export default defineComponent({
-    components: { navbarVue, MovieCard, Carousel, Slide, Navigation, breadcrumbVue, Icon, BottomNav, previousNavVue  },
+    components: { navbarVue, MovieCard, Carousel, Slide, Navigation, breadcrumbVue, Icon, BottomNav, previousNavVue },
 
     data() {
         return {
@@ -114,6 +119,15 @@ export default defineComponent({
         handleResize() {
             this.carouselItemsToShow = window.innerWidth >= 768 ? 5.5 : 2.5
         },
+
+        getImageUrl(path) {
+            return path ? `https://image.tmdb.org/t/p/w300${path}` : 'https://via.placeholder.com/500';
+        },
+
+        getBackgroundImageUrl(path) {
+            return path ? `https://image.tmdb.org/t/p/w1280${path}` : 'https://via.placeholder.com/500';
+        },
+
 
         async fetchGenre() {
             try {
