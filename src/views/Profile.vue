@@ -18,7 +18,11 @@
                     class="w-28 h-28 rounded-full object-cover border border-2-gray-500" />
             </div>
             <div class="user-name text-center" v-if="userInfo">
-                <h1 class="text-2xl">{{ userInfo.username }}</h1>
+                <h1 class="text-2xl my-2">{{ userInfo.username }}</h1>
+            </div>
+
+            <div class="edit flex justify-center">
+                <button class="bg-gray-700 px-3 text-white flex">Edit  <Icon icon="ph:pencil" class="mt-1 mx-1"/></button>
             </div>
         </div>
 
@@ -49,7 +53,7 @@
             <li class="w-full px-4 py-4 border-b border-gray-200 rounded-t-lg dark:border-gray-600">Profile</li>
             <li class="w-full px-4 py-4 border-b border-gray-200 dark:border-gray-600">Settings</li>
             <li class="w-full px-4 py-4 border-b border-gray-200 dark:border-gray-600">About</li>
-            <li class="w-full px-4 py-4 rounded-b-lg text-red-700">Logout</li>
+            <li class="w-full px-4 py-4 rounded-b-lg text-red-700" @click.prevent="logout">Logout</li>
         </ul>
 
 
@@ -61,6 +65,7 @@
 
 <script>
 import { collection, addDoc, updateDoc, getDocs, doc } from 'firebase/firestore';
+import {signOut} from 'firebase/auth'
 import { auth, db } from '@/firebase';
 import axios from 'axios';
 import API_ENDPOINTS from '../utils/ApiRoutes';
@@ -151,6 +156,17 @@ export default {
                 console.log(err);
             }
         },
+
+        async logout() {
+            try {
+                await signOut(auth);
+                this.$router.push('/welcome')
+            }
+
+            catch(e) {
+                console.error('Logout error');
+            }
+        }
 
     }
 }
