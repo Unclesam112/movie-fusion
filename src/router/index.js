@@ -14,6 +14,8 @@ import profile from '../views/Profile.vue'
 import VideoPlayer from '../components/VideoPlayer.vue'
 import AllMovies from '../views/AllMovies.vue'
 import Fave from '../views/Favourite.vue'
+import createCollection from '../views/CreateCollection.vue'
+
 
 import { auth } from '../firebase'
 
@@ -108,6 +110,12 @@ const router = createRouter({
       path: '/favourites',
       name: 'favourites',
       component: Fave
+    },
+
+    {
+      path: '/create-collection',
+      name: 'create-collection',
+      component: createCollection
     },
 
     {
