@@ -31,10 +31,10 @@
 
         <div class="tab mx-2 my-8">
             <div class="flex justify-around">
-                <div class="collection grid text-center">
+                <router-link to="/my-collections" class="collection grid text-center">
                     <h1 v-if="userCollections"> {{ userCollections.length }}</h1>
                     <p>Collections</p>
-                </div>
+                </router-link>
 
                 <div class="collection grid text-center">
                     <h1>0</h1>
@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import { collection, addDoc, updateDoc, getDocs, doc,  query, where, } from 'firebase/firestore';
+import { collection, addDoc, updateDoc, getDocs, doc, query, where, } from 'firebase/firestore';
 import { signOut } from 'firebase/auth'
 import { auth, db } from '@/firebase';
 import axios from 'axios';
@@ -93,9 +93,9 @@ export default {
 
     mounted() {
         this.fetchUserMovieIds(),
-        this.getCollections() 
+            this.getCollections()
     },
-    
+
     methods: {
 
         getImageUrl(path) {
@@ -164,6 +164,7 @@ export default {
         async getCollections() {
             try {
                 const currentUser = auth.currentUser;
+
                 if (currentUser) {
                     // Query for the user with the matching email
                     const userQuery = query(collection(db, 'Users'), where('email', '==', currentUser.email));
@@ -172,15 +173,14 @@ export default {
                     if (!querySnapshot.empty) {
                         // Found the user with the matching email
                         const userData = querySnapshot.docs[0].data();
-                        const movieCollections = userData.movieCollections || {};
+                        const movieCollections = userData.movieCollection || {};
 
                         // Extract collection names
                         const collectionNames = Object.keys(movieCollections);
 
-                        this.userCollecions = collectionNames
-
+                        this.userCollections = collectionNames
                         console.log('Collections:', collectionNames);
-                        // return collectionNames;
+                        return collectionNames;
                     } else {
                         console.log('Error: User document not found');
                         return [];

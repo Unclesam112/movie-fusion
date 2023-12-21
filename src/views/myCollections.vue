@@ -9,7 +9,7 @@
 
     <main class="px-5">
         <div class="genre flex justify-between mt-5">
-            <h1 class="text-left text-gray-900 text-2xl">Favourites</h1>
+            <h1 class="text-left text-gray-900 text-2xl">My Collections</h1>
             <Icon icon="ph:pencil" width="20" />
         </div>
 
@@ -18,7 +18,7 @@
 
             <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
                 class="my-0 text-black hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm mx-2 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                type="button">Suggested <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                type="button">Recent<svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="none" viewBox="0 0 10 6">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="m1 1 4 4 4-4" />
@@ -54,19 +54,18 @@
 
 
 
-        <div v-for="movie in movies" :key="movie.id"
-            class=" my-2 flex items-center bg-white rounded-lg  md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+        <div v-for="collection in userCollections" :key="collection.id"
+            class="pointer my-2 flex items-center bg-white rounded-lg  md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
             <!-- <MovieCardVue :movie="movie"/> -->
-            <img :src="getImageUrl(movie.backdrop_path)" :alt="movie.title" class="w-28 card-image rounded md:rounded-md" />
+            <Icon icon="octicon:video-16" width="50"/>
             <div class="flex flex-col justify-between pt-1.5 leading-normal">
-                <h5 class="mb-2 text-sm px-2 font-medium tracking-tight text-gray-900 dark:text-white truncate w-48">{{
-                    movie.title }}
+                <h5 class="mb-2 text-sm px-2 font-medium tracking-tight text-gray-900 dark:text-white truncate w-48">{{ collection }}
                 </h5>
-                <router-link :to="`/movie/details/${movie.id}`" type="button"
+                <!-- <router-link :to="`/movie/details/${movie.id}`" type="button"
                     class="px-3 py-1 text-xs font-medium text-center inline-flex items-center text-gray-900 bg-white rounded hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     <Icon icon="solar:play-bold" class="mr-2" />
                     Play
-                </router-link>
+                </router-link> -->
 
                 <!-- <p class="mb-3 text-sm font-normal text-gray-700 dark:text-gray-400 line-clamp-2">{{ movie.overview }}</p> -->
             </div>
@@ -91,6 +90,8 @@ import 'vue3-carousel/dist/carousel.css'
 import breadcrumbVue from '../components/layout/breadcrumb.vue';
 import { Icon } from '@iconify/vue';
 import previousNavVue from '../components/layout/smallDevice-layout/previousNav.vue'
+import { collection, addDoc, updateDoc, getDocs, doc, query, where, } from 'firebase/firestore';
+import { auth, db } from '@/firebase';
 
 
 export default defineComponent({
@@ -101,15 +102,16 @@ export default defineComponent({
             movies: [],
             genre: {},
             genreName: null,
-            carouselItemsToShow: 3.5
+            carouselItemsToShow: 3.5,
+            userCollections: []
         }
     },
 
     mounted() {
         this.fetchGenre(),
-        this.fetchGenreName()
+            this.fetchGenreName()
         this.handleResize()
-        
+        this.getCollections()
     },
 
     beforeDestroy() {
@@ -173,7 +175,36 @@ export default defineComponent({
             }
         },
 
-        
+        async getCollections() {
+            try {
+                const currentUser = auth.currentUser;
+
+                if (currentUser) {
+                    // Query for the user with the matching email
+                    const userQuery = query(collection(db, 'Users'), where('email', '==', currentUser.email));
+                    const querySnapshot = await getDocs(userQuery);
+
+                    if (!querySnapshot.empty) {
+                        // Found the user with the matching email
+                        const userData = querySnapshot.docs[0].data();
+                        const movieCollections = userData.movieCollection || {};
+
+                        // Extract collection names
+                        const collectionNames = Object.keys(movieCollections);
+
+                        this.userCollections = collectionNames
+                        console.log('Collections:', collectionNames);
+                        return collectionNames;
+                    } else {
+                        console.log('Error: User document not found');
+                        return [];
+                    }
+                }
+            } catch (error) {
+                console.error('Error fetching collections:', error);
+                return [];
+            }
+        },
     }
 })
 </script>
