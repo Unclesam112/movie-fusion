@@ -22,7 +22,9 @@
             </div>
 
             <div class="edit flex justify-center">
-                <button class="bg-gray-700 px-3 text-white flex">Edit  <Icon icon="ph:pencil" class="mt-1 mx-1"/></button>
+                <button class="bg-gray-700 px-3 text-white flex">Edit
+                    <Icon icon="ph:pencil" class="mt-1 mx-1" />
+                </button>
             </div>
         </div>
 
@@ -30,7 +32,7 @@
         <div class="tab mx-2 my-8">
             <div class="flex justify-around">
                 <div class="collection grid text-center">
-                    <h1>0</h1>
+                    <h1 v-if="userCollections"> {{ userCollections.length }}</h1>
                     <p>Collections</p>
                 </div>
 
@@ -64,8 +66,8 @@
 </template>
 
 <script>
-import { collection, addDoc, updateDoc, getDocs, doc } from 'firebase/firestore';
-import {signOut} from 'firebase/auth'
+import { collection, addDoc, updateDoc, getDocs, doc,  query, where, } from 'firebase/firestore';
+import { signOut } from 'firebase/auth'
 import { auth, db } from '@/firebase';
 import axios from 'axios';
 import API_ENDPOINTS from '../utils/ApiRoutes';
@@ -82,16 +84,18 @@ export default {
             movieCollection: [],
             currentMovie: {},
             activeTab: 1,
-            userInfo: []
+            userInfo: [],
+            userCollections: []
         }
     },
 
     components: { navbarVue, MovieCardVue, Icon, bottomNavVue, previousNavVue },
 
     mounted() {
-        this.fetchUserMovieIds()
+        this.fetchUserMovieIds(),
+        this.getCollections() 
     },
-
+    
     methods: {
 
         getImageUrl(path) {
@@ -157,13 +161,44 @@ export default {
             }
         },
 
+        async getCollections() {
+            try {
+                const currentUser = auth.currentUser;
+                if (currentUser) {
+                    // Query for the user with the matching email
+                    const userQuery = query(collection(db, 'Users'), where('email', '==', currentUser.email));
+                    const querySnapshot = await getDocs(userQuery);
+
+                    if (!querySnapshot.empty) {
+                        // Found the user with the matching email
+                        const userData = querySnapshot.docs[0].data();
+                        const movieCollections = userData.movieCollections || {};
+
+                        // Extract collection names
+                        const collectionNames = Object.keys(movieCollections);
+
+                        this.userCollecions = collectionNames
+
+                        console.log('Collections:', collectionNames);
+                        // return collectionNames;
+                    } else {
+                        console.log('Error: User document not found');
+                        return [];
+                    }
+                }
+            } catch (error) {
+                console.error('Error fetching collections:', error);
+                return [];
+            }
+        },
+
         async logout() {
             try {
                 await signOut(auth);
                 this.$router.push('/welcome')
             }
 
-            catch(e) {
+            catch (e) {
                 console.error('Logout error');
             }
         }
