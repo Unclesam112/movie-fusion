@@ -54,11 +54,24 @@
 
 
 
-        <div class="grid grid-cols-4  md:grid-cols-6 gap-2">
-                <div class="col my-2" v-for="movie in collectionMovies" :key="movie.id">
-                    <MovieCard :movie="movie" />
-                </div>
+        <div v-for="movie in collectionMovies" :key="movie.id"
+            class=" my-2 flex items-center bg-white rounded-lg  md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+            <!-- <MovieCardVue :movie="movie"/> -->
+            <img :src="getImageUrl(movie.backdrop_path)" :alt="movie.title" class="w-28 card-image rounded md:rounded-md" />
+            <div class="flex flex-col justify-between pt-1.5 leading-normal">
+                <h5 class="mb-2 text-sm px-2 font-medium tracking-tight text-gray-900 dark:text-white truncate w-48">{{
+                    movie.title }}
+                </h5>
+                <router-link :to="`/movie/details/${movie.id}`" type="button"
+                    class="px-3 py-1 text-xs font-medium text-center inline-flex items-center text-gray-900 bg-white rounded hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    <Icon icon="solar:play-bold" class="mr-2" />
+                    Play
+                </router-link>
+
+                <!-- <p class="mb-3 text-sm font-normal text-gray-700 dark:text-gray-400 line-clamp-2">{{ movie.overview }}</p> -->
             </div>
+        </div>
+
 
         <div class="bottom-nav m-2">
 
