@@ -19,17 +19,17 @@
 
 
 
-        <div @click.prevent="addMovieToCollection(collection.name)" v-for="collection in userCollections"
+        <!-- <div @click.prevent="addMovieToCollection(collection.name)" v-for="collection in userCollections"
             :key="collection.id"
             class="pointer my-2 flex items-center bg-white rounded-lg  md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-            <!-- <MovieCardVue :movie="movie"/> -->
+           
             <Icon icon="octicon:video-16" width="50" />
             <div class="flex flex-col justify-between pt-1.5 leading-normal">
                 <h5 class="mb-2 text-sm px-2 font-medium tracking-tight text-gray-900 dark:text-white truncate w-48">
                     {{ collection.name }}
                 </h5>
             </div>
-        </div>
+        </div> -->
 
     </div>
 </template>

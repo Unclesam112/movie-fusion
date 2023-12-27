@@ -52,9 +52,8 @@
         </div>
 
 
-
-
-        <router-link :to="`/collection-details/${collection.name}`" v-for="collection in userCollections" :key="collection.id"
+        <div class="" v-if="userCollections.length > 0">
+            <router-link :to="`/collection-details/${collection.name}`" v-for="collection in userCollections" :key="collection.id"
             class="pointer my-2 flex items-center bg-white rounded-lg  md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
             <!-- <MovieCardVue :movie="movie"/> -->
             <Icon icon="octicon:video-16" width="50"/>
@@ -64,6 +63,15 @@
                 </h5>
             </div>
         </router-link>
+        </div>
+
+        <div class="" v-else>
+            <h1 class="text-3xl text-gray-300 flex items-center justify-center h-screen">No Collection!</h1>
+        </div>
+
+
+
+       
 
         <div class="bottom-nav m-2">
 
