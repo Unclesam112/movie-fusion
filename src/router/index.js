@@ -16,6 +16,7 @@ import AllMovies from '../views/AllMovies.vue'
 import Fave from '../views/Favourite.vue'
 import createCollection from '../views/CreateCollection.vue'
 import myCollections from '../views/myCollections.vue'
+import collectionDetails from '../views/CollectionDetails.vue'
 
 import { auth } from '../firebase'
 
@@ -103,11 +104,13 @@ const router = createRouter({
     {
       path: '/movies',
       name: 'allMovies',
+      meta: { requiresAuth: true },
       component: AllMovies
     },
 
       {
       path: '/favourites',
+      meta: { requiresAuth: true },
       name: 'favourites',
       component: Fave
     },
@@ -115,6 +118,7 @@ const router = createRouter({
     {
       path: '/create-collection',
       name: 'create-collection',
+      meta: { requiresAuth: true },
       component: createCollection
     },
 
@@ -125,8 +129,17 @@ const router = createRouter({
     },
 
     {
+      path: '/collection-details/:name',
+      name: 'colletionDetails',
+      component: collectionDetails,
+      meta: { requiresAuth: true },
+    },
+
+
+    {
       path: '/profile',
       name: 'profile',
+      meta: { requiresAuth: true },
       component: profile
     },
     

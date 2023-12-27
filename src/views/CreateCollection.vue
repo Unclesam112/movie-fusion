@@ -65,24 +65,39 @@ export default {
                         if (!querySnapshot.empty) {
                             // Found the user with the matching email
                             const userData = querySnapshot.docs[0].data();
-                    
-                            // Update the user document in Firestore
-                            const userDocRef = doc(db, 'Users', querySnapshot.docs[0].id);
-                            await updateDoc(userDocRef, {
-                                [`movieCollection.${this.collectionName}`]: [],
-                            });
 
-                            toast.success('Movie added to collection')
-                            console.log('Movie added to collection successfully.');
+                            // Check if the collection already exists
+                            const existingCollection = userData.movieCollection.find(collection => collection.name === this.collectionName);
+
+                            if (!existingCollection) {
+                                // Append the new collection to the existing array
+                                const updatedMovieCollection = [
+                                    ...userData.movieCollection,
+                                    { name: this.collectionName, movies: [] }
+                                ];
+
+                                // Update the user document in Firestore
+                                const userDocRef = doc(db, 'Users', querySnapshot.docs[0].id);
+                                await updateDoc(userDocRef, {
+                                    movieCollection: updatedMovieCollection,
+                                });
+
+                                toast.success('Collection created successfully');
+                                this.$router.push(`/collection-details/${this.collectionName}`)
+                                console.log('Collection created successfully.');
+                            } else {
+                                console.log('Error: Collection already exists');
+                            }
                         } else {
                             console.log('Error: User document not found');
                         }
                     }
                 } catch (error) {
-                    console.error('Error adding movie to collection:', error);
+                    console.error('Error creating collection:', error);
                 }
             }
         },
+
 
 
 

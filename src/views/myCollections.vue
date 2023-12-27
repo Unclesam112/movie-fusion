@@ -54,22 +54,16 @@
 
 
 
-        <div v-for="collection in userCollections" :key="collection.id"
+        <router-link :to="`/collection-details/${collection.name}`" v-for="collection in userCollections" :key="collection.id"
             class="pointer my-2 flex items-center bg-white rounded-lg  md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
             <!-- <MovieCardVue :movie="movie"/> -->
             <Icon icon="octicon:video-16" width="50"/>
             <div class="flex flex-col justify-between pt-1.5 leading-normal">
-                <h5 class="mb-2 text-sm px-2 font-medium tracking-tight text-gray-900 dark:text-white truncate w-48">{{ collection }}
+                <h5 class="mb-2 text-sm px-2 font-medium tracking-tight text-gray-900 dark:text-white truncate w-48">
+                    {{ collection.name }}
                 </h5>
-                <!-- <router-link :to="`/movie/details/${movie.id}`" type="button"
-                    class="px-3 py-1 text-xs font-medium text-center inline-flex items-center text-gray-900 bg-white rounded hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    <Icon icon="solar:play-bold" class="mr-2" />
-                    Play
-                </router-link> -->
-
-                <!-- <p class="mb-3 text-sm font-normal text-gray-700 dark:text-gray-400 line-clamp-2">{{ movie.overview }}</p> -->
             </div>
-        </div>
+        </router-link>
 
         <div class="bottom-nav m-2">
 
@@ -109,7 +103,7 @@ export default defineComponent({
 
     mounted() {
         this.fetchGenre(),
-            this.fetchGenreName()
+        this.fetchGenreName()
         this.handleResize()
         this.getCollections()
     },
@@ -190,7 +184,7 @@ export default defineComponent({
                         const movieCollections = userData.movieCollection || {};
 
                         // Extract collection names
-                        const collectionNames = Object.keys(movieCollections);
+                        const collectionNames = movieCollections;
 
                         this.userCollections = collectionNames
                         console.log('Collections:', collectionNames);

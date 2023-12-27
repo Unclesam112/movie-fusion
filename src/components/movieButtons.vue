@@ -17,6 +17,20 @@
             <Icon icon="ph:star-fill" color="white" />
         </button>
 
+
+
+        <div @click.prevent="addMovieToCollection(collection.name)" v-for="collection in userCollections"
+            :key="collection.id"
+            class="pointer my-2 flex items-center bg-white rounded-lg  md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+            <!-- <MovieCardVue :movie="movie"/> -->
+            <Icon icon="octicon:video-16" width="50" />
+            <div class="flex flex-col justify-between pt-1.5 leading-normal">
+                <h5 class="mb-2 text-sm px-2 font-medium tracking-tight text-gray-900 dark:text-white truncate w-48">
+                    {{ collection.name }}
+                </h5>
+            </div>
+        </div>
+
     </div>
 </template>
 
@@ -34,6 +48,17 @@ export default {
             required: true
         }
     },
+
+    data() {
+        return {
+            userCollections: []
+        }
+    },
+
+    mounted() {
+        this.getCollections()
+    },
+
     methods: {
 
         async addMovieToFavourite(movieId) {
@@ -78,7 +103,8 @@ export default {
             }
         },
 
-        async addMovieToCollection(movieId) {
+        async addMovieToCollection(movieData) {
+
             try {
                 const currentUser = auth.currentUser;
                 if (currentUser) {
@@ -89,26 +115,74 @@ export default {
                     if (!querySnapshot.empty) {
                         // Found the user with the matching email
                         const userData = querySnapshot.docs[0].data();
-                        const currentMovieCollection = userData.movieCollection || [];
-                        const updatedMovieCollection = [...currentMovieCollection, { movieId }];
+                        const movieCollections = userData.movieCollection || {};
 
-                        // Update the user document in Firestore
-                        const userDocRef = doc(db, 'Users', querySnapshot.docs[0].id);
-                        await updateDoc(userDocRef, { movieCollection: updatedMovieCollection });
+                        // Extract collection names
+                        const collectionIndex = movieCollections.findIndex(collection => collection.name === movieData);
+                        if (collectionIndex !== -1) {
+                            // Add the movie to the specified collection
+                            movieCollections[collectionIndex].movies.push({
+                                movieId: this.$route.params.id
+                            });
 
-                        toast.success('Movie added to collection')
-                        console.log('Movie added to collection successfully.');
+
+                            // // Update the user document with the modified movie collection
+                            // Update the user document with the modified movie collection
+                            await updateDoc(querySnapshot.docs[0].ref, {
+                                movieCollection: movieCollections,
+                            });
+
+
+                            toast.success('Movie added to collection');
+                            console.log('Movie added to collection successfully.:', collectionIndex);
+                        } else {
+                            console.log('Error: Collection does not exist');
+                        }
+                    } else {
+                        console.log('Error: Collection does not exist');
+                    }
+
+                }
+            }
+
+            catch (error) {
+                console.error('Error adding movie to collection:', error);
+            }
+        },
+
+        async getCollections() {
+            try {
+                const currentUser = auth.currentUser;
+
+                if (currentUser) {
+                    // Query for the user with the matching email
+                    const userQuery = query(collection(db, 'Users'), where('email', '==', currentUser.email));
+                    const querySnapshot = await getDocs(userQuery);
+
+                    if (!querySnapshot.empty) {
+                        // Found the user with the matching email
+                        const userData = querySnapshot.docs[0].data();
+                        const movieCollections = userData.movieCollection || {};
+
+                        // Extract collection names
+                        const collectionNames = movieCollections;
+
+                        this.userCollections = collectionNames
+                        console.log('Collections:', collectionNames);
+                        return collectionNames;
                     } else {
                         console.log('Error: User document not found');
+                        return [];
                     }
                 }
             } catch (error) {
-                console.error('Error adding movie to collection:', error);
+                console.error('Error fetching collections:', error);
+                return [];
             }
-        }
-
+        },
     }
 }
+
 </script>
 
 <style></style>
