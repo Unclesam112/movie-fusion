@@ -85,6 +85,7 @@
 
 <script>
 import { Icon } from '@iconify/vue';
+import { initFlowbite } from 'flowbite'
 
 export default {
     components: { Icon },
@@ -92,6 +93,11 @@ export default {
         goBack() {
             this.$router.go(-1);
         },
+    },
+
+    mounted() {
+        this.getCollections()
+        initFlowbite()
     },
 }
 </script>
