@@ -53,16 +53,17 @@
 
 
         <div class="" v-if="userCollections.length > 0">
-            <router-link :to="`/collection-details/${collection.name}`" v-for="collection in userCollections" :key="collection.id"
-            class="pointer my-2 flex items-center bg-white rounded-lg  md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-            <!-- <MovieCardVue :movie="movie"/> -->
-            <Icon icon="octicon:video-16" width="50"/>
-            <div class="flex flex-col justify-between pt-1.5 leading-normal">
-                <h5 class="mb-2 text-sm px-2 font-medium tracking-tight text-gray-900 dark:text-white truncate w-48">
-                    {{ collection.name }}
-                </h5>
-            </div>
-        </router-link>
+            <router-link :to="`/collection-details/${collection.name}`" v-for="collection in userCollections"
+                :key="collection.id"
+                class="pointer my-4 flex items-center bg-white rounded-lg  md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+                <!-- <MovieCardVue :movie="movie"/> -->
+                <img :src="randomImagePath" alt="Random Image">
+                <div class="flex flex-col justify-between pt-1.5 leading-normal">
+                    <h5 class="mb-2 text-md px-2 font-medium tracking-tight text-gray-900 dark:text-white truncate w-48">
+                        {{ collection.name }}
+                    </h5>
+                </div>
+            </router-link>
         </div>
 
         <div class="" v-else>
@@ -71,7 +72,7 @@
 
 
 
-       
+
 
         <div class="bottom-nav m-2">
 
@@ -95,6 +96,14 @@ import previousNavVue from '../components/layout/smallDevice-layout/previousNav.
 import { collection, addDoc, updateDoc, getDocs, doc, query, where, } from 'firebase/firestore';
 import { auth, db } from '@/firebase';
 
+import image1 from '@/assets/Collection/image1.jpg';
+import image2 from '@/assets/Collection/image2.jpg';
+import image3 from '@/assets/Collection/image3.jpg';
+import image4 from '@/assets/Collection/image4.jpg';
+import image5 from '@/assets/Collection/image5.jpg';
+import image6 from '@/assets/Collection/image6.jpg';
+
+
 
 export default defineComponent({
     components: { navbarVue, MovieCard, Carousel, Slide, Navigation, breadcrumbVue, Icon, BottomNav, previousNavVue },
@@ -105,13 +114,28 @@ export default defineComponent({
             genre: {},
             genreName: null,
             carouselItemsToShow: 3.5,
-            userCollections: []
+            userCollections: [],
+            imagePaths: [
+               image1,
+               image2,
+               image3,
+               image4,
+               image5,
+               image6,
+            ],
         }
+    },
+
+    computed: {
+        randomImagePath() {
+            const randomIndex = Math.floor(Math.random() * this.imagePaths.length);
+            return this.imagePaths[randomIndex];
+        },
     },
 
     mounted() {
         this.fetchGenre(),
-        this.fetchGenreName()
+            this.fetchGenreName()
         this.handleResize()
         this.getCollections()
     },

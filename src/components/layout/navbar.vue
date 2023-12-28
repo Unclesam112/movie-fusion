@@ -26,15 +26,19 @@
           <ul
             class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
             <li>
-              <a href="#"
+              <router-link to='/'
                 class="flex block py-2 mt-1 pl-3 pr-4 md:text-white  rounded md:bg-transparent  md:p-0 md:dark:text-blue-500 dark:bg-blue-600 md:dark:bg-transparent"
-                aria-current="page"><Icon icon="majesticons:home" class="mt-1 mr-2"/> Home</a>
+                aria-current="page">
+                <Icon icon="majesticons:home" class="mt-1 mr-2" /> Home
+              </router-link>
             </li>
             <li>
               <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar"
                 class="flex mt-1 md:text-white items-center justify-between w-full py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">
-               <span class="flex"> <Icon icon="material-symbols:action-key" class="mt-1 mr-2"/>
-                Genres</span>
+                <span class="flex">
+                  <Icon icon="material-symbols:action-key" class="mt-1 mr-2" />
+                  Genres
+                </span>
                 <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                   viewBox="0 0 10 6">
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -66,25 +70,33 @@
               </div>
             </li>
             <li>
-              <a href="#"
-                class="flex mt-1 md:text-white py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"> <Icon  icon="ic:baseline-local-movies" class="mt-1 mr-2"/>
-                Movies</a>
+              <router-link to='/movies'
+                class="flex mt-1 md:text-white py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                <Icon icon="ic:baseline-local-movies" class="mt-1 mr-2" />
+                Movies
+              </router-link>
             </li>
             <li>
-              <router-link to="/movies/collection"
-                class="flex mt-1  md:text-white py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"> <Icon icon="mdi:collection" class="mt-1 mr-2"/>
-            Collections</router-link>
+              <router-link to="/my-collections"
+                class="flex mt-1  md:text-white py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                <Icon icon="mdi:collection" class="mt-1 mr-2" />
+                Collections
+              </router-link>
             </li>
             <li>
               <router-link to="/profile"
-                class="md:hidden flex mt-1  md:text-white py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"> <Icon  icon="iconamoon:profile-fill" class="mt-1 mr-2"/>
-            Profile</router-link>
+                class="md:hidden flex mt-1  md:text-white py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                <Icon icon="iconamoon:profile-fill" class="mt-1 mr-2" />
+                Profile
+              </router-link>
             </li>
-            
+
             <li>
               <router-link to="/movies/collection"
-                class="md:hidden flex mt-1  md:text-white py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"> <Icon icon="uis:signout" class="mt-1 mr-2"/>
-            Sign Out</router-link>
+                class="md:hidden flex mt-1  md:text-white py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                <Icon icon="uis:signout" class="mt-1 mr-2" />
+                Sign Out
+              </router-link>
             </li>
             <li>
               <router-link to="/signin" type="button"
@@ -105,17 +117,17 @@ import { Icon } from '@iconify/vue';
 import { initFlowbite } from 'flowbite'
 
 export default {
-    components: { Icon },
-    methods: {
-        goBack() {
-            this.$router.go(-1);
-        },
+  components: { Icon },
+  methods: {
+    goBack() {
+      this.$router.go(-1);
     },
+  },
 
-    mounted() {
-        initFlowbite()
-    }
+  mounted() {
+    initFlowbite()
   }
+}
 </script>
 
 <style></style>
