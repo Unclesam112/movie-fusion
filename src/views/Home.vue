@@ -1,26 +1,27 @@
 <template>
   <main>
     <!-- <fullPageLoader :isLoading="isLoading" /> -->
-    <div class="navbar hidden sm:block">
-        <headerVue />
+    <div class="navbar">
+       
     </div>
 
-    <div class="nav sm:hidden">
-      <smallHeaderVue />
+     <div>
+      <smallHeaderVue class=" md:hidden"/>
+      <headerVue class=" hidden md:block"/>
     </div>
 
     <div class="movies md:p-10 p-4">
         <MovieList />
     </div>
 
-    <div class="footer">
+     <div class="footer">
       <footerVue />
     </div>
 
     <div class="bottom-nav m-2">
       <BottomNav />
     </div>
-    
+ 
   </main>
 </template>
 
@@ -44,6 +45,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>

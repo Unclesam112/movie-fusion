@@ -13,6 +13,13 @@ import 'vue3-toastify/dist/index.css';
 // import 'vue-final-modal/style.css'
 
 
+// main.js
+
+import { initFlowbite } from 'flowbite';
+
+router.afterEach(() => {
+  initFlowbite();
+});
 
 
 // Initialize AOS globally

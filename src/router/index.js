@@ -12,6 +12,7 @@ import welcome from '../views/AuthPage/welcomePage.vue'
 import movieCollection from '../views/MovieCollections.vue'
 import profile from '../views/Profile.vue'
 import VideoPlayer from '../components/VideoPlayer.vue'
+import testNav from '../components/layout/testNav.vue'
 import AllMovies from '../views/AllMovies.vue'
 import Fave from '../views/Favourite.vue'
 import createCollection from '../views/CreateCollection.vue'
@@ -141,6 +142,13 @@ const router = createRouter({
       name: 'profile',
       meta: { requiresAuth: true },
       component: profile
+    },
+
+    {
+      path: '/test-nav',
+      name: 'testnav',
+
+      component: testNav
     },
     
   ]
