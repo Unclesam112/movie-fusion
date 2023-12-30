@@ -64,7 +64,7 @@ export default {
         },
 
         goBack() {
-            this.$router.go(-1);
+            this.$router.go('/my-collections');
         },
 
         async createCollection() {
@@ -114,37 +114,6 @@ export default {
             }
         },
 
-
-
-
-        async addMovieToCollection(movieId) {
-            try {
-                const currentUser = auth.currentUser;
-                if (currentUser) {
-                    // Query for the user with the matching email
-                    const userQuery = query(collection(db, 'Users'), where('email', '==', currentUser.email));
-                    const querySnapshot = await getDocs(userQuery);
-
-                    if (!querySnapshot.empty) {
-                        // Found the user with the matching email
-                        const userData = querySnapshot.docs[0].data();
-                        const currentMovieCollection = userData.movieCollection || [];
-                        const updatedMovieCollection = [...currentMovieCollection, { movieId }];
-
-                        // Update the user document in Firestore
-                        const userDocRef = doc(db, 'Users', querySnapshot.docs[0].id);
-                        await updateDoc(userDocRef, { movieCollection: updatedMovieCollection });
-
-                        toast.success('Movie added to collection')
-                        console.log('Movie added to collection successfully.');
-                    } else {
-                        console.log('Error: User document not found');
-                    }
-                }
-            } catch (error) {
-                console.error('Error adding movie to collection:', error);
-            }
-        }
     }
 }
 </script>

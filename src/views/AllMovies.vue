@@ -7,26 +7,6 @@
             <previousNavVue />
         </div>
 
-    <!-- <div class="p-5 py-5 btn">
-        <button type="button"
-            class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-gray-900 border border-2-gray-900 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-            TV Shows
-        </button>
-
-
-        <button type="button"
-            class="mx-2 px-3 py-2 text-xs font-medium text-center inline-flex items-center text-gray-900 border border-2-gray-900  rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-
-            Movies
-        </button>
-
-        <button type="button"
-            class="px-3 py-2 text-xs font-medium text-center inline-flex items-center border border-2-gray-900 text-gray-900 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-
-            Categories
-        </button>
-    </div> -->
-
     <main class="px-5">
         <div class="genre my-10" v-if="genreName">
             <h1 class="text-left text-gray-900 text-4xl">{{ genreName.name }}</h1>

@@ -1,6 +1,6 @@
 <template>
-    <main class="mb-20">
-        <nav class="fixed top-0 mb-40 w-full z-10 bg-white sm:hidden border-gray-200 dark:border-gray-700">
+    <main class="mb-20 md:mb-0">
+        <nav class="fixed top-0 mb-46 md:mb-0 w-full z-10 bg-white sm:hidden border-b  border-gray-200 dark:border-gray-700">
             <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                 <div class="icon">
                     <Icon icon="ion:arrow-back" width="25" class="text-gray-500" @click.prevent="goBack" />

@@ -168,13 +168,13 @@ export default defineComponent({
                 const userData = userDoc.data();
                 // console.log(userData, userEmail);
                 if (userData.email === userEmail.email) {
-                    userId = userData.id,
-                        console.log(userId);
+                    userId = userData.id;
+                        // console.log(userId);
                 }
 
-                else {
-                    console.log("User not found");
-                }
+                // else {
+                //     console.log("User not found");
+                // }
             });
 
         },
@@ -193,7 +193,7 @@ export default defineComponent({
                 .then(response => {
                     const data = response.data;
                     this.movies = data.results;
-                    console.log(data.results);
+                    // console.log(data.results);
                 })
 
                 .catch(err => {
@@ -214,7 +214,7 @@ export default defineComponent({
                 .then(response => {
                     const data = response.data;
                     this.popular = data.results;
-                    console.log(data.results);
+                    // console.log(data.results);
                 })
 
                 .catch(err => {
@@ -235,7 +235,7 @@ export default defineComponent({
                 .then(response => {
                     const data = response.data;
                     this.topRated = data.results;
-                    console.log(data.results);
+                    // console.log(data.results);
                 })
 
                 .catch(err => {
@@ -256,7 +256,7 @@ export default defineComponent({
                 .then(response => {
                     const data = response.data;
                     this.action = data.results;
-                    console.log(data);
+                    // console.log(data);
                 })
 
                 .catch(err => {
@@ -277,7 +277,7 @@ export default defineComponent({
                 .then(response => {
                     const data = response.data;
                     this.sci_fi = data.results;
-                    console.log(data);
+                    // console.log(data);
                 })
 
                 .catch(err => {
@@ -298,7 +298,7 @@ export default defineComponent({
                 .then(response => {
                     const data = response.data;
                     this.romance = data.results;
-                    console.log(data);
+                    // console.log(data);
                 })
 
                 .catch(err => {

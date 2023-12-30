@@ -24,7 +24,7 @@ import API_ENDPOINTS from '../utils/ApiRoutes';
     data() {
       return {
         apiKey: 'YOUR_TMDB_API_KEY',
-        movieId: 'MOVIE_ID',
+        movieId: this.$route.params.id,
         movieTitle: 'Movie Ratings',
         ratings: [],
       };
@@ -34,11 +34,20 @@ import API_ENDPOINTS from '../utils/ApiRoutes';
     },
     methods: {
       async fetchMovieRatings() {
+
+        const options = {
+                method: 'GET',
+                headers: {
+                    accept: 'application/json',
+                    Authorization: API_ENDPOINTS.KEY
+                }
+            };
         try {
           const response = await axios.get(
-            `https://api.themoviedb.org/3/movie/${this.movieId}/ratings?api_key=${ API_ENDPOINTS.KEY }`
+            `https://api.themoviedb.org/3/movie/${this.movieId}/ratings`, options
           );
-          this.ratings = response.data.Ratings;
+          this.ratings = response.data;
+          console.log("Ratings:", response.data)
         } catch (error) {
           console.error('Error fetching movie ratings:', error);
         }
@@ -50,7 +59,7 @@ import API_ENDPOINTS from '../utils/ApiRoutes';
         if (parseFloat(value) >= 7.5) {
           return '<Icon class="iconify" icon="ph:star-fill" />'; // Replace with the appropriate class
         } else {
-          return '<Icon class="iconify" icon="ph:star-half-fill" />'; // Replace with the appropriate class
+          return '<Icon class="iconify" icon="ph:star-half-fill" /z>'; // Replace with the appropriate class
         }
       },
     },

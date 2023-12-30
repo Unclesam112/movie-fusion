@@ -12,7 +12,7 @@
         <button data-modal-target="select-modal" data-modal-toggle="select-modal" class="btn bg-red-700 rounded-full p-4">
             <Icon icon="icon-park-solid:tag" color="white" />
         </button>
-        <h1></h1>
+    
 
 
         <!-- Main modal -->
