@@ -27,7 +27,7 @@
 
 
 
-        <Carousel :items-to-show="1" :wrap-around="true" class="p-2 h-50">
+        <Carousel :items-to-show="1" :wrap-around="true" class="p-4 h-50">
             <Slide v-for="movie in currentMovie" :key="movie.id">
                 <div class="relative w-full h-50 p-2">
                     <img :src="getBackgroundImageUrl(movie.backdrop_path)" alt="Background Image"
