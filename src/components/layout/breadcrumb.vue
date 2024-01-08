@@ -2,7 +2,7 @@
     <main>
 
         <div class="flex gap-8">
-            <div class="col flex justify-center items-center bg-gray-300 h-8 w-8 rounded-full">
+            <div class="col hidden sm:flex justify-center items-center bg-gray-300 h-8 w-8 rounded-full">
                 <Icon icon="ion:arrow-back" width="20" class="text-gray-500 " @click.prevent="goBack()" />
             </div>
 
