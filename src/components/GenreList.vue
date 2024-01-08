@@ -6,7 +6,7 @@
             <div class="top-picks">
                 <Carousel :items-to-show="8.5" :wrap-around="true" class="hidden md:block lg:block">
                     <Slide v-for="genre in genres" :key="genre.id">
-                        <div class="carousel__item m-5">
+                        <div class="carousel__item m-5 my-4">
                             <GenreButton :genre="genre"/>
                         </div>
                     </Slide>

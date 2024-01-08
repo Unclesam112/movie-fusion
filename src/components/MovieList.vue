@@ -4,23 +4,26 @@
             <GenreList />
         </div> -->
 
-        <div class="movie-list mt-5">
+        <div class="movie-list mt-0">
             <div class="top-picks">
-                <h1 class="text-lg  md:text-3xl mb-2">Top Picks For {{ userDetails.username}}</h1>
+                <h1 class="text-lg  md:text-1xl mb-2 flex">Top Picks For {{ userDetails.username}} <Icon icon="mingcute:right-fill" width="20" color="red" class="mt-1 ml-4"/></h1>
                 <Carousel :items-to-show="carouselItemsToShow" :wrap-around="true">
                     <Slide v-for="movie in movies" :key="movie.id">
-                        <div class="carousel__item md:m-5">
+                        <div class="carousel__item md:m-2">
                             <MovieCard :movie="movie" />
                         </div>
                     </Slide>
                 </Carousel>
             </div>
 
-            <div class="popular mt-5">
-                <h1 class="text-lg  md:text-3xl mb-2">Most Popular</h1>
+            <div class="popular mt-10">
+               <div class="flex justify-between">
+                <h1 class="text-lg  md:text-1xl mb-2">Most Popular</h1>
+                <span class="more mb-2 flex text-sm text-red-700">More <Icon icon="material-symbols:more-up" width="20" class="mt-0.5 ml-2"/></span>
+               </div>
                 <Carousel :items-to-show="carouselItemsToShow" :wrap-around="true">
                     <Slide v-for="movie in popular" :key="movie.id">
-                        <div class="carousel__item md:m-5">
+                        <div class="carousel__item md:m-2">
                             <MovieCard :movie="movie" />
                         </div>
                     </Slide>
@@ -29,11 +32,11 @@
             </div>
 
 
-            <div class="popular mt-5">
-                <h1 class="text-lg  md:text-3xl mb-2">Action Movies</h1>
+            <div class="popular mt-10">
+                <h1 class="text-lg  md:text-1xl mb-2">Action Movies</h1>
                 <Carousel :items-to-show="carouselItemsToShow" :wrap-around="true">
                     <Slide v-for="movie in action" :key="movie.id">
-                        <div class="carousel__item md:m-5">
+                        <div class="carousel__item md:m-2">
                             <MovieCard :movie="movie" />
                         </div>
                     </Slide>
@@ -42,11 +45,11 @@
                 </Carousel>
             </div>
 
-            <div class="popular mt-5">
-                <h1 class="text-lg md:text-3xl mb-2">Top Sci-Fi Movies</h1>
+            <div class="popular mt-10">
+                <h1 class="text-lg md:text-1xl mb-2">Top Sci-Fi Movies</h1>
                 <Carousel :items-to-show="carouselItemsToShow" :wrap-around="true">
                     <Slide v-for="movie in sci_fi" :key="movie.id">
-                        <div class="carousel__item md:m-5">
+                        <div class="carousel__item md:m-2">
                             <MovieCard :movie="movie" />
                         </div>
                     </Slide>
@@ -56,11 +59,11 @@
             </div>
 
 
-            <div class="popular mt-5">
-                <h1 class="text-lg  md:text-3xl mb-2">Special time with lover</h1>
+            <div class="popular mt-10">
+                <h1 class="text-lg  md:text-1xl mb-2">Special time with lover</h1>
                 <Carousel :items-to-show="carouselItemsToShow" :wrap-around="true">
                     <Slide v-for="movie in romance" :key="movie.id">
-                        <div class="carousel__item md:m-5">
+                        <div class="carousel__item md:m-2">
                             <MovieCard :movie="movie" />
                         </div>
                     </Slide>
@@ -85,10 +88,10 @@ import { Carousel, Navigation, Slide } from 'vue3-carousel'
 import 'vue3-carousel/dist/carousel.css'
 import API_ENDPOINTS from '../utils/ApiRoutes.js'
 import GenreList from './GenreList.vue';
-
+import { Icon } from '@iconify/vue';
 
 export default defineComponent({
-    components: { MovieCard, GenreList, Carousel, Slide, Navigation, },
+    components: { MovieCard, GenreList, Carousel, Slide, Navigation, Icon},
     data() {
         return {
             movies: [],

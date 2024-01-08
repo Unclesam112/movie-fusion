@@ -1,13 +1,14 @@
 <template>
-    <main class="h-screen">
+    
+    <main class="m-10 rounded">
         <div class="relative w-full h-full">
-            <img :src="getBackgroundImageUrl(currentMovie.backdrop_path)" alt="Background Image" class="w-full h-full object-cover backdrop-image" />
+            <img :src="getBackgroundImageUrl(currentMovie.backdrop_path)" alt="Background Image" class="w-full h-full rounded-md object-cover backdrop-image" />
             <div class="absolute inset-0 overlay">
-                <navbarVue class="nav" />
+                
                 <transition name="fade" mode="out-in">
                     <div :key="currentMovie.id" class="grid grid-cols md:grid-cols-2 gap-10  md:px-20 md:py-5 p-5">
                         <div class="col-sapn-1 mt-28">
-                            <h1 class="title text-6xl text-white line-clamp-3">{{ currentMovie.title }}</h1>
+                            <h1 class="title text-5xl text-white line-clamp-3">{{ currentMovie.title }}</h1>
                             <!-- ... rest of your content ... -->
                             <button type="button"
                             class="py-1 px-4 mr-2 my-4 mb-2 text-sm font-medium focus:outline-none text-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">16+</button>
@@ -24,32 +25,37 @@
                                 class="text-sm font-medium text-white hover:no-underline dark:text-white"> {{ formatReleaseDate(currentMovie.release_date) }}</a>
                         </div>
 
-                        <p class="text-white text-md line-clamp-2">
+                        <p class="text-white text-sm line-clamp-2">
                            {{currentMovie.overview}}
                         </p>
 
 
                             <div class="flex gap-8">
                                 <button @click="goToDetails(currentMovie.id)"
-                                    class="bg-red-700 my-10 text-white rounded-md flex py-2 px-8 shadow-lg">
+                                    class="bg-red-700 my-4 text-white text-sm rounded-md flex py-2 px-8 shadow-lg">
                                    See Movie
                                     <Icon icon="solar:play-bold" class="mt-1 ml-1" />
                                 </button>
-
+<!-- 
                                 <button type="button"
-                                    class="w-10 h-10 mr-2 my-10 mb-2 text-sm font-medium text-gray-900 focus:outline-none rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                                    class="w-10 h-10 mr-2 my-4 mb-2 text-sm font-medium text-gray-900 focus:outline-none rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
                                     <Icon icon="teenyicons:add-outline" width="20" color="white" class="mx-auto" />
-                                </button>
+                                </button> -->
                             </div>
                         </div>
 
-                        <div class="col-span-1 col-end md:p-20 md:pt-10 mx-auto">
-                            <img :src="getImageUrl(currentMovie.poster_path)" class="hidden md:hidden lg:block object-cover" alt="">
+                        <div class="col-span-1 col-end md:p-20 md:pt-20 mx-auto">
+                            <div class="flex h-auto items-center justify-center">
+                                <img :src="getImageUrl(currentMovie.poster_path)" class="hidden md:hidden lg:block object-cover" alt="">
+                            </div>
                         </div>
                     </div>
                 </transition>
             </div>
         </div>
+
+
+        <TopRatedActorsVue />
     </main>
 </template>
   
@@ -57,9 +63,11 @@
 import { Icon } from '@iconify/vue';
 import navbarVue from './navbar.vue';
 import axios from 'axios';
+import TopRatedActorsVue from '../TopRatedActors.vue';
+
 
 export default {
-    components: { Icon, navbarVue },
+    components: { Icon, navbarVue, TopRatedActorsVue },
     data() {
         return {
             currentMovie: {},
@@ -181,6 +189,7 @@ export default {
 
 .overlay {
     background: rgba(0, 0, 0, 0.73);
+    border-radius: 10px;
 }
 
 .fade-enter-active,
@@ -200,6 +209,7 @@ export default {
     background-position: center;
     filter: blur(8px); /* Adjust the blur effect */
     animation: fadeIn 1.5s ease; /* Adjust the animation duration and timing function */
+    border-radius: 10px;
 }
 
 @keyframes fadeIn {

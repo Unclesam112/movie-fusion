@@ -1,8 +1,13 @@
 <template>
     <main>
 
+        <div class="flex gap-8">
+            <div class="col flex justify-center items-center bg-gray-300 h-8 w-8 rounded-full">
+                <Icon icon="ion:arrow-back" width="20" class="text-gray-500 " @click.prevent="goBack()" />
+            </div>
 
-        <nav class="flex" aria-label="Breadcrumb">
+            <div class="col mt-1.5">
+                <nav class="flex" aria-label="Breadcrumb">
             <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                 <li class="inline-flex items-center">
                     <router-link to="/"
@@ -38,13 +43,20 @@
                 </li>
             </ol>
         </nav>
+            </div>
+        </div>
+
+
+       
 
     </main>
 </template>
 
 <script>
-export default {
+import { Icon } from '@iconify/vue'
 
+export default {
+    components: {Icon},
     data() {
         return {
             currentRouteName: null,
@@ -59,6 +71,12 @@ export default {
         '$route' (to, from)  {
             this.currentRouteName = to.name
         }
+    },
+
+    method: {
+        goBack() {
+            this.$router.go(-1);
+        },
     }
 
 }

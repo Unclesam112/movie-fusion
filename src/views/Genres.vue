@@ -8,8 +8,8 @@
         </div>
    
 
-    <main class="px-5">
-        <div class="my-8  breadcrumb">
+    <main class="px-20 sm:ml-64">
+        <div class="my-8 mt-16  breadcrumb">
             <breadcrumbVue />
         </div>
         <div class="genre my-10" v-if="genreName">
@@ -19,15 +19,7 @@
 
 
         <div class="top-picks mt-10">
-            <!-- <h1 class="text-lg md:text-2xl mb-2">Top Pick's For You</h1> -->
-            <!-- <Carousel :items-to-show="carouselItemsToShow" :wrap-around="true">
-                <Slide v-for="movie in movies" :key="movie.id">
-                    <div class="carousel__item m-0 md:m-5">
-                        <MovieCard :movie="movie" />
-                    </div>
-                </Slide>
 
-            </Carousel> -->
 
 
             <div class="grid grid-cols-3  md:grid-cols-6 gap-2">

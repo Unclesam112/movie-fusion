@@ -1,16 +1,18 @@
 <template>
-  <main>
+ 
+ <navbarVue />
+  <main class="p-4 sm:ml-64">
     <!-- <fullPageLoader :isLoading="isLoading" /> -->
-    <div class="navbar">
-       
-    </div>
+   
 
      <div>
       <smallHeaderVue class=" md:hidden"/>
       <headerVue class=" hidden md:block"/>
     </div>
 
-    <div class="movies md:p-10 p-4">
+    <CreateCollectionButtonVue />
+
+    <div class="movies md:p-10 md:pt-0 p-4">
         <MovieList />
     </div>
 
@@ -26,17 +28,18 @@
 </template>
 
 <script>
+import CreateCollectionButtonVue from '../components/CreateCollectionButton.vue'
 import fullPageLoader from '../components/fullPageLoader.vue'
 import BottomNav from '../components/layout/bottomNav.vue'
 import footerVue from '../components/layout/footer.vue'
 import headerVue from '../components/layout/header.vue'
+import navbarVue from '../components/layout/navbar.vue'
 import smallHeaderVue from '../components/layout/smallDevice-layout/header.vue'
 import MovieList from '../components/MovieList.vue'
 
 
-
 export default {
-    components: {headerVue, MovieList, footerVue, fullPageLoader, BottomNav, smallHeaderVue},
+    components: {headerVue, MovieList, footerVue, fullPageLoader, BottomNav, smallHeaderVue, CreateCollectionButtonVue, navbarVue},
     data() {
       return {
         isLoading: true,

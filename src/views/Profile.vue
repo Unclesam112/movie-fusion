@@ -1,6 +1,6 @@
 <template>
-    <main>
-        <div class="navbar hidden sm:block">
+   
+        <div class="navbar md:bg-gray-900 hidden sm:block">
             <navbarVue class="" />
         </div>
 
@@ -8,24 +8,22 @@
             <previousNavVue />
         </div>
 
-
-        <div class="profile-image mt-4">
+        <main class="p-20 pt-10 sm:ml-64">
+        <div class="flex justify-center my-10 profile-image mt-4 mx-10">
             <div class="flex justify-center">
-                <!-- <img src="../assets/img/bg-1.jpg" 
-                    alt=""> -->
-
-                <Icon icon="carbon:user-avatar-filled"
-                    class="w-28 h-28 rounded-full object-cover border border-2-gray-500" />
+                <Icon icon="carbon:user-avatar-filled" width="100"
+                    class=" rounded-full object-cover border border-2-gray-500" />
             </div>
-            <div class="user-name text-center" v-if="userInfo">
-                <h1 class="text-2xl my-2">{{ userInfo.username }}</h1>
-            </div>
-
-            <div class="edit flex justify-center">
+            <div class="user-name mx-5 text-center" v-if="userInfo">
+                <h1 class="text-6xl my-2">{{ userInfo.username }}</h1>
+                <div class="edit flex ">
                 <button class="bg-gray-700 px-3 text-white flex">Edit
                     <Icon icon="ph:pencil" class="mt-1 mx-1" />
                 </button>
             </div>
+            </div>
+
+            
         </div>
 
 
@@ -51,7 +49,7 @@
 
 
         <ul
-            class="w-full text-lg font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            class="mx-20 text-lg font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
             <li class="w-full px-4 py-4 border-b border-gray-200 rounded-t-lg dark:border-gray-600">Profile</li>
             <li class="w-full px-4 py-4 border-b border-gray-200 dark:border-gray-600">Settings</li>
             <li class="w-full px-4 py-4 border-b border-gray-200 dark:border-gray-600">About</li>

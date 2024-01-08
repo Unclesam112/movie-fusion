@@ -9,63 +9,46 @@
         </div>
     </main>
 
+    <div class="px-10 sm:ml-64">
 
-    <main class="h-screen hidden sm:block">
-        <div class="relative w-full h-full">
-            <img :src="getBackgroundImageUrl(movie.backdrop_path)" alt="Background Image"
-                class="w-full h-full object-cover backdrop-image" />
-            <div class="absolute inset-0 overlay">
-                <transition name="fade" mode="out-in">
-                    <div :key="movie.id" class="grid grid-cols md:grid-cols-2 gap-10  md:px-20 md:py-5 p-5">
-                        <div class="col-sapn-1 mt-28">
-                            <h1 class="title text-6xl text-white">{{ movie.original_title }}</h1>
-                            <!-- ... rest of your content ... -->
-                            <button type="button"
-                                class="py-1 px-4 mr-2 text-3xl my-4 mb-2 text-sm font-medium focus:outline-none text-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">16+</button>
+        <main class=" hidden ">
+            <div class="relative w-full h-full hidden">
+                <img :src="getBackgroundImageUrl(movie.backdrop_path)" alt="Background Image"
+                    class="w-full h-full object-cover backdrop-image" />
+                <div class="absolute inset-0 overlay">
+                    <transition name="fade" mode="out-in">
+                        <div :key="movie.id" class="grid grid-cols md:grid-cols-2 gap-10  md:px-20 md:py-5 p-5">
+                            <div class="col-sapn-1 mt-28">
+                                <h1 class="title text-6xl text-white">{{ movie.original_title }}</h1>
+                                <!-- ... rest of your content ... -->
+                                <button type="button"
+                                    class="py-1 px-4 mr-2 text-3xl my-4 mb-2 text-sm font-medium focus:outline-none text-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">16+</button>
 
-                            <div class="flex items-center my-5">
-                                <svg class="w-4 h-4 text-yellow-300 mr-1" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                                    <path
-                                        d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                </svg>
-                                <p class="ml-2 text-sm font-bold text-white dark:text-white">{{ formattedRating }}</p>
-                                <span class="w-1 h-1 mx-1.5 bg-gray-500 rounded-full dark:bg-gray-400"></span>
-                                <a href="#" class="text-sm font-medium text-white hover:no-underline dark:text-white">
-                                    {{ formatReleaseDate(movie.release_date) }}
-                                </a>
+                                <div class="flex items-center my-5">
+                                    <svg class="w-4 h-4 text-yellow-300 mr-1" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                        <path
+                                            d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                                    </svg>
+                                    <p class="ml-2 text-sm font-bold text-white dark:text-white">{{ formattedRating }}</p>
+                                    <span class="w-1 h-1 mx-1.5 bg-gray-500 rounded-full dark:bg-gray-400"></span>
+                                    <a href="#" class="text-sm font-medium text-white hover:no-underline dark:text-white">
+                                        {{ formatReleaseDate(movie.release_date) }}
+                                    </a>
 
-                                <a href="#" class="text-sm mx-2 font-medium text-white hover:no-underline dark:text-white">
-                                    {{ formattedRuntime }}
-                                </a>
-                            </div>
-
-                            <div class="button flex gap-4 my-2">
-                                <button data-tooltip-target="tooltip-default" type="button"
-                                    class="btn bg-red-700 rounded-full p-4">
-                                    <Icon icon="ph:heart-fill" color="white" />
-                                </button>
-                                <div id="tooltip-default" role="tooltip"
-                                    class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                                    Tooltip content
-                                    <div class="tooltip-arrow" data-popper-arrow></div>
+                                    <a href="#"
+                                        class="text-sm mx-2 font-medium text-white hover:no-underline dark:text-white">
+                                        {{ formattedRuntime }}
+                                    </a>
                                 </div>
 
-                                <button class="btn bg-red-700 rounded-full p-4">
-                                    <Icon icon="icon-park-solid:tag" color="white" />
-                                </button>
 
-                                <button class="btn bg-red-700 rounded-full p-4">
-                                    <Icon icon="ph:star-fill" color="white" />
-                                </button>
 
                             </div>
-
                         </div>
-                    </div>
-                </transition>
+                    </transition>
 
-                <!-- <div class="video-box mx-20 hidden md:block lg:block">
+                    <!-- <div class="video-box mx-20 hidden md:block lg:block">
                     
                     <div class="videos " v-if="videos.length">
 
@@ -84,130 +67,170 @@
 
                     </div>
                 </div> -->
+                </div>
+
+
+            </div>
+        </main>
+
+        <div class="mt-12 mb-10">
+            <Breadcrumb />
+        </div>
+
+        <div class="video-player m-0 rounded-md z-10">
+            <VideoPlayerVue />
+        </div>
+
+        <main class="info my-10 md:mx-0 mx-5">
+
+
+            <ul
+                class="text-sm font-medium text-center text-gray-500 rounded-lg  flex dark:divide-gray-700 dark:text-gray-400">
+                <li class="w-full">
+                    <a href="#" @click.prevent="activeTab = 1"
+                        :class="{ 'bg-red-0': activeTab === 1, 'text-gray-700': activeTab === 1, 'bg-gray-300': activeTab !== 1, 'text-gray-700': activeTab !== 1, 'transition': true }"
+                        class="fade inline-block w-full p-4 text-gray-900 border-r border-gray-200 dark:border-gray-700 rounded-s-lg "
+                        aria-current="page">Overview</a>
+                </li>
+                <li class="w-full">
+                    <a href="#" @click.prevent="activeTab = 2"
+                        :class="{ 'bg-red-700': activeTab === 2, 'text-black': activeTab === 2, 'bg-gray-300': activeTab !== 2, 'text-gray-700': activeTab !== 2, 'transition': true }"
+                        class="fade inline-block w-full p-4 bg-white border-r border-gray-200 dark:border-gray-700 hover:text-gray-700 hover:bg-gray-50 ">Cast</a>
+                </li>
+                <li class="w-full">
+                    <a href="#" @click.prevent="activeTab = 3"
+                        :class="{ 'bg-0': activeTab === 3, 'text-black': activeTab === 3, 'bg-gray-300': activeTab !== 3, 'text-gray-700': activeTab !== 3, 'transition': true }"
+                        class="fade inline-block w-full p-4 bg-white  dark:border-gray-700 hover:text-gray-700 hover:bg-gray-50 focus:ring-4 ">More</a>
+                </li>
+
+            </ul>
+
+            <div class="overview md:p-0 py-5cd admincd fade my-8" v-show="activeTab === 1" v-if="movie" key="1">
+
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                    <div class="col">
+                        <h1 class="text-4xl font-medium mb-4">{{ movie.title }}</h1>
+                        <p class="text-sm pb-5 text-gray-700">{{ movie.overview }}</p>
+                        <div class="date flex space-around text-xs text-gray-700 mb-6">
+                            <Icon icon="ic:baseline-18-up-rating" width="25" color="red" /> <span class="mx-2 mt-1">{{
+                                formatReleaseDate(movie.release_date) }}</span> <span class="mt-1">{{ formattedRuntime
+    }}</span>
+                        </div>
+
+                        <!-- <div class="ratings">
+                            <MovieRatingVue />
+                        </div> -->
+
+
+                        <div class="watch-providers">
+                            <WatchProviderVue />
+                        </div>
+
+                        <div class="genre mt-8">
+                            <h1 class="text-2xl">Genres:</h1>
+
+                            <div class="flex flex-wrap gap-4 my-4 ">
+                                <span v-for="genre in movie.genres" :key="genre.id" class="">
+                                    <GenreButton :genre="genre" class="" />
+                                </span>
+                            </div>
+
+                        </div>
+
+                        <div class="movie-buttons my-10">
+                            <movieButtonsVue :movie="movie" />
+                        </div>
+                    </div>
+
+                    <div class="col-span-1 col-end md:p-20 md:pt-0 mx-auto">
+                            <div class="flex h-auto items-center justify-center">
+                                <img :src="getImageUrl(movie.poster_path)" class="hidden md:hidden lg:block object-cover" alt="">
+                            </div>
+                        </div>
+                </div>
+
+
+
+
+                <div class="topr-rated-actors">
+                    <TopTenActorsVue />
+                </div>
+
+
+
+                <hr class="my-10" />
+
+
+
+
+                <div class="video-box md:hidden lg:hidden my-8">
+                    <h1 class="text-2xl text-gray-900 mt-0">Watch Trailers on Youtube</h1>
+                    <div class="videos" v-if="videos.length">
+                        <div class="carousel__item" v-for="video in videos.slice(0, 4)" :key="video.id">
+                            <iframe class="w-full my-3" :src="getVideoUrl(video.key)" frameborder="0"
+                                allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
             </div>
 
 
-        </div>
-    </main>
 
-    <div class="video-player sm:hidden">
-        <VideoPlayerVue />
+            <div class="overview md:p-0 py-5cd admincd fade my-6" v-show="activeTab === 2" v-if="movie" key="2">
+                <h1 class="text-3xl font-semibold my-8 text-gray-900">Full Cast & Crew</h1>
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-2">
+
+                    <div class="col" v-for="cast in casts" :key="cast.id">
+
+                        <CastCard :cast="cast" />
+                        <h1 class="text-gray-500 text-md text-center">{{ cast.name }}</h1>
+                    </div>
+                </div>
+            </div>
+
+            <div class="overview md:p-0 py-5cd admincd fade my-6" v-show="activeTab === 3" v-if="movie" key="2">
+                <h1 class="text-3xl font-semibold my-8 text-gray-900">Watch trailers on youtube</h1>
+                <div class="">
+                    <div class="video-box mx-0 hidden md:block lg:block">
+
+                        <div class="videos " v-if="videos.length">
+
+                            <Carousel :items-to-show="3.5" :wrap-around="true">
+                                <Slide v-for="video in videos.slice(0, 4)" :key="video.id">
+                                    <div class="carousel__item">
+                                        <iframe class="ml-10" :src="getVideoUrl(video.key)" frameborder="0" height="200"
+                                            allowfullscreen></iframe>
+                                    </div>
+                                </Slide>
+
+                                <template #addons>
+                                    <Navigation />
+                                </template>
+                            </Carousel>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="top-picks mt-10 mb-20">
+                <h1 class="text-lg md:text-2xl mb-2">Related Movies</h1>
+                <Carousel :items-to-show="carouselItemsToShow" :wrap-around="true">
+                    <Slide v-for="movie in relatedMovies" :key="movie.id">
+                        <div class="carousel__item m-2 md:m-2">
+                            <MovieCard :movie="movie" />
+                        </div>
+                    </Slide>
+
+
+                </Carousel>
+            </div>
+        </main>
     </div>
 
-    <main class="info my-10 md:mx-20 mx-5">
 
 
-        <ul
-            class="text-sm font-medium text-center text-gray-500 rounded-lg  flex dark:divide-gray-700 dark:text-gray-400">
-            <li class="w-full">
-                <a href="#" @click.prevent="activeTab = 1"
-                    :class="{ 'bg-red-0': activeTab === 1, 'text-gray-700': activeTab === 1, 'bg-gray-300': activeTab !== 1, 'text-gray-700': activeTab !== 1, 'transition': true }"
-                    class="fade inline-block w-full p-4 text-gray-900 border-r border-gray-200 dark:border-gray-700 rounded-s-lg focus:ring-4 focus:ring-blue-300 active focus:outline-none dark:bg-gray-700 dark:text-white"
-                    aria-current="page">Overview</a>
-            </li>
-            <li class="w-full">
-                <a href="#" @click.prevent="activeTab = 2"
-                    :class="{ 'bg-red-700': activeTab === 2, 'text-white': activeTab === 2, 'bg-gray-300': activeTab !== 2, 'text-gray-700': activeTab !== 2, 'transition': true }"
-                    class="fade inline-block w-full p-4 bg-white border-r border-gray-200 dark:border-gray-700 hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700">Cast</a>
-            </li>
-            <li class="w-full">
-                <a href="#" @click.prevent="activeTab = 3"
-                    :class="{ 'bg-red-700': activeTab === 3, 'text-white': activeTab === 3, 'bg-gray-300': activeTab !== 3, 'text-gray-700': activeTab !== 3, 'transition': true }"
-                    class="fade inline-block w-full p-4 bg-white  dark:border-gray-700 hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700">More</a>
-            </li>
-
-        </ul>
-
-        <div class="overview md:p-0 py-5cd admincd fade my-8" v-show="activeTab === 1" v-if="movie" key="1">
-            <h1 class="text-3xl font-bold mb-4">{{ movie.title }}</h1>
-            <p class="text-sm pb-5 text-gray-700">{{ movie.overview }}</p>
-            <div class="date flex space-around text-xs text-gray-700 mb-6">
-                <Icon icon="ic:baseline-18-up-rating" width="25" color="red" /> <span class="mx-2 mt-1">{{ formatReleaseDate(movie.release_date) }}</span> <span class="mt-1">{{ formattedRuntime }}</span> 
-            </div>
-
-            <div class="ratings">
-                <MovieRatingVue />
-            </div>
-
-
-           <div class="movie-buttons">
-                <movieButtonsVue :movie="movie" />
-           </div>
-
-            <hr class="my-10" />
-            <div class="genre">
-                <h1 class="text-2xl">Genres:</h1>
-
-                <div class="flex flex-wrap gap-4 my-4 ">
-                    <span v-for="genre in movie.genres" :key="genre.id" class=" ">
-                        <GenreButton :genre="genre" class="" />
-                    </span>
-                </div>
-
-            </div>
-
-            <div class="video-box md:hidden lg:hidden my-8">
-                <h1 class="text-2xl text-gray-900 mt-0">Watch Trailers on Youtube</h1>
-                <div class="videos" v-if="videos.length">
-                    <div class="carousel__item" v-for="video in videos.slice(0, 4)" :key="video.id">
-                        <iframe class="w-full my-3" :src="getVideoUrl(video.key)" frameborder="0" allowfullscreen></iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-        <div class="overview md:p-0 py-5cd admincd fade my-6" v-show="activeTab === 2" v-if="movie" key="2">
-            <h1 class="text-3xl font-semibold my-8 text-gray-900">Full Cast & Crew</h1>
-            <div class="grid grid-cols-2 md:grid-cols-5 gap-2">
-
-                <div class="col" v-for="cast in casts" :key="cast.id">
-
-                    <CastCard :cast="cast" />
-                    <h1 class="text-gray-500 text-md text-center">{{ cast.name }}</h1>
-                </div>
-            </div>
-        </div>
-
-        <div class="overview md:p-0 py-5cd admincd fade my-6" v-show="activeTab === 3" v-if="movie" key="2">
-            <h1 class="text-3xl font-semibold my-8 text-gray-900">Watch trailers on youtube</h1>
-            <div class="">
-                <div class="video-box mx-0 hidden md:block lg:block">
-                    
-                    <div class="videos " v-if="videos.length">
-
-                        <Carousel :items-to-show="3.5" :wrap-around="true">
-                            <Slide v-for="video in videos.slice(0, 4)" :key="video.id">
-                                <div class="carousel__item">
-                                    <iframe class="ml-10" :src="getVideoUrl(video.key)" frameborder="0" height="200"
-                                        allowfullscreen></iframe>
-                                </div>
-                            </Slide>
-
-                            <template #addons>
-                                <Navigation />
-                            </template>
-                        </Carousel>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="top-picks mt-10 mb-20">
-            <h1 class="text-lg md:text-2xl mb-2">Related Movies</h1>
-            <Carousel :items-to-show="carouselItemsToShow" :wrap-around="true">
-                <Slide v-for="movie in relatedMovies" :key="movie.id">
-                    <div class="carousel__item m-2 md:m-5">
-                        <MovieCard :movie="movie" />
-                    </div>
-                </Slide>
-
-
-            </Carousel>
-        </div>
-    </main>
 
     <div class="bottom-nav m-2">
         <BottomNav />
@@ -233,11 +256,15 @@ import VideoPlayerVue from '../components/VideoPlayer.vue'
 import MovieRatingVue from '../components/MovieRating.vue'
 import previousNavVue from '../components/layout/smallDevice-layout/previousNav.vue'
 import movieButtonsVue from '../components/movieButtons.vue'
+import Breadcrumb from '../components/layout/breadcrumb.vue'
+import TopTenActorsVue from '../components/TopTenActors.vue'
+import WatchProviderVue from '../components/WatchProvider.vue'
+
 
 
 
 export default defineComponent({
-    components: { navbarVue, MovieCard, Carousel, Slide, Navigation, BottomNav, GenreButton, VideoPlayerVue, CastCard, Icon, MovieRatingVue, previousNavVue, movieButtonsVue },
+    components: { navbarVue, Breadcrumb,WatchProviderVue, MovieCard, Carousel, Slide, Navigation, BottomNav, GenreButton, TopTenActorsVue, VideoPlayerVue, CastCard, Icon, MovieRatingVue, previousNavVue, movieButtonsVue },
     data() {
         return {
             movie: {},

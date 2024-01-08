@@ -1,7 +1,7 @@
 <template>
     <main>
         <div class="col movie-card" @click="goToDetails(cast.id)">
-            <img :src="getImageUrl(cast.profile_path)" :alt="cast.title" class="card-image md:rounded-md w-100" />
+            <img :src="getImageUrl(cast.profile_path)" :alt="cast.title" class="md:rounded-md w-50" />
             <div class="card-content">
                 <h2 class="card-title mt-4 text-gray-500 hidden md:block lg:block">{{ cast.title }}</h2>
             </div>

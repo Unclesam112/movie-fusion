@@ -1,25 +1,51 @@
 <template>
     <main>
         <div class="col movie-card rounded m-0" @click="goToDetails(movie.id)">
-            <img :src="getImageUrl(movie.poster_path)" :alt="movie.title" class="card-image rounded md:rounded-md" />
+
+            <div class="image-container">
+
+                <img :src="getImageUrl(movie.poster_path)" :alt="movie.title" class="card-image rounded md:rounded-md" />
+                <div class="overlay grid">
+                    <button class="button play-button">
+                       
+                        <Icon icon="teenyicons:heart-outline" width="25" color="white"/>
+                    </button>
+                   
+                </div>
+            </div>
             <div class="card-content">
+                <!-- Movie title (if needed) -->
                 <!-- <h2 class="card-title mt-4 text-gray-500 hidden md:block lg:block">{{ movie.title }}</h2> -->
+
 
             </div>
         </div>
-        <!-- <button @click="addMovieToCollection(movie.id)">+</button> -->
+
     </main>
 </template>
 
 <script>
 import { collection, addDoc, updateDoc, getDocs, doc } from 'firebase/firestore';
 import { auth, db } from '@/firebase';
+import { Icon } from '@iconify/vue';
+
 export default {
     props: {
         movie: {
             type: Object,
             required: true
         }
+    },
+
+    components: {
+        Icon
+    },
+
+    data() {
+        return {
+            showOverlay: false,
+            showMenu: false,
+        };
     },
 
     computed: {
@@ -104,4 +130,36 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+.image-container {
+    position: relative;
+    display: inline-block;
+    /* Ensures the container only takes up as much space as the image */
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    /* Semi-transparent black overlay */
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    /* Initially invisible */
+    transition: opacity 0.3s ease;
+    /* Smooth transition for opacity */
+}
+
+.overlay:hover {
+    opacity: 1;
+    /* Make the overlay visible on hover */
+}
+.play-button {
+    position: relative;
+    top: 0;
+}
+</style>

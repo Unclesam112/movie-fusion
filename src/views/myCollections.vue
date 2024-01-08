@@ -1,77 +1,117 @@
 <template>
     <div class="navbar hidden sm:block">
-        <navbarVue class="" />
+        <navbarVue class="bg-gray-900" />
     </div>
 
     <div class="previousNav">
         <previousNavVue />
     </div>
 
-    <main class="px-5">
-        <div class="genre flex justify-between mt-5">
-            <h1 class="text-left text-gray-900 text-2xl">My Collections</h1>
-            <Icon icon="ph:pencil" width="20" />
-        </div>
+    <main class=" p-20 pt-10 sm:ml-64">
+        <breadcrumbVue class="my-4" />
 
-        <div class="sort my-4 flex">
-            <h1 class="text-gray-500 text-sm ">Sort by</h1>
-
-            <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
-                class="my-0 text-black hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm mx-2 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                type="button">Recent<svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                    fill="none" viewBox="0 0 10 6">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="m1 1 4 4 4-4" />
-                </svg>
-            </button>
-
-            <!-- Dropdown menu -->
-            <div id="dropdown"
-                class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-                    <li>
-                        <a href="#"
-                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign
-                            out</a>
-                    </li>
-                </ul>
-            </div>
-
-        </div>
-
-
-        <div class="" v-if="userCollections.length > 0">
-            <router-link :to="`/collection-details/${collection.name}`" v-for="collection in userCollections"
-                :key="collection.id"
-                class="pointer my-4 flex items-center bg-white rounded-lg  md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-                <!-- <MovieCardVue :movie="movie"/> -->
-                <img :src="randomImagePath" alt="Random Image" class="w-24 rounded">
-                <div class="flex flex-col justify-between pt-1.5 leading-normal">
-                    <h5 class="mb-2 text-md px-2 font-medium tracking-tight text-gray-900 dark:text-white truncate w-48">
-                        {{ collection.name }}
+        <div class="grid md:grid-cols-2 gap-8">
+            <div class="col" v-if="userCollections && userCollections.length > 0">
+                <div class="col mt-5">
+                    <img :src="getRandomImagePath(index)" alt="Random Image" class="w-100 rounded">
+                    <h5 class="mb-2 text-5xl py-4 px-2 font-medium tracking-tight text-gray-900 dark:text-white truncate ">
+                        {{ userCollections[0].name }}
                     </h5>
+                    <div class="flex justify-between">
+                        <h1 class="text-left text-gray-900 text-lg">My Movies</h1>
+                        <span class="text-sm flex" @click='goToRoute(userCollections[0].name)'>See all
+                            <Icon icon="ep:right" width="20" class="ml-2" />
+                        </span>
+                    </div>
+
+                    <div v-for="movie in collectionMovies.slice(0, 3)" :key="movie.id"
+                        class=" my-2 flex items-center bg-white rounded-lg  md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+                        <!-- <MovieCardVue :movie="movie"/> -->
+                        <img :src="getImageUrl(movie.backdrop_path)" :alt="movie.title"
+                            class="w-28 card-image rounded md:rounded-md" />
+                        <div class="flex flex-col justify-between pt-1.5 leading-normal">
+                            <h5
+                                class="mb-2 text-sm px-2 font-medium tracking-tight text-gray-900 dark:text-white truncate w-48">
+                                {{
+                                    movie.title }}
+                            </h5>
+                            <router-link :to="`/movie/details/${movie.id}`" type="button"
+                                class="px-3 py-1 text-xs font-medium text-center inline-flex items-center text-gray-900 bg-white rounded hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                <Icon icon="solar:play-bold" class="mr-2" />
+                                Play
+                            </router-link>
+
+                            <!-- <p class="mb-3 text-sm font-normal text-gray-700 dark:text-gray-400 line-clamp-2">{{ movie.overview }}</p> -->
+                        </div>
+                    </div>
                 </div>
-            </router-link>
+            </div>
+            <div class="col">
+                <div class="genre flex justify-between mt-5">
+                    <h1 class="text-left text-gray-900 text-2xl">My Collections</h1>
+                    <Icon icon="ph:pencil" width="20" />
+                </div>
+
+                <div class="sort my-4 flex">
+                    <h1 class="text-gray-500 text-sm ">Sort by</h1>
+
+                    <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
+                        class="my-0 text-black hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm mx-2 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        type="button">Recent<svg class="w-2.5 h-2.5 ms-3" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m1 1 4 4 4-4" />
+                        </svg>
+                    </button>
+
+                    <!-- Dropdown menu -->
+                    <div id="dropdown"
+                        class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                            <li>
+                                <a href="#"
+                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign
+                                    out</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+                <div class="" v-if="userCollections.length > 0">
+                    <router-link :to="`/collection-details/${collection.name}`"
+                        v-for="(collection, index) in userCollections" :key="collection.id"
+                        class="pointer p-2 flex justify-between items-center bg-white rounded-lg  md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+                        <!-- <MovieCardVue :movie="movie"/> -->
+
+                        <div class="flex items-center h-auto justify-between pt-1.5 leading-normal">
+                            <img :src="getRandomImagePath(index)" alt="Random Image" class="w-28 rounded">
+                            <h5
+                                class="mb-2 text-md px-2 font-medium tracking-tight text-gray-900 dark:text-white truncate w-48">
+                                {{ collection.name }}
+                            </h5>
+                        </div>
+
+                        <Icon icon="ep:right" width="20" />
+                    </router-link>
+                </div>
+
+                <div class="" v-else>
+                    <h1 class="text-3xl text-gray-300 flex items-center justify-center h-screen">No Collection!</h1>
+                </div>
+            </div>
         </div>
-
-        <div class="" v-else>
-            <h1 class="text-3xl text-gray-300 flex items-center justify-center h-screen">No Collection!</h1>
-        </div>
-
-
-
 
 
         <div class="bottom-nav m-2">
@@ -115,23 +155,20 @@ export default defineComponent({
             genreName: null,
             carouselItemsToShow: 3.5,
             userCollections: [],
+            collectionMovies: [],
             imagePaths: [
-               image1,
-               image2,
-               image3,
-               image4,
-               image5,
-               image6,
+                image1,
+                image2,
+                image3,
+                image4,
+                image5,
+                image6,
             ],
         }
     },
 
     computed: {
-        randomImagePath() {
-            const randomIndex = Math.floor(Math.random() * this.imagePaths.length);
-            
-            return this.imagePaths[randomIndex];
-        },
+
     },
 
     mounted() {
@@ -146,6 +183,10 @@ export default defineComponent({
     },
 
     methods: {
+        getRandomImagePath(index) {
+            const randomIndex = Math.floor(Math.random() * this.imagePaths.length);
+            return this.imagePaths[randomIndex];
+        },
         handleResize() {
             this.carouselItemsToShow = window.innerWidth >= 768 ? 5.5 : 2.5
         },
@@ -214,13 +255,20 @@ export default defineComponent({
                     if (!querySnapshot.empty) {
                         // Found the user with the matching email
                         const userData = querySnapshot.docs[0].data();
-                        const movieCollections = userData.movieCollection || {};
+                        const movieCollections = userData.movieCollection || [];
 
                         // Extract collection names
                         const collectionNames = movieCollections;
 
-                        this.userCollections = collectionNames
+                        this.userCollections = collectionNames;
                         console.log('Collections:', collectionNames);
+
+                        // Fetch movies from the first collection
+                        if (movieCollections.length > 0) {
+                            const firstCollection = movieCollections[0];
+                            await this.fetchMoviesFromCollection(firstCollection);
+                        }
+
                         return collectionNames;
                     } else {
                         console.log('Error: User document not found');
@@ -232,8 +280,40 @@ export default defineComponent({
                 return [];
             }
         },
+
+        async fetchMoviesFromCollection(collection) {
+            // Assuming collection.movies is an array of movie IDs
+            // Assuming collection.movies is an array of objects with a movieId property
+            for (const movie of collection.movies) {
+                const movieId = movie.movieId; // Extract the movieId property
+                const options = {
+                    method: 'GET',
+                    headers: {
+                        accept: 'application/json',
+                        Authorization: API_ENDPOINTS.KEY,
+                    },
+                };
+
+                try {
+                    const response = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}`, options);
+                    const movieDetails = response.data;
+                    this.collectionMovies.push(movieDetails);
+                    console.log('Movie details:', movieDetails);
+                } catch (error) {
+                    console.error('Error fetching movie details from TMDB:', error);
+                }
+            }
+
+        },
+
+        goToRoute(id) {
+            this.$router.push(`collection-details/${id}`)
+        },
+
     }
-})
+
+
+    })
 </script>
 
 <style>
@@ -247,5 +327,4 @@ export default defineComponent({
         margin: 2px;
         text-align: left !important;
     }
-}
-</style>
+}</style>
