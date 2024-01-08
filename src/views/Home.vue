@@ -1,7 +1,7 @@
 <template>
  
  <navbarVue />
-  <main class="p-4 sm:ml-64">
+  <main class="md:p-4 p-0 sm:ml-64">
     <!-- <fullPageLoader :isLoading="isLoading" /> -->
    
 
