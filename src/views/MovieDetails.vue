@@ -9,7 +9,7 @@
         </div>
     </main>
 
-    <div class="px-10 sm:ml-64">
+    <div class="sm:px-10 px-2 sm:ml-64">
 
         <main class=" hidden ">
             <div class="relative w-full h-full hidden">
