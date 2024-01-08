@@ -46,7 +46,7 @@ export default defineComponent({
       return path ? `https://image.tmdb.org/t/p/w300${path}` : 'https://via.placeholder.com/500';
     },
     handleResize() {
-            this.carouselItemsToShow = window.innerWidth >= 786 ? 5.5 : 3.5
+            this.carouselItemsToShow = window.innerWidth >= 786 ? 2.5 : 1.5
         },
 
     async fetchTopRatedActors() {
