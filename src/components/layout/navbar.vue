@@ -64,7 +64,7 @@
           </div>
         </div>
 
-        <div class="flex w-100 items-center ml-auto mr-10">
+        <div class="flex w-100 items-center ml-auto mr-4 md:mr-10">
           <div class="md:flex items-center ms-3 md:gap-7">
             <div class="hidden md:relative ">
               <Icon icon="mingcute:notification-line" width="24" class=" text-gray-500" />
