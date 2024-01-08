@@ -9,7 +9,7 @@
         </div>
     </main>
 
-    <div class="sm:px-10 px-2 sm:ml-64">
+    <div class="sm:px-10 px-4 sm:ml-64">
 
         <main class=" hidden ">
             <div class="relative w-full h-full hidden">
@@ -81,7 +81,7 @@
             <VideoPlayerVue />
         </div>
 
-        <main class="info my-10 md:mx-0 mx-5">
+        <main class="info my-10 md:mx-0 mx-2">
 
 
             <ul
