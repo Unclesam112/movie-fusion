@@ -5,7 +5,7 @@
             <button data-tooltip-target="tooltip-home" type="button"
                 class="inline-flex flex-col items-center justify-center px-5 rounded-s-full hover:bg-gray-50 dark:hover:bg-gray-800 group">
                 <router-link to="/">
-                    <Icon icon="majesticons:home"  class="text-gray-500 w-5 h-5 "/>
+                    <Icon icon="iconamoon:home"  class="text-gray-500 w-5 h-5 "/>
                 </router-link>
                
                 <span class="sr-only">Home</span>
@@ -17,7 +17,7 @@
             </div>
             <button data-tooltip-target="tooltip-wallet" type="button"
                 class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
-                <router-link to="/movies"> <Icon icon="fluent:movies-and-tv-16-filled"  class="text-gray-500 w-5 h-5 "/></router-link>
+                <router-link to="/movies"> <Icon icon="fluent:movies-and-tv-24-regular"  class="text-gray-500 w-5 h-5 "/></router-link>
                
                 <span class="sr-only">Movies</span>
             </button>
@@ -44,7 +44,7 @@
             </div>
             <button data-tooltip-target="tooltip-settings" type="button"
                 class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
-                <router-link to="/favourites"> <Icon icon="solar:heart-bold" class="text-gray-500 w-5 h-5 "/></router-link>
+                <router-link to="/favourites"> <Icon icon="ant-design:heart-outlined" class="text-gray-500 w-5 h-5 "/></router-link>
                
                 <span class="sr-only">Favourite</span>
             </button>
