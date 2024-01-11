@@ -8,7 +8,7 @@
         </div>
    
 
-    <main class="sm:px-20 sm:ml-64">
+    <main class="sm:px-20 px-2.5 sm:ml-64">
         <div class="my-8 sm:mt-16  breadcrumb">
             <breadcrumbVue />
         </div>
