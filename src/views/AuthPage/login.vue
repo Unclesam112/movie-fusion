@@ -15,7 +15,7 @@
                     <div
                         class="mx-auto mt-10 w-full max-w-md p-4 bg-white  border-gray-200 rounded-lg sm:p-6 md:p-0 dark:bg-gray-800 dark:border-gray-700">
                         <form class="space-y-6" action="#">
-                            <h5 class="text-3xl font-bold text-gray-900 dark:text-white">Hello Again!</h5>
+                            <h5 class="text-3xl font-bold text-gray-900 dark:text-white">Hello!</h5>
                             <p class="text-gray-700">Lights up! Your account is just a login away from an epic movie journey!
                             </p>
                             <div>
