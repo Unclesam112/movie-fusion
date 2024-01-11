@@ -7,8 +7,8 @@
                 
                 <transition name="fade" mode="out-in">
                     <div :key="currentMovie.id" class="grid grid-cols md:grid-cols-2 gap-10  md:px-20 md:py-5 p-5">
-                        <div class="col-sapn-1 mt-10 md:mt-28">
-                            <h1 class="title text-5xl text-white line-clamp-3">{{ currentMovie.title }}</h1>
+                        <div class="col-sapn-1 mt-2 md:mt-28">
+                            <h1 class="title md:text-5xl text-3xl text-white line-clamp-3">{{ currentMovie.title }}</h1>
                             <!-- ... rest of your content ... -->
                             <button type="button"
                             class="py-1 px-4 mr-2 my-4 mb-2 text-sm font-medium focus:outline-none text-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">16+</button>
