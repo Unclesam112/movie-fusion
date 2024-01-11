@@ -8,26 +8,33 @@
     </div>
 
     <main class="p-4 sm:ml-64">
-        <div class="my-8  breadcrumb px-5">
+        <div class="my-8 mt-0 breadcrumb sm:px-5">
             <breadcrumbVue />
         </div>
 
 
         <div class="grid grid-cols-1 md:grid-cols-3" v-if="cast">
             <div class="col mx-auto">
-                <div class="img md:p-5 p-5">
+                <div class="img md:p-5">
                     <CastCard :cast="cast" />
-                    <div class="socials flex mx-auto justify-center gap-4">
+                    <div class="socials hidden sm:flex mx-auto sm:justify-center gap-4 my-4">
                         <Icon icon="ic:outline-facebook" color="black" width="40"/>
                         <Icon icon="mingcute:twitter-fill" color="black" width="40"/>
                         <Icon icon="mdi:instagram" color="black" width="40"/>
                         <Icon icon="ic:baseline-tiktok" color="black" width="40"/>
                     </div>
+
+                    <div class="socials sm:hidden flex mx-auto sm:justify-center gap-4 my-4">
+                        <Icon icon="ic:outline-facebook" color="black" width="20"/>
+                        <Icon icon="mingcute:twitter-fill" color="black" width="20"/>
+                        <Icon icon="mdi:instagram" color="black" width="20"/>
+                        <Icon icon="ic:baseline-tiktok" color="black" width="20"/>
+                    </div>
                 </div>
             </div>
 
-            <div class="col-span-2 p-5 md:pr-5">
-                <h1 class="text-6xl font-bold mt-2 mb-6">{{ cast.name }}</h1>
+            <div class="col-span-2 sm:p-5 md:pr-5">
+                <h1 class="sm:text-6xl text-5xl font-bold sm:mt-2 mt-4 mb-6">{{ cast.name }}</h1>
 
                 <h1 class="text-md">Biography</h1>
                 <div class="text-gray-500 text-sm" v-html="renderBiography(cast.biography)"></div>
@@ -65,7 +72,7 @@
                     </div>
 
                     <div class="col-span-2">
-                        <div class="popular p-4 pt-0">
+                        <div class="popular sm:p-4 pt-0">
                             <h1 class="text-lg  md:text-1xl mb-2">Know For</h1>
                             <Carousel :items-to-show="3" :wrap-around="true">
                                 <Slide v-for="movie in movies" :key="movie.id">

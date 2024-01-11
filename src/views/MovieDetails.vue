@@ -131,7 +131,7 @@
                             <h1 class="text-2xl">Genres:</h1>
 
                             <div class="flex flex-wrap gap-4 my-4 ">
-                                <span v-for="genre in movie.genres" :key="genre.id" class="">
+                                <span v-for="genre in movie.genres" :key="genre.id" class="my-2">
                                     <GenreButton :genre="genre" class="" />
                                 </span>
                             </div>

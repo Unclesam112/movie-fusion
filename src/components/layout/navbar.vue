@@ -21,7 +21,7 @@
         </div>
 
         <!-- Search bar -->
-        <div class="hidden md:relative md:flex-shrink-0">
+        <div class="hidden md:block relative md:flex-shrink-0">
           <input type="text" v-model="searchQuery" @input="handleSearch"
             class="block w-full py-2 pl-10 pr-4 border border-gray-300 rounded-full focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             placeholder="Search movies..." />

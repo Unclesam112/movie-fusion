@@ -8,7 +8,7 @@
             <previousNavVue />
         </div>
 
-        <main class="p-20 pt-10 sm:ml-64">
+        <main class="p-2.5 sm:p-20 sm:pt-10 sm:ml-64">
         <div class="flex justify-center my-10 profile-image mt-4 mx-10">
             <div class="flex justify-center">
                 <Icon icon="carbon:user-avatar-filled" width="100"
@@ -49,7 +49,7 @@
 
 
         <ul
-            class="mx-20 text-lg font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            class="md:mx-20 text-lg font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
             <li class="w-full px-4 py-4 border-b border-gray-200 rounded-t-lg dark:border-gray-600">Profile</li>
             <li class="w-full px-4 py-4 border-b border-gray-200 dark:border-gray-600">Settings</li>
             <li class="w-full px-4 py-4 border-b border-gray-200 dark:border-gray-600">About</li>

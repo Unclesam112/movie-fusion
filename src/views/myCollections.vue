@@ -7,11 +7,11 @@
         <previousNavVue />
     </div>
 
-    <main class=" p-20 pt-10 sm:ml-64">
-        <breadcrumbVue class="my-4" />
+    <main class="p-2.5 sm:p-20 sm:pt-10 sm:ml-64">
+        <breadcrumbVue class="sm:mt-4 mb-8" />
 
         <div class="grid md:grid-cols-2 gap-8">
-            <div class="col" v-if="userCollections && userCollections.length > 0">
+            <div class="col hidden sm:block" v-if="userCollections && userCollections.length > 0">
                 <div class="col mt-5">
                     <img :src="getRandomImagePath(index)" alt="Random Image" class="w-100 rounded">
                     <h5 class="mb-2 text-5xl py-4 px-2 font-medium tracking-tight text-gray-900 dark:text-white truncate ">
@@ -48,8 +48,8 @@
             </div>
             <div class="col">
                 <div class="genre flex justify-between mt-5">
-                    <h1 class="text-left text-gray-900 text-2xl">My Collections</h1>
-                    <Icon icon="ph:pencil" width="20" />
+                    <h1 class="text-left text-gray-900 text-3xl sm:text-2xl">My Collections</h1>
+                    <Icon icon="ph:pencil" width="20" class="mt-1.5"/>
                 </div>
 
                 <div class="sort my-4 flex">

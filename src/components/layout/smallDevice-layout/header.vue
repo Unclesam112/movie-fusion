@@ -37,9 +37,9 @@
                         <transition name="fade" mode="out-in">
                             <div :key="currentMovie.id" class="sm:grid sm:grid-cols md:grid-cols-2 md:px-20 md:py-5 p-5">
                                 <div class="col mt-28 absolute bottom-8">
-                                    <h1 class="title text-left text-2xl text-white w-64 truncate"> 
-                                        <router-link
-                                            :to="`/movie/details/${movie.id}`"> {{ movie.title }}</router-link></h1>
+                                    <h1 class="title text-left text-2xl text-white w-64 truncate">
+                                        <router-link :to="`/movie/details/${movie.id}`"> {{ movie.title }}</router-link>
+                                    </h1>
                                     <p class="text-xs text-left text-gray-300 font-medium">Action, Thriller, Drama</p>
 
                                     <div class="text-left mt-2">
@@ -104,13 +104,44 @@
                 </div>
                 <div class="relative w-full">
                     <input type="search" id="search-dropdown"
-                        class="block p-2.5 w-full z-20 text-sm text-gray-900 rounded-e-lg border-0 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
-                        placeholder="Search Movie" required>
+                        class="block  p-2.5 w-full z-20 text-sm text-gray-900 rounded-e-lg border-0 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
+                        placeholder="Search Movie" v-model="searchQuery" @input="handleSearch" required>
+
                     <button type="submit"
                         class="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white  rounded-e-lg border-l border-gray-300 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         <Icon icon="mingcute:search-line" color="black" />
                         <span class="sr-only">Search</span>
                     </button>
+
+                    <div v-if="searchResults.length > 0"
+                        class="absolute search p-2 mt-2 w-full h-100 bg-white border border-gray-300 rounded-lg shadow-lg dark:bg-gray-700">
+                        <h1 class="text-md">Results:</h1>
+                        <ul>
+                            <li v-for="movie in searchResults.slice(0, 5)" :key="movie.id">
+                                <div @click="goToDetails(movie.id)"
+                                    class=" my-2 flex items-center bg-white rounded-lg  md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+                                    <!-- <MovieCardVue :movie="movie"/> -->
+                                    <img v-if="movie.poster_path" :src="getImageUrl(movie.backdrop_path)" :alt="movie.title"
+                                        class="w-20 card-image rounded md:rounded-md" />
+                                    <div class="flex flex-col justify-between pt-1.5 leading-normal">
+                                        <h5
+                                            class="mb-1 text-xs px-2 font-medium tracking-tight text-gray-900 dark:text-white truncate w-28">
+                                            {{
+                                                movie.title }}
+                                        </h5>
+                                        <button type="button" @click.prevent="addMovieToCollection(movie.id)"
+                                            class="px-3  text-xs font-medium text-center inline-flex items-center text-gray-900  rounded focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                            <Icon icon="carbon:play-filled" class="mr-1 leading-none" />
+                                            Play
+
+                                        </button>
+
+                                        <!-- <p class="mb-3 text-sm font-normal text-gray-700 dark:text-gray-400 line-clamp-2">{{ movie.overview }}</p> -->
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </form>
@@ -141,6 +172,8 @@ export default defineComponent({
             currentMovie: [],
             tmdbRuntime: null,
             tmdbRating: null,
+            searchQuery: '',
+            searchResults: [],
         };
     },
 
@@ -173,6 +206,31 @@ export default defineComponent({
 
         getBackgroundImageUrl(path) {
             return path ? `https://image.tmdb.org/t/p/w1280${path}` : 'https://via.placeholder.com/500';
+        },
+
+        async handleSearch() {
+            if (this.searchQuery.trim() === '') {
+                this.searchResults = [];
+                return;
+            }
+
+            try {
+                const options = {
+                    method: 'GET',
+                    headers: {
+                        accept: 'application/json',
+                        Authorization: API_ENDPOINTS.KEY
+                    }
+                };
+                const apiUrl = `https://api.themoviedb.org/3/search/movie?query=${this.searchQuery}`;
+
+                const response = await axios.get(apiUrl, options);
+                const filteredResults = response.data.results.filter(movie => movie.poster_path);
+
+                this.searchResults = filteredResults;
+            } catch (error) {
+                console.error('Error searching movies:', error);
+            }
         },
 
         fetchRandomMovie() {
@@ -220,7 +278,7 @@ export default defineComponent({
             return `${hours}h ${remainingMinutes}m`;
         },
 
-         addSuffix(day) {
+        addSuffix(day) {
             if (day >= 11 && day <= 13) {
                 return `${day}th`;
             }
@@ -256,16 +314,22 @@ export default defineComponent({
     z-index: 2;
 }
 
+.search {
+    position: absolute;
+    z-index: 2;
+  
+}
+
 .carousel__slide {
-  scroll-snap-stop: auto;
-  flex-shrink: 0;
-  margin: 0;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transform: translateZ(0);
-  height: 200px;
+    scroll-snap-stop: auto;
+    flex-shrink: 0;
+    margin: 0;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateZ(0);
+    height: 200px;
 }
 
 .overlay {

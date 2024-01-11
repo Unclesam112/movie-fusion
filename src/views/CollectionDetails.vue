@@ -9,16 +9,16 @@
 
 
 
-    <main class="p-20 pt-10 sm:ml-64">
+    <main class="p-2.5 sm:p-20 sm:pt-10 sm:ml-64">
         <breadcrumbVue class="my-4" />
 
 
         <div class="grid md:grid-cols-2 gap-8">
-            <div class="col" v-show="collectionMovies.length > 0">
+            <div class="col hidden md:block" v-show="collectionMovies.length > 0">
                 <div class="px-0 mt-8" v-if="collectionMovies && collectionMovies.length > 0">
                     <div class="image-container">
-                        <img :src="getImageUrl(collectionMovies[0].backdrop_path)" :alt="collectionMovies[0].title"
-                            class="w-full rounded md:rounded-md" />
+                        <img :src="getImageUrl(collectionMovies[0].backdrop_path)" :alt="collectionMovies[0].title" 
+                            class="sm:w-full w-50 rounded md:rounded-md" />
                         <div class="overlay">
                             <button class="button play-button">
                                 <svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
