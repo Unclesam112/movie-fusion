@@ -7,7 +7,7 @@
             <previousNavVue />
         </div>
 
-    <main class="px-5 mx-10 sm:ml-64">
+    <main class="px-5 sm:mx-10 sm:ml-64">
         <h1 class="text-2xl mt-10">All Movies</h1>
         <div class="genre my-10 mt-20" v-if="genreName">
             <h1 class="text-left text-gray-900 text-4xl">{{ genreName.name }}</h1>
