@@ -7,7 +7,7 @@
                 
                 <transition name="fade" mode="out-in">
                     <div :key="currentMovie.id" class="grid grid-cols md:grid-cols-2 gap-10  md:px-20 md:py-5 p-5">
-                        <div class="col-sapn-1 mt-28">
+                        <div class="col-sapn-1 mt-10 md:mt-28">
                             <h1 class="title text-5xl text-white line-clamp-3">{{ currentMovie.title }}</h1>
                             <!-- ... rest of your content ... -->
                             <button type="button"
