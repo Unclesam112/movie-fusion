@@ -15,7 +15,7 @@
       </div>
     </div>
 
-    <Carousel :items-to-show="3.5" :wrap-around="true">
+    <Carousel :items-to-show="2.5" :wrap-around="true">
       <Slide v-for="actor in topRatedActors" :key="actor.name" @click="goToCast(actor.id)">
         <div class="carousel__item m-2 md:m-2">
           <div class="">
