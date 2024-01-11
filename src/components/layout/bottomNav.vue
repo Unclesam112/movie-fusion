@@ -5,7 +5,7 @@
             <button data-tooltip-target="tooltip-home" type="button"
                 class="inline-flex flex-col items-center justify-center px-5 rounded-s-full hover:bg-gray-50 dark:hover:bg-gray-800 group">
                 <router-link to="/">
-                    <Icon icon="iconamoon:home"  class="text-gray-700 w-7 h-7 "/>
+                    <Icon icon="iconamoon:home"  class="text-gray-700 w-6 h-6 "/>
                 </router-link>
                
                 <span class="sr-only">Home</span>
@@ -17,7 +17,7 @@
             </div>
             <button data-tooltip-target="tooltip-wallet" type="button"
                 class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
-                <router-link to="/movies"> <Icon icon="fluent:movies-and-tv-24-regular"  class="text-gray-700 w-7 h-7 "/></router-link>
+                <router-link to="/movies"> <Icon icon="fluent:movies-and-tv-24-regular"  class="text-gray-700 w-6 h-6"/></router-link>
                
                 <span class="sr-only">Movies</span>
             </button>
@@ -44,7 +44,7 @@
             </div>
             <button data-tooltip-target="tooltip-settings" type="button"
                 class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
-                <router-link to="/favourites"> <Icon icon="ant-design:heart-outlined" class="text-gray-700 w-7 h-7 "/></router-link>
+                <router-link to="/favourites"> <Icon icon="ant-design:heart-outlined" class="text-gray-700 w-6 h-6"/></router-link>
                
                 <span class="sr-only">Favourite</span>
             </button>
@@ -57,7 +57,7 @@
                 class="inline-flex flex-col items-center justify-center px-5 rounded-e-full hover:bg-gray-50 dark:hover:bg-gray-800 group">
 
                 <router-link to="/profile">
-                    <Icon icon="gg:profile"  class="text-gray-700 w-7 h-7"/>
+                    <Icon icon="gg:profile"  class="text-gray-700 w-6 h-6"/>
                 </router-link>
                
                 <span class="sr-only">Profile</span>
