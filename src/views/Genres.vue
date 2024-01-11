@@ -8,8 +8,8 @@
         </div>
    
 
-    <main class="px-20 sm:ml-64">
-        <div class="my-8 mt-16  breadcrumb">
+    <main class="sm:px-20 sm:ml-64">
+        <div class="my-8 sm:mt-16  breadcrumb">
             <breadcrumbVue />
         </div>
         <div class="genre my-10" v-if="genreName">
