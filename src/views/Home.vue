@@ -10,7 +10,7 @@
       <headerVue class=" hidden md:block"/>
     </div>
 
-    <CreateCollectionButtonVue />
+    <CreateCollectionButtonVue class="hidden sm:block" />
 
     <div class="movies md:p-10 md:pt-0 p-4">
         <MovieList />
